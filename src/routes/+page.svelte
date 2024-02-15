@@ -239,7 +239,9 @@ bye jaan`;
     
     <h1 class="bold head" in:fly|global={{y: -10}}>
         <Logo height={70} width={70}/>
-        JaanLang
+        <div class="name">
+            <span class="pink">Jaan</span><span class="blue">Lang</span>
+        </div>
         <span class="sub-title">A language for couples</span>
     </h1>
 
@@ -355,6 +357,18 @@ bye jaan`;
 
 <style lang="scss">
 
+    :root{
+        --secondary-color: #59cbff;
+    }
+
+    .pink{
+        color: #ffa8c6;
+    }
+
+    .blue{
+        color: #59cbff;
+    }
+
     section{
         padding: 20px;
         margin: 20px 0;
@@ -375,16 +389,16 @@ bye jaan`;
             font-size: 2rem;
             padding: unset;
             width: max-content;
-            color: #35315f;
+            color: var(--secondary-color);
         }
 
         b{
             font-weight: 900;
-            color: #35315f;
+            color: var(--secondary-color);
         }
 
         code{
-            background: #35315f;
+            background: var(--secondary-color);
             padding: 0 4px;
             border-radius: 2px;
         }
@@ -467,8 +481,16 @@ bye jaan`;
         font-size: 2rem;
     }
 
-    .bold {
+    .bold, .name {
         font-family: 'Bold';
+        *{
+            font-family: 'Bold';
+        }
+    }
+
+    .sub-title{
+        color: #ffffff !important;
+        font-family: 'thin';
     }
 
     .outputcontent{
@@ -487,7 +509,7 @@ bye jaan`;
 
     .sub-title{
         font-size: 0.8rem;
-        color: #35315f;
+        color: var(--secondary-color);
     }
 
     .title{
