@@ -163,7 +163,7 @@
     let parsedCode: string = '';
     let textarea: HTMLTextAreaElement;
 
-    let rawCode = 
+    $: rawCode = 
     `hi jaan
     dhoro a holo 5
     dhoro b holo 10
@@ -200,17 +200,21 @@ bye jaan`;
     };
     
     function runCode(){
-        console.log('Running code');
+
         runState = 'Compiling...';
+        capturedOutput.length = 0;
+        output = "<div class='run'>Compiling...</div>";
+
+        originalConsoleLog(rawCode);
 
         try {
             compiledCode = compile(rawCode);
             //console.log(compiledCode);
-            new Function(compiledCode)();
-            output = capturedOutput.join('\n');
+            eval(compiledCode);
+            output = "<div class='output'>Output > " + capturedOutput.join('\n') + "</div>";
         } catch (error) {
             console.error(error);
-            output = error as string;
+            output = "<div class='error'>Output > " + error as string + "</div>";
         }
         runState = 'Run';
     }
@@ -220,7 +224,7 @@ bye jaan`;
     (e) => {
         if (e.key === 's' && e.ctrlKey) {
             e.preventDefault();
-            console.log('Saving');
+            //console.log('Saving');
         }
 
         //override tab to indent
@@ -259,7 +263,7 @@ bye jaan`;
                     <span class="line-number"></span>
                     {/each}
                 </div>
-                <textarea class="write codeArea" spellcheck="false" bind:this={textarea} on:input={() => {
+                <textarea placeholder="# Write your code here" class="write codeArea" spellcheck="false" bind:this={textarea} on:input={() => {
                     rawCode = textarea.value;
                     parsedCode = `<pre><code class="jaan">${hljs.highlight(rawCode.trim(), {
                         language: 'jaan'
@@ -277,14 +281,14 @@ bye jaan`;
                 {/if}
             </button>
             <button class="clear" in:fly|global={{y: 10, delay: 600}} on:click={() => {
-                console.log('Clearing');
-                rawCode = '# Write your code here';
+                //console.log('Clearing');
+                rawCode = '';
                 parsedCode = `<pre><code class="jaan">${hljs.highlight(rawCode.trim(), {
                     language: 'jaan'
                 }).value}</code></pre>`;
             }}>Clear <i class="fa-solid fa-trash"></i></button>
             <button class="save" in:fly|global={{y: 10, delay: 700}} on:click={() => {
-                console.log('Saving');
+                //console.log('Saving');
         
                 //save code in .jaan file
                 const blob = new Blob([rawCode], { type: 'text/plain' });
@@ -299,10 +303,9 @@ bye jaan`;
         </div>
         <div class="output" id="output" in:fly|global={{x: -10, delay: 800}}>
             JaanLang Console<br>
-            Output &gt;
-            <span class="outputcontent">
-                {output}
-            </span>
+            <div class="outputcontent">
+                {@html output}
+            </div>
         </div>
     </div>
 
@@ -507,6 +510,20 @@ bye jaan`;
     .outputcontent{
         user-select: text;
         white-space: pre-wrap;
+        font-family: monospace;
+        :global(*){
+            font-family: monospace;
+        }
+
+        :global(.error){
+            color: #ff4444;
+            font-family: monospace;
+        }
+
+        :global(.run){
+            color: #ffe044;
+            font-family: monospace;
+        }
     }
 
     .head{
@@ -675,6 +692,11 @@ bye jaan`;
             -webkit-font-smoothing: antialiased;
             -webkit-text-fill-color: transparent;
             user-select: text;
+
+            &:empty {
+                color: grey;
+                -webkit-text-fill-color: initial;
+            }
         }
 
         ::selection{
