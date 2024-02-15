@@ -168,7 +168,7 @@
     dhoro tmrCG holo 3.2
     dhoro amrCG holo 3.8
 
-    amrCg jodi tmrCg er beshi hoy tahole
+    amrCG jodi tmrCG er beshi hoy tahole
         bolo "I love you"
     nahole
         bolo "Breakup!!"
