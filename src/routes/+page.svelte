@@ -245,7 +245,7 @@ bye jaan`;
 
     <div class="editorWrapper" in:fly|global={{x: 10}}>
         <div class="editorContainer">
-            <div class="title">Playground</div>
+            <div class="title">Playground <span class="caret"></span></div>
             <div class="editor">
                 <div class="line-numbers">
                     {#each rawCode.split('\n') as _, i}
@@ -293,11 +293,170 @@ bye jaan`;
             </span>
         </div>
     </div>
+
+    <section class="pad">
+        <div class="title">About JaanLang</div>
+        <p>
+            JaanLang is a language for couples. It is designed to be a fun and easy way to communicate with your partner. 
+            It is inspired by the way couples talk to each other and the way they express their love. 
+            It is a simple and easy to learn language that can be used to write small programs and scripts.
+        </p>
+    </section>
+
+    <section>
+        <div class="docs title">How to use</div>
+        <article>
+            <div class="title">Start program</div>
+            <p>
+                Code must start with <code>hi jaan</code> and end with <code>bye jaan</code>.
+            </p>
+        </article>
+        <article>
+            <div class="title">Variables</div>
+            <p>
+                To declare a variable, use <code>dhoro</code> keyword. 
+                For example, <code>dhoro a holo 5</code> will declare a variable <code>a</code> with value <code>5</code>.
+            </p>
+        </article>
+        <article>
+            <div class="title">Conditional statements</div>
+            <p>
+                To write a conditional statement, use <code>jodi</code> and <code>tahole</code> or <code>nahole</code> keywords. 
+                For example, <code>a jodi b er beshi hoy tahole</code> will check if <code>a</code> is greater than <code>b</code>.
+            </p>
+        </article>
+    </section>
+
+    <section>
+        <div class="title">Installing Compiler</div>
+        <p>
+            Download <b>Node.JS</b> on your machine. Then run <code>npm i jaan</code>
+        </p>
+    </section>
+
+    <section>
+        <div class="title">Download VScode Extension</div>
+        <div class="row">
+            <div class="col">
+                Download the VScode extension for syntax highlighting and code snippets. Click download to go to the official marketplace page. Or search on the VScode Extenstions tab.
+                <a href="https://marketplace.visualstudio.com/items?itemName=JaanLang.jaanlang" target="_blank">Download</a>
+            </div>
+            <img src="/ss.png" alt="Cover of VScode Extension">
+        </div>
+    </section>
+
+    <footer>
+        &copy; {new Date().getFullYear()} | All rights reserved ・
+        <a href="https://github.com/itsfuad/JaanLang" target="_blank">Source code</a>
+    </footer>
 </div>
 {/if}
 
 
 <style lang="scss">
+
+    section{
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 10px;
+        //background: #0000009c;
+        color: white;
+        font-size: 0.9rem;
+        width: 100%;
+        max-width: 900px;
+        text-align: justify;
+        //box-shadow: 2px 2px 5px #00000029;
+
+        &.pad{
+            margin-top: 100px;
+        }
+
+        .title{
+            font-size: 2rem;
+            padding: unset;
+            width: max-content;
+            color: #35315f;
+        }
+
+        b{
+            font-weight: 900;
+            color: #35315f;
+        }
+
+        code{
+            background: #35315f;
+            padding: 0 4px;
+            border-radius: 2px;
+        }
+
+        p {
+            margin-top: 0;
+        }
+        .row{
+            display: grid;
+            grid-auto-flow: dense;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-auto-rows: minmax(100px, auto);
+        }
+
+        .col{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        img{
+            border-radius: 10px;
+            max-width: 100%;
+            width: 400px;
+        }
+
+        article{
+            margin-bottom: 20px;
+            .title{
+                font-size: 1.5rem;
+                padding: unset;
+                margin: unset;
+            }
+        }
+
+        a{
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            background: #3ebbff;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            color: white;
+            box-shadow: 2px 2px 5px #00000029;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+
+            &:hover{
+                filter: brightness(0.9);
+            }
+        }
+    }
+
+    a{
+        color: #033551;
+    }
+
+    footer{
+        font-size: 0.7rem;
+        color: white;
+    }
+
+    .docs{
+        margin-top: 0;
+    }
+
+
+
 
     .loading{
         display: flex;
@@ -335,15 +494,13 @@ bye jaan`;
         padding: 5px 10px 10px;
         font-size: 0.9rem;
         width: max-content;
+    }
 
-        &::after{
-            content: ' ';
-            display: flex;
-            height: 2px;
-            width: 100%;
-            background: #59cbff;
-            margin-top: 5px;
-        }
+    .caret {
+        background: #3ebbff;
+        height: 2px;
+        width: 10px;
+        display: inline-block;
     }
 
     .btn-grp{
