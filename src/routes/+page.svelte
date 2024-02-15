@@ -237,7 +237,7 @@ bye jaan`;
 {:else}
 <div class="container">
     
-    <h1 class="bold head" in:fly|global={{y: -10}}>
+    <h1 class="bold head" in:fly|global={{y: -10, delay: 400}}>
         <Logo height={70} width={70}/>
         <div class="name">
             <span class="pink">Jaan</span><span class="blue">Lang</span>
@@ -245,7 +245,7 @@ bye jaan`;
         <span class="sub-title">A language for couples</span>
     </h1>
 
-    <div class="editorWrapper" in:fly|global={{x: 10}}>
+    <div class="editorWrapper" in:fly|global={{x: 10, delay: 500}}>
         <div class="editorContainer">
             <div class="title">Playground <span class="caret"></span></div>
             <div class="editor">
@@ -259,21 +259,21 @@ bye jaan`;
             </div>
         </div>
         <div class="btn-grp" >
-            <button class="run" on:click={runCode} in:fly|global={{y: 10, delay: 200}}>{runState}
+            <button class="run" on:click={runCode} in:fly|global={{y: 10, delay: 500}}>{runState}
                 {#if runState === 'Compiling...'}
                 <i class="fa-solid fa-spinner"></i>
                 {:else}
                 <i class="fa-solid fa-play"></i>
                 {/if}
             </button>
-            <button class="clear" in:fly|global={{y: 10, delay: 300}} on:click={() => {
+            <button class="clear" in:fly|global={{y: 10, delay: 600}} on:click={() => {
                 console.log('Clearing');
                 rawCode = '# Write your code here';
                 parsedCode = `<pre><code class="jaan">${hljs.highlight(rawCode.trim(), {
                     language: 'jaan'
                 }).value}</code></pre>`;
             }}>Clear <i class="fa-solid fa-trash"></i></button>
-            <button class="save" in:fly|global={{y: 10, delay: 400}} on:click={() => {
+            <button class="save" in:fly|global={{y: 10, delay: 700}} on:click={() => {
                 console.log('Saving');
         
                 //save code in .jaan file
@@ -287,7 +287,7 @@ bye jaan`;
                 
             }}>Save <i class="fa-solid fa-floppy-disk"></i></button>
         </div>
-        <div class="output" id="output" in:fly|global={{x: -10, delay: 500}}>
+        <div class="output" id="output" in:fly|global={{x: -10, delay: 800}}>
             JaanLang Console<br>
             Output &gt;
             <span class="outputcontent">
