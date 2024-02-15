@@ -276,7 +276,9 @@ bye jaan`;
         <div class="output" id="output">
             JaanLang Console<br>
             Output &gt;
-            {output}
+            <span class="outputcontent">
+                {output}
+            </span>
         </div>
     </div>
 </div>
@@ -286,6 +288,10 @@ bye jaan`;
 
     .bold {
         font-family: 'Bold';
+    }
+
+    .outputcontent{
+        user-select: text;
     }
 
     .head{
@@ -353,8 +359,8 @@ bye jaan`;
         justify-content: center;
         width: min-content;
         font-size: 1rem;
-        line-height: 1.1rem;
-        padding: 10px 5px;
+        line-height: 1.1;
+        padding: 0 5px;
         margin-right: 2px;
         border-right: 1px solid grey;
         min-width: 4.5ch;
@@ -432,16 +438,17 @@ bye jaan`;
             overflow-wrap: break-word;
             position: absolute;
             top: 0px;
-            left: 35px;
-            padding: 10px;
+            right: 0;
             height: 100%;
-            width: 100%;
+            width: calc(100% - 55px);
             resize: none;
             color: inherit;
             caret-color: white;
             overflow: hidden;
+            line-height: 1.25;
             -webkit-font-smoothing: antialiased;
             -webkit-text-fill-color: transparent;
+            user-select: text;
         }
 
         ::selection{
@@ -499,7 +506,9 @@ bye jaan`;
         overflow-wrap: break-word;
         position: relative;
         pointer-events: none;
-        padding: 10px;
+        padding: 0 10px;
+        line-height: 1.25;
+        user-select: none;
     }
 
 
