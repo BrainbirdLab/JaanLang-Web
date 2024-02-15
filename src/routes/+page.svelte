@@ -386,7 +386,7 @@ bye jaan`;
         padding: 20px;
         margin: 20px 0;
         border-radius: 10px;
-        //background: #0000009c;
+        background: #282c34;
         color: rgb(240, 240, 240);
         font-size: 0.9rem;
         width: 100%;
