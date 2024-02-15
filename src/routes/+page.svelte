@@ -165,13 +165,13 @@
 
     $: rawCode = 
     `hi jaan
-    dhoro a holo 5
-    dhoro b holo 10
+    dhoro tmrCG holo 3.2
+    dhoro amrCG holo 3.8
 
-    a jodi b er beshi hoy tahole
-        bolo "a boro"
+    amrCg jodi tmrCg er beshi hoy tahole
+        bolo "I love you"
     nahole
-        bolo "b boro"
+        bolo "Breakup!!"
     huh
 bye jaan`;
 
