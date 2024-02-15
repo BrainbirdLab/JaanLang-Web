@@ -210,6 +210,7 @@ bye jaan`;
             output = capturedOutput.join('\n');
         } catch (error) {
             console.error(error);
+            output = error as string;
         }
         runState = 'Run';
     }
