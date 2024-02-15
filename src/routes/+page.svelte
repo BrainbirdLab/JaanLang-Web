@@ -196,7 +196,7 @@ bye jaan`;
     const originalConsoleLog = console.log;
     console.log = (...args) => {
         capturedOutput.push(args.join(' '));
-        originalConsoleLog(...args); // Optionally keep logging to the dev console
+        //originalConsoleLog(...args); // Optionally keep logging to the dev console
     };
     
     function parseCode() {
@@ -220,7 +220,7 @@ bye jaan`;
             eval(compiledCode);
             output += "<div class='output'>Output > " + capturedOutput.join('\n') + "</div>";
         } catch (error) {
-            console.error(error);
+            //console.error(error);
             output += "<div class='error'>Output > " + error as string + "</div>";
         }
         runState = 'Run';
@@ -394,7 +394,7 @@ bye jaan`;
         padding: 20px;
         margin: 20px 0;
         border-radius: 10px;
-        //background: #282c34;
+        background: #ffffff17;
         color: rgb(240, 240, 240);
         font-size: 0.9rem;
         width: 100%;
