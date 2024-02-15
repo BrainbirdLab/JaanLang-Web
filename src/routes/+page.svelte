@@ -164,7 +164,7 @@
     let textarea: HTMLTextAreaElement;
 
     $: rawCode = 
-    `hi jaan
+`hi jaan
     dhoro tmrCG holo 3.2
     dhoro amrCG holo 3.8
 
@@ -184,9 +184,9 @@ bye jaan`;
         setTimeout(() => {
             loaded = true;
         }, 600);
-        parsedCode = `<pre><code class="jaan">${hljs.highlight(rawCode.trim(), {
+        parsedCode = `<code class="jaan">${hljs.highlight(rawCode.trim(), {
             language: 'jaan'
-        }).value}</code></pre>`;
+        }).value}</code>`;
     });
 
     let runState = 'Run';
@@ -205,16 +205,16 @@ bye jaan`;
         capturedOutput.length = 0;
         output = "<div class='run'>Compiling...</div>";
 
-        originalConsoleLog(rawCode);
+        //originalConsoleLog(rawCode);
 
         try {
             compiledCode = compile(rawCode);
             //console.log(compiledCode);
             eval(compiledCode);
-            output = "<div class='output'>Output > " + capturedOutput.join('\n') + "</div>";
+            output += "<div class='output'>Output > " + capturedOutput.join('\n') + "</div>";
         } catch (error) {
             console.error(error);
-            output = "<div class='error'>Output > " + error as string + "</div>";
+            output += "<div class='error'>Output > " + error as string + "</div>";
         }
         runState = 'Run';
     }
@@ -232,12 +232,11 @@ bye jaan`;
             e.preventDefault();
             const start = textarea.selectionStart;
             const end = textarea.selectionEnd;
-
             textarea.value = textarea.value.substring(0, start) + '\t' + textarea.value.substring(end);
             textarea.selectionStart = textarea.selectionEnd = start + 1;
         }
     }
-} />
+}/>
 
 {#if !loaded}
     <div class="loading" out:fade>
@@ -255,21 +254,27 @@ bye jaan`;
     </h1>
 
     <div class="editorWrapper" in:fly|global={{x: 10, delay: 500}}>
-        <div class="editorContainer">
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
+        <div class="editorContainer" on:click={() => {
+            textarea.focus();
+        }}>
             <div class="title">Playground <span class="caret"></span></div>
-            <div class="editor">
+            <div class="parent">
                 <div class="line-numbers">
                     {#each rawCode.split('\n') as _, i}
-                    <span class="line-number"></span>
+                        <span class="line-number"></span>
                     {/each}
                 </div>
-                <textarea placeholder="# Write your code here" class="write codeArea" spellcheck="false" bind:this={textarea} on:input={() => {
-                    rawCode = textarea.value;
-                    parsedCode = `<pre><code class="jaan">${hljs.highlight(rawCode.trim(), {
-                        language: 'jaan'
-                    }).value}</code></pre>`;
-                }}>{rawCode}</textarea>
-                {@html parsedCode}
+                <pre class="editor">                        
+                    <textarea placeholder="# Write your code here" class="textarea codeArea" spellcheck="false" bind:this={textarea} on:input={() => {
+                        rawCode = textarea.value;
+                        parsedCode = `<pre><code class="jaan">${hljs.highlight(textarea.value.trim(), {
+                            language: 'jaan'
+                        }).value}</code></pre>`;
+                    }}>{rawCode}</textarea>
+                    {@html parsedCode}
+                </pre>
             </div>
         </div>
         <div class="btn-grp" >
@@ -302,7 +307,7 @@ bye jaan`;
             }}>Save <i class="fa-solid fa-floppy-disk"></i></button>
         </div>
         <div class="output" id="output" in:fly|global={{x: -10, delay: 800}}>
-            JaanLang Console<br>
+            JaanLang Console <button on:click={() => {output = ''}}>Clear console <i class="fa-solid fa-trash"></i></button>
             <div class="outputcontent">
                 {@html output}
             </div>
@@ -321,20 +326,20 @@ bye jaan`;
     <section>
         <div class="docs title">How to use</div>
         <article>
-            <div class="title">Start program</div>
+            <div class="title">#Start program</div>
             <p>
                 Code must start with <code>hi jaan</code> and end with <code>bye jaan</code>.
             </p>
         </article>
         <article>
-            <div class="title">Variables</div>
+            <div class="title">#Variables</div>
             <p>
                 To declare a variable, use <code>dhoro</code> keyword. 
                 For example, <code>dhoro a holo 5</code> will declare a variable <code>a</code> with value <code>5</code>.
             </p>
         </article>
         <article>
-            <div class="title">Conditional statements</div>
+            <div class="title">#Conditional statements</div>
             <p>
                 To write a conditional statement, use <code>jodi</code> and <code>tahole</code> or <code>nahole</code> keywords. 
                 For example, <code>a jodi b er beshi hoy tahole</code> will check if <code>a</code> is greater than <code>b</code>.
@@ -350,7 +355,7 @@ bye jaan`;
     </section>
 
     <section>
-        <div class="title">Download VScode Extension</div>
+        <div class="title">VScode Extension</div>
         <div class="row">
             <div class="col">
                 Download the VScode extension for syntax highlighting and code snippets. Click download to go to the official marketplace page. Or search on the VScode Extenstions tab.
@@ -399,7 +404,7 @@ bye jaan`;
         }
 
         .title{
-            font-size: 2rem;
+            font-size: 1.5rem;
             padding: unset;
             width: max-content;
             color: ghostwhite;
@@ -412,7 +417,7 @@ bye jaan`;
         }
 
         code{
-            background: var(--secondary-color);
+            background: #ffffff1f;
             padding: 0 4px;
             border-radius: 2px;
         }
@@ -444,7 +449,8 @@ bye jaan`;
         article{
             margin-bottom: 20px;
             .title{
-                font-size: 1.5rem;
+                font-size: 1.2rem;
+                color: #ffffff70;
                 padding: unset;
                 margin: unset;
             }
@@ -470,13 +476,14 @@ bye jaan`;
         }
     }
 
-    a{
-        color: #0e95e4;
-    }
-
+    
     footer{
         font-size: 0.7rem;
+        padding: 10px;
         color: white;
+        a{
+            color: #ffffff;
+        }
     }
 
     .docs{
@@ -511,6 +518,8 @@ bye jaan`;
         user-select: text;
         white-space: pre-wrap;
         font-family: monospace;
+
+
         :global(*){
             font-family: monospace;
         }
@@ -569,7 +578,7 @@ bye jaan`;
         right: 2px;
         z-index: 2;
         padding: 8px 10px;
-        border-radius: 5px;
+        border-radius: 8px;
         font-size: 1rem;
         //background: #27e337;
         outline: none;
@@ -583,7 +592,7 @@ bye jaan`;
         }
 
         &.run{
-            background: #32ff44;
+            background: #35315f;
         }
 
         &.clear{
@@ -591,7 +600,7 @@ bye jaan`;
         }
 
         &.save{
-            background: #3ebbff;
+            background: #00bcd4;
         }
     }
 
@@ -604,8 +613,8 @@ bye jaan`;
         font-size: 1rem;
         line-height: 1.1;
         padding: 0 5px;
-        margin-right: 2px;
-        border-right: 1px solid grey;
+        margin-right: 5px;
+        border-right: 2px solid #ffffff26;
         min-width: 4.5ch;
         counter-reset: codeLine;
     }
@@ -614,7 +623,7 @@ bye jaan`;
         counter-increment: codeLine;
         &::before{
             content: counter(codeLine);
-            color: grey;
+            color: #ffffff50;
             margin-right: 5px;
             font-family: monospace;
         }
@@ -627,7 +636,7 @@ bye jaan`;
         justify-content: center;
         align-items: center;
         height: 100%;
-        width: 100%;
+        width: 95%;
 
         .editorWrapper{
             display: flex;
@@ -635,7 +644,7 @@ bye jaan`;
             flex-grow: 1;
             width: 100%;
             
-            max-width: min(900px, 90vw);
+            max-width: min(900px, 100vw);
         }
     }
 
@@ -658,53 +667,16 @@ bye jaan`;
         background-color: #35315f;
         position: relative;
         border-radius: 10px;
-        
-        .write{
-            margin: 0px;
-            border: 0px;
-            background: none;
-            box-sizing: inherit;
-            display: inherit;
-            font-family: inherit;
-            font-size: inherit;
-            font-style: inherit;
-            font-variant-ligatures: inherit;
-            font-weight: inherit;
-            letter-spacing: inherit;
-            line-height: inherit;
-            tab-size: inherit;
-            text-indent: inherit;
-            text-rendering: inherit;
-            text-transform: inherit;
-            white-space: pre-wrap;
-            word-break: keep-all;
-            overflow-wrap: break-word;
-            position: absolute;
-            top: 0px;
-            right: 0;
-            height: 100%;
-            width: calc(100% - 55px);
-            resize: none;
-            color: inherit;
-            caret-color: white;
-            overflow: hidden;
+
+        .editor{
+            position: relative;
+            //opacity: 0;
+            z-index: 0;
             line-height: 1.25;
-            -webkit-font-smoothing: antialiased;
-            -webkit-text-fill-color: transparent;
-            user-select: text;
-
-            &:empty {
-                color: grey;
-                -webkit-text-fill-color: initial;
-            }
-        }
-
-        ::selection{
-            background: #ffffff2f;
-            color: aqua;
         }
         
-        .editor {
+        .editor, .parent {
+            width: max-content;
             position: relative;
             text-align: left;
             box-sizing: border-box;
@@ -716,6 +688,45 @@ bye jaan`;
             flex-direction: row;
             align-items: flex-start;
             justify-content: flex-start;
+            overflow-x: scroll;
+        }
+
+        .parent{
+            overflow: hidden;
+        }
+        
+        .textarea{
+
+            width: 100%;
+            height: 100%;
+            //overflow-x: scroll;
+            //white-space: pre;
+            background: transparent;
+            caret-color: rgba(255, 255, 255, 0.579);
+            border: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            font-size: 1rem;
+            font-family: monospace;
+            resize: none;
+
+
+            line-height: 1.25;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-fill-color: rgba(255, 0, 0, 0);
+            user-select: text;
+
+            &:blank {
+                color: grey;
+                -webkit-text-fill-color: initial;
+            }
+        }
+
+        ::selection{
+            background: #ffffff2f;
+            color: aqua;
         }
     }
 
@@ -730,34 +741,25 @@ bye jaan`;
         font-size: 0.9rem;
         background: #0000009c;
         border-radius: 10px;
-    }
-
-    :global(pre){
-        margin: 0px;
-        border: 0px;
-        background: none;
-        box-sizing: inherit;
-        display: inherit;
-        font-family: inherit;
-        font-size: inherit;
-        font-style: inherit;
-        font-variant-ligatures: inherit;
-        font-weight: inherit;
-        letter-spacing: inherit;
-        line-height: inherit;
-        tab-size: inherit;
-        text-indent: inherit;
-        text-rendering: inherit;
-        text-transform: inherit;
-        white-space: pre-wrap;
-        word-break: keep-all;
-        overflow-wrap: break-word;
         position: relative;
-        pointer-events: none;
-        padding: 0 10px;
-        line-height: 1.25;
-        user-select: none;
+
+        button{
+            background: none;
+            border: none;
+            box-shadow: none;
+            padding: 10px;
+            font-weight: 100;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+
+            &:hover{
+                filter: brightness(0.9);
+            }
+
+            i{
+                color: #ff4444;
+            }
+        }
     }
-
-
 </style>

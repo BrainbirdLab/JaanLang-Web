@@ -14,12 +14,14 @@
     padding: 0;
     font-family: 'thin';
     user-select: none;
-
     scrollbar-width: none;
 }
 
 body{
     background: linear-gradient(120deg, #f181cd, #1374a0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 pre, code {
@@ -27,6 +29,11 @@ pre, code {
     * {
         font-family: monospace;
     }
+}
+
+
+code{
+    white-space: pre;
 }
 
 //hide scrollbar
