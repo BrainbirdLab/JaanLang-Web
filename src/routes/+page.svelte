@@ -730,7 +730,7 @@ bye jaan`;
 
         ::selection{
             background: #ffffff2f;
-            color: aqua;
+            color: rgba(255, 255, 255, 0);
         }
     }
 
