@@ -187,15 +187,17 @@ bye jaan`;
         parsedCode = `<pre><code class="jaan">${hljs.highlight(rawCode.trim(), {
             language: 'jaan'
         }).value}</code></pre>`;
-        textarea.addEventListener('input', () => {
-            rawCode = textarea.value;
-            parsedCode = `<pre><code class="jaan">${hljs.highlight(rawCode.trim(), {
-                language: 'jaan'
-            }).value}</code></pre>`;
-        });
     });
 
     let runState = 'Run';
+
+    // Redirect console output to a variable
+    const capturedOutput: string[] = [];
+    const originalConsoleLog = console.log;
+    console.log = (...args) => {
+        capturedOutput.push(args.join(' '));
+        originalConsoleLog(...args); // Optionally keep logging to the dev console
+    };
     
     function runCode(){
         console.log('Running code');
@@ -203,7 +205,9 @@ bye jaan`;
 
         try {
             compiledCode = compile(rawCode);
-            console.log(compiledCode);
+            //console.log(compiledCode);
+            new Function(compiledCode)();
+            output = capturedOutput.join('\n');
         } catch (error) {
             console.error(error);
         }
@@ -254,7 +258,12 @@ bye jaan`;
                     <span class="line-number"></span>
                     {/each}
                 </div>
-                <textarea class="write codeArea" spellcheck="false" bind:this={textarea}>{rawCode}</textarea>
+                <textarea class="write codeArea" spellcheck="false" bind:this={textarea} on:input={() => {
+                    rawCode = textarea.value;
+                    parsedCode = `<pre><code class="jaan">${hljs.highlight(rawCode.trim(), {
+                        language: 'jaan'
+                    }).value}</code></pre>`;
+                }}>{rawCode}</textarea>
                 {@html parsedCode}
             </div>
         </div>
@@ -496,6 +505,7 @@ bye jaan`;
 
     .outputcontent{
         user-select: text;
+        white-space: pre-wrap;
     }
 
     .head{
