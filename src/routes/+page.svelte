@@ -374,7 +374,7 @@ bye jaan`;
         margin: 20px 0;
         border-radius: 10px;
         //background: #0000009c;
-        color: white;
+        color: rgb(240, 240, 240);
         font-size: 0.9rem;
         width: 100%;
         max-width: 900px;
@@ -389,7 +389,8 @@ bye jaan`;
             font-size: 2rem;
             padding: unset;
             width: max-content;
-            color: var(--secondary-color);
+            color: ghostwhite;
+            //color: var(--secondary-color);
         }
 
         b{
@@ -457,7 +458,7 @@ bye jaan`;
     }
 
     a{
-        color: #033551;
+        color: #0e95e4;
     }
 
     footer{
