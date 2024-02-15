@@ -394,7 +394,7 @@ bye jaan`;
         padding: 20px;
         margin: 20px 0;
         border-radius: 10px;
-        background: #282c34;
+        //background: #282c34;
         color: rgb(240, 240, 240);
         font-size: 0.9rem;
         width: 100%;
@@ -453,7 +453,7 @@ bye jaan`;
             margin-bottom: 20px;
             .title{
                 font-size: 1.2rem;
-                color: #ffffff70;
+                color: #ffffffc2;
                 padding: unset;
                 margin: unset;
             }
