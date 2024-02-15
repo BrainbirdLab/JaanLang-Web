@@ -323,11 +323,12 @@ bye jaan`;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        color: #9c27b0;
     }
 
     .sub-title{
         font-size: 0.8rem;
-        color: grey;
+        color: #35315f;
     }
 
     .title{
@@ -367,21 +368,22 @@ bye jaan`;
         border: none;
         cursor: pointer;
         color: white;
+        box-shadow: 2px 2px 5px #00000029;
 
         &:hover{
-            filter: brightness(1.1);
+            filter: brightness(0.9);
         }
 
         &.run{
-            background: #27e337;
+            background: #32ff44;
         }
 
         &.clear{
-            background: #e33737;
+            background: #ff3737;
         }
 
         &.save{
-            background: #37a7e3;
+            background: #3ebbff;
         }
     }
 
