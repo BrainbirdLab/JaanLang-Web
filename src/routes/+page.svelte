@@ -3,6 +3,8 @@
     //import {highlight} from '$lib/index';
     import hljs from 'highlight.js';
     import { compile } from 'jaan/compiler'; 
+    import Logo from './logo.svelte';
+    import { fade, fly } from 'svelte/transition';
 
     /**
 {
@@ -176,7 +178,12 @@ bye jaan`;
     let compiledCode: string = '';
     let output: string = '';
 
+    let loaded = false;
+
     onMount(() => {
+        setTimeout(() => {
+            loaded = true;
+        }, 600);
         parsedCode = `<pre><code class="jaan">${hljs.highlight(rawCode.trim(), {
             language: 'jaan'
         }).value}</code></pre>`;
@@ -223,15 +230,20 @@ bye jaan`;
     }
 } />
 
+{#if !loaded}
+    <div class="loading" out:fade>
+        <Logo height={40} width={40}/>
+    </div>
+{:else}
 <div class="container">
     
-    <h1 class="bold head">
-        <img src="/icon.png" alt="logo" width="50" >
+    <h1 class="bold head" in:fly|global={{y: -10}}>
+        <Logo height={70} width={70}/>
         JaanLang
         <span class="sub-title">A language for couples</span>
     </h1>
 
-    <div class="editorWrapper">
+    <div class="editorWrapper" in:fly|global={{x: 10}}>
         <div class="editorContainer">
             <div class="title">Playground</div>
             <div class="editor">
@@ -244,22 +256,22 @@ bye jaan`;
                 {@html parsedCode}
             </div>
         </div>
-        <div class="btn-grp">
-            <button class="run" on:click={runCode}>{runState} 
+        <div class="btn-grp" >
+            <button class="run" on:click={runCode} in:fly|global={{y: 10, delay: 200}}>{runState}
                 {#if runState === 'Compiling...'}
                 <i class="fa-solid fa-spinner"></i>
                 {:else}
                 <i class="fa-solid fa-play"></i>
                 {/if}
             </button>
-            <button class="clear" on:click={() => {
+            <button class="clear" in:fly|global={{y: 10, delay: 300}} on:click={() => {
                 console.log('Clearing');
                 rawCode = '# Write your code here';
                 parsedCode = `<pre><code class="jaan">${hljs.highlight(rawCode.trim(), {
                     language: 'jaan'
                 }).value}</code></pre>`;
             }}>Clear <i class="fa-solid fa-trash"></i></button>
-            <button class="save" on:click={() => {
+            <button class="save" in:fly|global={{y: 10, delay: 400}} on:click={() => {
                 console.log('Saving');
         
                 //save code in .jaan file
@@ -273,7 +285,7 @@ bye jaan`;
                 
             }}>Save <i class="fa-solid fa-floppy-disk"></i></button>
         </div>
-        <div class="output" id="output">
+        <div class="output" id="output" in:fly|global={{x: -10, delay: 500}}>
             JaanLang Console<br>
             Output &gt;
             <span class="outputcontent">
@@ -282,9 +294,19 @@ bye jaan`;
         </div>
     </div>
 </div>
+{/if}
 
 
 <style lang="scss">
+
+    .loading{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-size: 2rem;
+    }
 
     .bold {
         font-family: 'Bold';
@@ -309,7 +331,18 @@ bye jaan`;
     }
 
     .title{
-        padding: 5px 10px;
+        padding: 5px 10px 10px;
+        font-size: 0.9rem;
+        width: max-content;
+
+        &::after{
+            content: ' ';
+            display: flex;
+            height: 2px;
+            width: 100%;
+            background: #59cbff;
+            margin-top: 5px;
+        }
     }
 
     .btn-grp{
@@ -412,7 +445,7 @@ bye jaan`;
         -o-tab-size: 4ch;
         tab-size: 4ch;
         color: #fff;
-        background-color: #333;
+        background-color: #35315f;
         position: relative;
         border-radius: 10px;
         
@@ -480,7 +513,7 @@ bye jaan`;
         font-family: monospace;
         color: white;
         font-size: 0.9rem;
-        background: #000000e7;
+        background: #0000009c;
         border-radius: 10px;
     }
 
