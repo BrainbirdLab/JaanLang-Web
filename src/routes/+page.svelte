@@ -332,7 +332,7 @@ bye jaan`;
     <section>
         <div class="title">Installing Compiler</div>
         <p>
-            Download <b>Node.JS</b> on your machine. Then run <code>npm i jaan</code>
+            Download <b>Node.JS</b> on your machine. Then run <code>npm i -g jaan</code>
         </p>
     </section>
 
