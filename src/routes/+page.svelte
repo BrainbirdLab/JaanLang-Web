@@ -199,6 +199,13 @@ bye jaan`;
         originalConsoleLog(...args); // Optionally keep logging to the dev console
     };
     
+    function parseCode() {
+        rawCode = textarea.value;
+        parsedCode = `<pre><code class="jaan">${hljs.highlight(textarea.value.trim(), {
+            language: 'jaan'
+        }).value}</code></pre>`;
+    }
+
     function runCode(){
 
         runState = 'Compiling...';
@@ -234,6 +241,7 @@ bye jaan`;
             const end = textarea.selectionEnd;
             textarea.value = textarea.value.substring(0, start) + '\t' + textarea.value.substring(end);
             textarea.selectionStart = textarea.selectionEnd = start + 1;
+            parseCode();
         }
     }
 }/>
@@ -267,12 +275,7 @@ bye jaan`;
                     {/each}
                 </div>
                 <pre class="editor">                        
-                    <textarea placeholder="# Write your code here" class="textarea codeArea" spellcheck="false" bind:this={textarea} on:input={() => {
-                        rawCode = textarea.value;
-                        parsedCode = `<pre><code class="jaan">${hljs.highlight(textarea.value.trim(), {
-                            language: 'jaan'
-                        }).value}</code></pre>`;
-                    }}>{rawCode}</textarea>
+                    <textarea placeholder="# Write your code here" class="textarea codeArea" spellcheck="false" bind:this={textarea} on:input={parseCode}>{rawCode}</textarea>
                     {@html parsedCode}
                 </pre>
             </div>
@@ -677,6 +680,8 @@ bye jaan`;
         
         .editor, .parent {
             width: max-content;
+            min-width: 100%;
+            min-height: 55vh;
             position: relative;
             text-align: left;
             box-sizing: border-box;
@@ -711,16 +716,15 @@ bye jaan`;
             font-size: 1rem;
             font-family: monospace;
             resize: none;
-
-
-            line-height: 1.25;
+            
+            color: transparent;
+            //-webkit-text-fill-color: rgba(255, 0, 0, 0);
             -webkit-font-smoothing: antialiased;
-            -webkit-text-fill-color: rgba(255, 0, 0, 0);
+            line-height: 1.25;
             user-select: text;
 
-            &:blank {
-                color: grey;
-                -webkit-text-fill-color: initial;
+            &:blank{
+                color: #ffffff50;
             }
         }
 
