@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Output</title>
+</head>
+<body>
+<h1>JavaScript Output</h1>
+
+<!-- Input area for JavaScript code -->
+<textarea id="code" rows="10" cols="50">// Type your JavaScript code here
+// Example: return a value
+2 + 2;
+</textarea><br>
+
+<!-- Button to run the code -->
+<button onclick="runCode()">Run Code</button><br>
+
+<!-- Output area to display the result -->
+<div id="output"></div>
+
+<script>
+function runCode() {
+    // Clear previous output
+    document.getElementById("output").innerHTML = '';
+
+    try {
+        // Get the code from the textarea
+        var code = document.getElementById("code").value;
+
+        // Execute the code
+        var result = eval(code);
+
+        // Display the result in the output area
+        document.getElementById("output").innerText = result;
+    } catch (error) {
+        // If there's an error, display it in the output area
+        document.getElementById("output").innerText = "Error: " + error.message;
+    }
+}
+</script>
+</body>
+</html>
