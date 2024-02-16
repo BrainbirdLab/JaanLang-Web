@@ -238,6 +238,15 @@ bye jaan`;
         }
         runState = 'Run';
     }
+
+
+    function focusEditor(evt: MouseEvent){
+        const target = evt.target as HTMLElement;
+        if (!target || target.closest('.topbar')){
+            return;
+        }
+        textarea.focus();
+    }
 </script>
 
 <svelte:document on:keydown={
@@ -277,9 +286,7 @@ bye jaan`;
     <div class="editorWrapper" in:fly|global={{x: 10, delay: 500}}>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <!-- svelte-ignore a11y-no-static-element-interactions -->
-        <div class="editorContainer" on:click={() => {
-            textarea.focus();
-        }}>
+        <div class="editorContainer" on:click={focusEditor}>
             <div class="topbar">
                 <div class="title">Playground <span class="caret"></span></div>
                 <div class="btn-grp" >
