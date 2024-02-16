@@ -165,14 +165,23 @@
 
     $: rawCode = 
 `hi jaan
+
     dhoro tmrCG holo 3.2
     dhoro amrCG holo 3.8
+
 
     amrCG jodi tmrCG er beshi hoy tahole
         bolo "I love you"
     nahole
         bolo "Breakup!!"
     huh
+
+
+    5 bar
+        bolo "Sorry " + $
+    huh
+
+
 bye jaan`;
 
     let compiledCode: string = '';
@@ -203,10 +212,11 @@ bye jaan`;
     };
     
     function parseCode() {
-        rawCode = textarea.value;
-        parsedCode = `<pre><code class="jaan">${hljs.highlight(textarea.value.trim(), {
+        const text = textarea.value || '';
+        rawCode = text;
+        parsedCode = `<code class="jaan">${hljs.highlight(text.trim(), {
             language: 'jaan'
-        }).value}</code></pre>`;
+        }).value}</code>`;
     }
 
     function runCode(){
@@ -223,7 +233,7 @@ bye jaan`;
             //console.log(compiledCode);
             eval(compiledCode);
             //originalConsoleLog("Hi");
-            output += "<div class='output'>Output > " + capturedOutput.join('\n') + "</div>";
+            output += "<div class='output'>Output >\n" + capturedOutput.join('\n') + "</div>";
         } catch (error) {
             //console.error(error);
             let msg = (error as Error).message;
@@ -238,7 +248,6 @@ bye jaan`;
         }
         runState = 'Run';
     }
-
 
     function focusEditor(evt: MouseEvent){
         const target = evt.target as HTMLElement;
@@ -259,10 +268,12 @@ bye jaan`;
         //override tab to indent
         if (e.key === 'Tab') {
             e.preventDefault();
+            /*
             const start = textarea.selectionStart;
             const end = textarea.selectionEnd;
             textarea.value = textarea.value.substring(0, start) + '\t' + textarea.value.substring(end);
             textarea.selectionStart = textarea.selectionEnd = start + 1;
+            */
             parseCode();
         }
     }
@@ -314,7 +325,7 @@ bye jaan`;
                     <button class="clear" in:fly|global={{y: 10, delay: 700}} on:click={() => {
                         //console.log('Clearing');
                         rawCode = '';
-                        parsedCode = `<pre><code class="jaan">${hljs.highlight(rawCode.trim(), {
+                        parsedCode = `<pre><code class="jaan">${hljs.highlight(rawCode, {
                             language: 'jaan'
                         }).value}</code></pre>`;
                     }}><i class="fa-solid fa-trash"></i></button>
@@ -326,9 +337,8 @@ bye jaan`;
                         <span class="line-number" data-line={i+1} class:error={errorLine == i+1}></span>
                     {/each}
                 </div>
-                <pre class="editor">                        
-                    <textarea placeholder="# Write your code here" class="textarea codeArea" spellcheck="false" bind:this={textarea} on:input={parseCode}>{rawCode}</textarea>
-                    {@html parsedCode}
+                <pre class="editor">   
+                    <div class="inputWrapper">{@html parsedCode}<textarea aria-hidden="true" placeholder="# Write your code here" class="textarea codeArea" spellcheck="false" bind:this={textarea} on:input={parseCode} bind:value={rawCode}></textarea></div>                     
                 </pre>
             </div>
         </div>
@@ -663,6 +673,8 @@ bye jaan`;
         border-right: 2px solid #ffffff26;
         min-width: 4.5ch;
         counter-reset: codeLine;
+        width: 50px;
+        flex-shrink: 0;
     }
 
     .line-number{
@@ -722,8 +734,7 @@ bye jaan`;
         border-radius: 10px;
         
         .editor, .parent {
-            width: max-content;
-            min-width: 100%;
+            //min-width: 100%;
             //min-height: 55vh;
             position: relative;
             text-align: left;
@@ -736,28 +747,48 @@ bye jaan`;
             flex-direction: row;
             align-items: flex-start;
             justify-content: flex-start;
-            overflow-x: scroll;
         }
 
         .parent{
             overflow: hidden;
             overflow-y: scroll;
+            min-width: 100%;
+            height: calc(100% - 55px);
         }
 
         
         .editor{
             position: relative;
+            overflow-x: scroll;
+            width: 100%;
+            max-width: calc(100% - 50px);
+            height: max-content;
             //opacity: 0;
             z-index: 0;
             line-height: 1.25;
-            padding-left: 5px;
             //background: rgba(255, 255, 255, 0.07);
+
+            .inputWrapper{
+                width: max-content;
+                position: relative;
+            }
+
+            :global(code){
+                //position: absolute;
+                //top: 0;
+                //left: 0;
+                padding: 0 5px;
+                display: inline-block;
+                width: max-content;
+                height: max-content;
+            }
         }
         
         .textarea{
 
             width: 100%;
             height: 100%;
+            white-space: pre;
             padding-left: 5px;
             //overflow-x: scroll;
             //white-space: pre;
@@ -771,6 +802,7 @@ bye jaan`;
             font-size: 1rem;
             font-family: monospace;
             resize: none;
+            padding: 0 5px;
             
             color: transparent;
             //-webkit-text-fill-color: rgba(255, 0, 0, 0);
