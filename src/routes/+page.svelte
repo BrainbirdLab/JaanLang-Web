@@ -797,6 +797,7 @@ bye jaan`;
 
         .topbar{
             padding: 0;
+            margin: 0;
             border: none;
         }
 
@@ -804,7 +805,7 @@ bye jaan`;
             background: none;
             border: none;
             box-shadow: none;
-            padding: 10px;
+            padding: 0 10px;
             font-weight: 100;
 
             &:hover{
