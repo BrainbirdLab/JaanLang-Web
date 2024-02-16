@@ -194,6 +194,9 @@ bye jaan`;
     // Redirect console output to a variable
     const capturedOutput: string[] = [];
     const originalConsoleLog = console.log;
+
+    let errorLine = 0;
+
     console.log = (...args) => {
         capturedOutput.push(args.join(' '));
         //originalConsoleLog(...args); // Optionally keep logging to the dev console
@@ -208,6 +211,7 @@ bye jaan`;
 
     function runCode(){
 
+        errorLine = 0;
         runState = 'Compiling...';
         capturedOutput.length = 0;
         output = "<div class='run'>Compiling...</div>";
@@ -218,10 +222,19 @@ bye jaan`;
             compiledCode = compile(rawCode);
             //console.log(compiledCode);
             eval(compiledCode);
+            //originalConsoleLog("Hi");
             output += "<div class='output'>Output > " + capturedOutput.join('\n') + "</div>";
         } catch (error) {
             //console.error(error);
-            output += "<div class='error'>Output > " + error as string + "</div>";
+            let msg = (error as Error).message;
+
+            //Grab the line number from the error message
+            let line = msg.match(/line (\d+)/);
+            if (line) {
+                errorLine = parseInt(line[1]);
+            }
+
+            output += "<div class='error'>" + msg + "</div>";
         }
         runState = 'Run';
     }
@@ -267,11 +280,43 @@ bye jaan`;
         <div class="editorContainer" on:click={() => {
             textarea.focus();
         }}>
-            <div class="title">Playground <span class="caret"></span></div>
+            <div class="topbar">
+                <div class="title">Playground <span class="caret"></span></div>
+                <div class="btn-grp" >
+                    <button class="run" on:click={runCode} in:fly|global={{y: 10, delay: 500}}>
+                        {#if runState === 'Compiling...'}
+                        <i class="fa-solid fa-spinner"></i>
+                        {:else}
+                        <i class="fa-solid fa-play"></i>
+                        {/if}
+                    </button>
+                    <button class="save" in:fly|global={{y: 10, delay: 500}} on:click={() => {
+                        //console.log('Saving');
+                
+                        //save code in .jaan file
+                        const blob = new Blob([rawCode], { type: 'text/plain' });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'code.jaan';
+                        a.click();
+                        URL.revokeObjectURL(url);
+                        
+                    }}><i class="fa-solid fa-floppy-disk"></i>
+                    </button>
+                    <button class="clear" in:fly|global={{y: 10, delay: 700}} on:click={() => {
+                        //console.log('Clearing');
+                        rawCode = '';
+                        parsedCode = `<pre><code class="jaan">${hljs.highlight(rawCode.trim(), {
+                            language: 'jaan'
+                        }).value}</code></pre>`;
+                    }}><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>
             <div class="parent">
                 <div class="line-numbers">
                     {#each rawCode.split('\n') as _, i}
-                        <span class="line-number"></span>
+                        <span class="line-number" data-line={i+1} class:error={errorLine == i+1}></span>
                     {/each}
                 </div>
                 <pre class="editor">                        
@@ -280,37 +325,11 @@ bye jaan`;
                 </pre>
             </div>
         </div>
-        <div class="btn-grp" >
-            <button class="run" on:click={runCode} in:fly|global={{y: 10, delay: 500}}>{runState}
-                {#if runState === 'Compiling...'}
-                <i class="fa-solid fa-spinner"></i>
-                {:else}
-                <i class="fa-solid fa-play"></i>
-                {/if}
-            </button>
-            <button class="clear" in:fly|global={{y: 10, delay: 600}} on:click={() => {
-                //console.log('Clearing');
-                rawCode = '';
-                parsedCode = `<pre><code class="jaan">${hljs.highlight(rawCode.trim(), {
-                    language: 'jaan'
-                }).value}</code></pre>`;
-            }}>Clear <i class="fa-solid fa-trash"></i></button>
-            <button class="save" in:fly|global={{y: 10, delay: 700}} on:click={() => {
-                //console.log('Saving');
-        
-                //save code in .jaan file
-                const blob = new Blob([rawCode], { type: 'text/plain' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'code.jaan';
-                a.click();
-                URL.revokeObjectURL(url);
-                
-            }}>Save <i class="fa-solid fa-floppy-disk"></i></button>
-        </div>
+
         <div class="output" id="output" in:fly|global={{x: -10, delay: 800}}>
-            JaanLang Console <button on:click={() => {output = ''}}>Clear console <i class="fa-solid fa-trash"></i></button>
+            <div class="topbar">
+                JaanLang Console <button on:click={() => {output = ''}}><i class="fa-solid fa-trash"></i></button>
+            </div>
             <div class="outputcontent">
                 {@html output}
             </div>
@@ -566,16 +585,6 @@ bye jaan`;
         display: inline-block;
     }
 
-    .btn-grp{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        padding: 10px;
-        gap: 10px;
-        width: 100%;
-    }
-
     button{
         top: 2px;
         right: 2px;
@@ -593,17 +602,45 @@ bye jaan`;
         &:hover{
             filter: brightness(0.9);
         }
+    }
 
-        &.run{
-            background: #35315f;
-        }
+    .topbar{
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 5px;
+        border-bottom: 2px solid #ffffff26;
+    }
 
-        &.clear{
-            background: #ff3737;
-        }
+    .btn-grp{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: max-content;
 
-        &.save{
-            background: #00bcd4;
+        button{
+            all: unset;
+            padding: 10px;
+            cursor: pointer;
+
+            &.run{
+                color: #ffffff;
+            }
+
+            &.clear{
+                color: #ff3737;
+            }
+
+            &.save{
+                color: #00bcd4;
+            }
+
+            &:hover{
+                filter: brightness(0.9);
+            }
         }
     }
 
@@ -616,13 +653,17 @@ bye jaan`;
         font-size: 1rem;
         line-height: 1.1;
         padding: 0 5px;
-        margin-right: 5px;
         border-right: 2px solid #ffffff26;
         min-width: 4.5ch;
         counter-reset: codeLine;
     }
 
     .line-number{
+
+        &.error{
+            border-right: 2px solid #ff3737;
+        }
+
         counter-increment: codeLine;
         &::before{
             content: counter(codeLine);
@@ -640,12 +681,14 @@ bye jaan`;
         align-items: center;
         height: 100%;
         width: 95%;
+        gap: 10px;
 
         .editorWrapper{
             display: flex;
             flex-direction: column;
             flex-grow: 1;
             width: 100%;
+            gap: 20px;
             
             max-width: min(900px, 100vw);
         }
@@ -660,8 +703,8 @@ bye jaan`;
 
     .editorContainer {
         
-        height: 60vh;
-        overflow: auto;
+        height: 25rem;
+        overflow: hidden;
         flex-grow: 1;
         -moz-tab-size: 4ch;
         -o-tab-size: 4ch;
@@ -670,18 +713,11 @@ bye jaan`;
         background-color: #35315f;
         position: relative;
         border-radius: 10px;
-
-        .editor{
-            position: relative;
-            //opacity: 0;
-            z-index: 0;
-            line-height: 1.25;
-        }
         
         .editor, .parent {
             width: max-content;
             min-width: 100%;
-            min-height: 55vh;
+            //min-height: 55vh;
             position: relative;
             text-align: left;
             box-sizing: border-box;
@@ -698,12 +734,24 @@ bye jaan`;
 
         .parent{
             overflow: hidden;
+            overflow-y: scroll;
+        }
+
+        
+        .editor{
+            position: relative;
+            //opacity: 0;
+            z-index: 0;
+            line-height: 1.25;
+            padding-left: 5px;
+            //background: rgba(255, 255, 255, 0.07);
         }
         
         .textarea{
 
             width: 100%;
             height: 100%;
+            padding-left: 5px;
             //overflow-x: scroll;
             //white-space: pre;
             background: transparent;
@@ -738,7 +786,7 @@ bye jaan`;
         min-width: 40%;
         //width: 100%;
         padding: 20px;
-        height: 60vh;
+        height: 25rem;
         border: 1px solid #000000;
         font-family: monospace;
         color: white;
@@ -747,15 +795,17 @@ bye jaan`;
         border-radius: 10px;
         position: relative;
 
+        .topbar{
+            padding: 0;
+            border: none;
+        }
+
         button{
             background: none;
             border: none;
             box-shadow: none;
             padding: 10px;
             font-weight: 100;
-            position: absolute;
-            top: 10px;
-            right: 10px;
 
             &:hover{
                 filter: brightness(0.9);
