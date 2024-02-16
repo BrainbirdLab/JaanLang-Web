@@ -124,7 +124,7 @@
                     begin: '\\b(?:hi jaan|bye jaan|jodi|tahole|nahole|huh|bar|and|or|holo)\\b',
                 },
                 {
-                    className: 'built_in',
+                    className: 'function',
                     begin: '\\b(?:bolo)\\b',
                 },
                 {
@@ -139,7 +139,8 @@
                 },
                 {
                     className: 'variables',
-                    begin: '\\b(?:[a-zA-Z0-9_$]+)\\b',
+                    //start with a letter or underscore is mandatory
+                    begin: '\\b(?:[a-zA-Z_$][a-zA-Z0-9_$]*)\\b'
                 },
                 {
                     className: 'number',
@@ -781,6 +782,7 @@ bye jaan`;
                 display: inline-block;
                 width: max-content;
                 height: max-content;
+                color: #c79a66;
             }
         }
         
