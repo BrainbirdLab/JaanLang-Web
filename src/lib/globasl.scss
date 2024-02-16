@@ -33,10 +33,20 @@ pre, code {
 
 .hljs-variables{
     color: ghostwhite;
+    font-weight: 900;
 }
 
 .hljs-function{
     color: #3cc0fd;
+}
+
+.hljs-operator-logical{
+    color: #63c4d0;
+}
+
+.hljs-empty-line{
+    display: block;
+    height: var(--line-height);
 }
 
 code{

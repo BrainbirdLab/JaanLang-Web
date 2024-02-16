@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
+    import { onMount, tick } from 'svelte';
     //import {highlight} from '$lib/index';
     import hljs from 'highlight.js';
     import { compile } from 'jaan/compiler'; 
@@ -112,7 +112,7 @@
                     end: '$',
                 },
                 {
-                    className: 'keyword',
+                    className: 'operator-logical',
                     begin: '\\b(?:na hoy|hoy|er beshi na hoy|er kom na hoy|er beshi hoy|er kom hoy|er soman na hoy|er soman hoy)\\b',
                 },
                 {
@@ -150,15 +150,19 @@
                     className: 'symbols',
                     begin: '\\b(?:\\+|-|\\*|/|\\^|\\(|\\)|\\{|\\}|\\[|\\]|<|>|=|,|;|:|\\.)\\b',
                 },
+                {
+                    className: 'empty-line',
+                    begin: '^$',
+                }
             ],
         };
     });
 
     /*
-    $: parsedCode = `<pre><code class="jaan">${hljs.highlight(rawCode.trim(), {
+    $: parsedCode = `<pre><code class="jaan">${hljs.highlight(textarea.value, {
         language: 'jaan'
     }).value}</code></pre>`;
-    $: console.log(rawCode);
+    $: console.log(textarea.value);
     */
 
     let parsedCode: string = '';
@@ -167,17 +171,19 @@
     $: rawCode = 
 `hi jaan
 
+    #declare a variable
     dhoro tmrCG holo 3.2
     dhoro amrCG holo 3.8
 
 
+    #check if tmrCG is greater than amrCG
     amrCG jodi tmrCG er beshi hoy tahole
         bolo "I love you"
     nahole
         bolo "Breakup!!"
     huh
 
-
+    #say sorry 5 times. '$' is a counter variable
     5 bar
         bolo "Sorry " + $
     huh
@@ -194,7 +200,7 @@ bye jaan`;
         setTimeout(() => {
             loaded = true;
         }, 600);
-        parsedCode = `<code class="jaan">${hljs.highlight(rawCode.trim(), {
+        parsedCode = `<code class="jaan">${hljs.highlight(rawCode, {
             language: 'jaan'
         }).value}</code>`;
     });
@@ -203,7 +209,7 @@ bye jaan`;
 
     // Redirect console output to a variable
     const capturedOutput: string[] = [];
-    const originalConsoleLog = console.log;
+    const log = console.log;
 
     let errorLine = 0;
 
@@ -212,12 +218,13 @@ bye jaan`;
         //originalConsoleLog(...args); // Optionally keep logging to the dev console
     };
     
-    function parseCode() {
-        const text = textarea.value || '';
-        rawCode = text;
-        parsedCode = `<code class="jaan">${hljs.highlight(text.trim(), {
-            language: 'jaan'
-        }).value}</code>`;
+    async function parseCode() {
+        await tick();
+        const syntaxedCode = hljs.highlight(textarea.value, {
+            language: 'jaan',
+        }).value;
+        //textarea.value = text;
+        parsedCode = `<code class="jaan">${syntaxedCode}</code>`;
     }
 
     function runCode(){
@@ -227,12 +234,11 @@ bye jaan`;
         capturedOutput.length = 0;
         output = "<div class='run'>Compiling...</div>";
 
-        //originalConsoleLog(rawCode);
+        //log(textarea.value);
 
         try {
-            compiledCode = compile(rawCode);
-            //console.log(compiledCode);
-            eval(compiledCode);
+            compiledCode = compile(textarea.value);
+            new Function(compiledCode)();
             //originalConsoleLog("Hi");
             output += "<div class='output'>Output >\n" + capturedOutput.join('\n') + "</div>";
         } catch (error) {
@@ -243,12 +249,16 @@ bye jaan`;
             let line = msg.match(/line (\d+)/);
             if (line) {
                 errorLine = parseInt(line[1]);
+            } else {
+                msg = "Runtime error: " + msg;
             }
 
             output += "<div class='error'>" + msg + "</div>";
         }
         runState = 'Run';
     }
+
+    let textAreaFocused = false;
 
     function focusEditor(evt: MouseEvent){
         const target = evt.target as HTMLElement;
@@ -267,14 +277,12 @@ bye jaan`;
         }
 
         //override tab to indent
-        if (e.key === 'Tab') {
+        if (e.key === 'Tab' && textAreaFocused) {
             e.preventDefault();
-            /*
             const start = textarea.selectionStart;
             const end = textarea.selectionEnd;
             textarea.value = textarea.value.substring(0, start) + '\t' + textarea.value.substring(end);
             textarea.selectionStart = textarea.selectionEnd = start + 1;
-            */
             parseCode();
         }
     }
@@ -313,7 +321,7 @@ bye jaan`;
                         //console.log('Saving');
                 
                         //save code in .jaan file
-                        const blob = new Blob([rawCode], { type: 'text/plain' });
+                        const blob = new Blob([textarea.value], { type: 'text/plain' });
                         const url = URL.createObjectURL(blob);
                         const a = document.createElement('a');
                         a.href = url;
@@ -325,8 +333,8 @@ bye jaan`;
                     </button>
                     <button class="clear" in:fly|global={{y: 10, delay: 700}} on:click={() => {
                         //console.log('Clearing');
-                        rawCode = '';
-                        parsedCode = `<pre><code class="jaan">${hljs.highlight(rawCode, {
+                        textarea.value = '';
+                        parsedCode = `<pre><code class="jaan">${hljs.highlight(textarea.value, {
                             language: 'jaan'
                         }).value}</code></pre>`;
                     }}><i class="fa-solid fa-trash"></i></button>
@@ -339,7 +347,7 @@ bye jaan`;
                     {/each}
                 </div>
                 <pre class="editor">   
-                    <div class="inputWrapper">{@html parsedCode}<textarea aria-hidden="true" placeholder="# Write your code here" class="textarea codeArea" spellcheck="false" bind:this={textarea} on:input={parseCode} bind:value={rawCode}></textarea></div>                     
+                    <div class="inputWrapper">{@html parsedCode}<textarea aria-hidden="true" placeholder="# Write your code here" class="textarea codeArea" spellcheck="false" bind:this={textarea} on:focus={() => {textAreaFocused = true}} on:blur={() => {textAreaFocused = false}} on:input={parseCode} bind:value={rawCode}></textarea></div>                     
                 </pre>
             </div>
         </div>
@@ -777,8 +785,8 @@ bye jaan`;
             //background: rgba(255, 255, 255, 0.07);
 
             .inputWrapper{
-                width: max-content;
-                min-width: 100%;
+                width: 100%;
+                min-width: max-content;
                 position: relative;
             }
 
@@ -786,11 +794,11 @@ bye jaan`;
                 //position: absolute;
                 //top: 0;
                 //left: 0;
-                padding: 0 5px;
                 display: inline-block;
                 width: max-content;
                 height: max-content;
                 color: #c79a66;
+                padding: 0 5px;
             }
         }
         
@@ -799,7 +807,7 @@ bye jaan`;
             width: 100%;
             height: 100%;
             white-space: pre;
-            padding-left: 5px;
+            padding: 0 5px;
             //overflow-x: scroll;
             //white-space: pre;
             background: transparent;
@@ -812,9 +820,8 @@ bye jaan`;
             font-size: 1rem;
             font-family: monospace;
             resize: none;
-            padding: 0 5px;
             
-            color: transparent;
+            color: rgba(255, 255, 0, 0);
             //-webkit-text-fill-color: rgba(255, 0, 0, 0);
             -webkit-font-smoothing: antialiased;
             line-height: var(--line-height);
