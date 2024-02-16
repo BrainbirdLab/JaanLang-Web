@@ -417,6 +417,7 @@ bye jaan`;
 
     :root{
         --secondary-color: #59cbff;
+        --line-height: 20px;
     }
 
     .pink{
@@ -669,7 +670,7 @@ bye jaan`;
         justify-content: center;
         width: min-content;
         font-size: 1rem;
-        line-height: 1.1;
+        line-height: var(--line-height);
         padding: 0 5px;
         border-right: 2px solid #ffffff26;
         min-width: 4.5ch;
@@ -685,6 +686,7 @@ bye jaan`;
         }
 
         counter-increment: codeLine;
+        height: var(--line-height);
         &::before{
             content: counter(codeLine);
             color: #ffffff50;
@@ -766,7 +768,7 @@ bye jaan`;
             height: max-content;
             //opacity: 0;
             z-index: 0;
-            line-height: 1.25;
+            line-height: var(--line-height);
             //background: rgba(255, 255, 255, 0.07);
 
             .inputWrapper{
@@ -809,7 +811,7 @@ bye jaan`;
             color: transparent;
             //-webkit-text-fill-color: rgba(255, 0, 0, 0);
             -webkit-font-smoothing: antialiased;
-            line-height: 1.25;
+            line-height: var(--line-height);
             user-select: text;
 
             &:blank{
