@@ -281,7 +281,7 @@ bye jaan`;
 }/>
 
 {#if !loaded}
-    <div class="loading" out:fade>
+    <div class="loading" transition:fade={{duration: 300}}>
         <Logo height={40} width={40}/>
     </div>
 {:else}
@@ -309,7 +309,7 @@ bye jaan`;
                         <i class="fa-solid fa-play"></i>
                         {/if}
                     </button>
-                    <button class="save" in:fly|global={{y: 10, delay: 500}} on:click={() => {
+                    <button class="save" in:fly|global={{y: 10, delay: 600}} on:click={() => {
                         //console.log('Saving');
                 
                         //save code in .jaan file
@@ -354,7 +354,7 @@ bye jaan`;
         </div>
     </div>
 
-    <section class="pad">
+    <section class="pad" in:fly|global={{y: 10, delay: 900}}>
         <div class="title">About JaanLang</div>
         <p>
             JaanLang is a language for couples. It is designed to be a fun and easy way to communicate with your partner. 
@@ -363,7 +363,7 @@ bye jaan`;
         </p>
     </section>
 
-    <section>
+    <section in:fly|global={{y: 10, delay: 1000}}>
         <div class="docs title">How to use</div>
         <article>
             <div class="title">#Start program</div>
@@ -387,14 +387,14 @@ bye jaan`;
         </article>
     </section>
 
-    <section>
+    <section in:fly|global={{y: 10, delay: 1100}}>
         <div class="title">Installing Compiler</div>
         <p>
             Download <b>Node.JS</b> on your machine. Then run <code>npm i -g jaan</code>
         </p>
     </section>
 
-    <section>
+    <section in:fly|global={{y: 10, delay: 1200}}>
         <div class="title">VScode Extension</div>
         <div class="row">
             <div class="col">
@@ -405,7 +405,7 @@ bye jaan`;
         </div>
     </section>
 
-    <footer>
+    <footer in:fly|global={{y: 10, delay: 1300}}>
         &copy; {new Date().getFullYear()} | All rights reserved ・
         <a href="https://github.com/itsfuad/JaanLang" target="_blank">Source code</a>
     </footer>
@@ -418,6 +418,22 @@ bye jaan`;
     :root{
         --secondary-color: #59cbff;
         --line-height: 20px;
+    }
+
+    .loading{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        height: 100vh;
+        width: 100%;
+        background: ghostwhite;
+        color: #282c34;
+        font-size: 1rem;
     }
 
     .pink{
@@ -529,18 +545,6 @@ bye jaan`;
 
     .docs{
         margin-top: 0;
-    }
-
-
-
-
-    .loading{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        font-size: 2rem;
     }
 
     .bold, .name {
@@ -702,17 +706,18 @@ bye jaan`;
         justify-content: center;
         align-items: center;
         height: 100%;
-        width: 95%;
+        width: 80%;
         gap: 10px;
 
         .editorWrapper{
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            flex-wrap: wrap;
             flex-grow: 1;
             width: 100%;
             gap: 20px;
             
-            max-width: min(900px, 100vw);
+            //max-width: min(900px, 100vw);
         }
     }
 
@@ -773,6 +778,7 @@ bye jaan`;
 
             .inputWrapper{
                 width: max-content;
+                min-width: 100%;
                 position: relative;
             }
 
@@ -830,6 +836,7 @@ bye jaan`;
         //width: 100%;
         padding: 20px;
         height: 25rem;
+        flex-grow: 1;
         border: 1px solid #000000;
         font-family: monospace;
         color: white;
