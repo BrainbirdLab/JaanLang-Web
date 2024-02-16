@@ -1,38 +1,65 @@
-# create-svelte
+# JaanLang Documentation
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+JaanLang is a programming language for couples and romantic people. It is a minimal language that anyone can learn very quickly. Enjoy the romantic coding experience!
 
-## Creating a project
+![Cover](https://github.com/itsfuad/JaanLang/blob/main/cover.png)
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Install
+Type `npm i -g jaan` in the terminal
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Syntax
 
-# create a new project in my-app
-npm create svelte@latest my-app
+### Basic Commands
+
+#### `hi jaan`
+Start of the program.
+
+#### `bye jaan`
+End of the program.
+
+#### `dhoro`
+Declare a variable: `dhoro <variableName>`.
+
+#### `holo`
+Assign a value to a variable: `<variableName> holo <value>`.
+
+#### `bolo`
+Print statement: `bolo "I love you"`.
+
+#### `huh`
+End of any block.
+
+### Conditionals
+
+#### `<variableName> jodi <variableName> <operator> <assertion> tahole`
+If statement.
+
+- `<variableName>`: Name of the variable or string or value.
+- `<operator>`: Comparison operator (e.g., `er soman`, `er theke beshi`, etc.).
+- `<value>`: Value to compare against.
+- `<assertion>`: True or false. Can only be `hoy` or `na hoy`
+
+#### `tahole`
+Start of the conditional block
+
+### Loops
+
+#### `bar`
+Range loop: `10 bar`.
+Example: 
+```jaan
+10 bar
+    bolo "I am sorry " + $
 ```
 
-## Developing
+- `$`: Iteration count variable.
+- `<value>`: The upper limit for the loop.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### Comments
 
-```bash
-npm run dev
+#### `#`
+Comment: Lines starting with `#` are ignored.
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+## Example
 
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+![Example Code](./example.png)
