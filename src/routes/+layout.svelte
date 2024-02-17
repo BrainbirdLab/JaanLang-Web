@@ -51,11 +51,7 @@
         <div class="container">
             <slot />
         </div>
-        <footer in:fly|global={{y: 10, delay: 1300}}>
-            &copy; {new Date().getFullYear()} | All rights reserved
-        </footer>
     </div>
-
 </div>
 {/if}
 
@@ -108,12 +104,6 @@
         height: 100%;
         width: 95%;
         gap: 10px;
-    }
-
-    footer{
-        font-size: 0.7rem;
-        padding: 10px;
-        color: white;
     }
 
     @media screen and (orientation: landscape) {
