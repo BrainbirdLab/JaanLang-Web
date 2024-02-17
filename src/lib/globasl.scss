@@ -18,6 +18,11 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+:root {
+    --secondary-color: #59cbff;
+    --line-height: 20px;
+}
+
 //image drag disable
 img {
     user-drag: none;
@@ -29,6 +34,8 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: 100vh;
+
 }
 
 pre, code {
