@@ -5,6 +5,7 @@
     import { compile } from "jaan/compiler";
     import Logo from "./logo.svelte";
     import { fly } from "svelte/transition";
+    import { showToastMessage } from "domtoastmessage";
 
     /**
 {
@@ -330,7 +331,6 @@ bye jaan`;
                     title="Ctrl+Enter"
                     class="run"
                     on:click={runCode}
-                    in:fly|global={{ y: 10, delay: 300 }}
                 >
                     {#if runState === "Compiling..."}
                         <i class="fa-solid fa-spinner"></i>
@@ -338,10 +338,15 @@ bye jaan`;
                         <i class="fa-solid fa-play"></i>
                     {/if}
                 </button>
+                <button class="copy" title="Copy source code" on:click={() => {
+                    navigator.clipboard.writeText(textarea.value);
+                    showToastMessage("Source code copied to clipboard");
+                }}>
+                    <i class="fa-regular fa-copy"></i>
+                </button>
                 <button
                     title="Ctrl+s"
                     class="save"
-                    in:fly|global={{ y: 10, delay: 400 }}
                     on:click={() => {
                         //console.log('Saving');
 
@@ -361,7 +366,6 @@ bye jaan`;
                 <button
                     title="Ctrl+Backspace to clear"
                     class="clear"
-                    in:fly|global={{ y: 10, delay: 500 }}
                     on:click={() => {
                         //console.log('Clearing');
                         textarea.value = "";
@@ -404,14 +408,26 @@ bye jaan`;
         </div>
     </div>
 
-    <div class="output" id="output" in:fly|global={{ x: -10, delay: 600 }}>
+    <div class="output" id="output" in:fly|global={{ x: -10, delay: 300 }}>
         <div class="topbar">
-            JaanLang Console <button
-                title="Esc to clear"
-                on:click={() => {
-                    output = "";
-                }}><i class="fa-solid fa-trash"></i></button
-            >
+            <div class="title">
+                Console <span class="caret"></span>
+            </div>
+            <div class="btn-grp">
+                <button class="copy" title="Copy output" on:click={() => {
+                    navigator.clipboard.writeText(output);
+                    showToastMessage("Output copied to clipboard");
+                }}>
+                    <i class="fa-regular fa-copy"></i>
+                </button>
+                <button
+                    title="Esc to clear"
+                    class="clear"
+                    on:click={() => {
+                        output = "";
+                    }}><i class="fa-solid fa-trash"></i></button
+                >
+            </div>
         </div>
         <div class="outputcontent">
             {@html output}
@@ -526,26 +542,30 @@ bye jaan`;
         align-items: center;
         width: max-content;
 
-        button {
-            all: unset;
-            padding: 10px;
-            cursor: pointer;
+    }
+    button {
+        all: unset;
+        padding: 10px;
+        cursor: pointer;
 
-            &.run {
-                color: #ffffff;
-            }
+        &.run {
+            color: #ffffff;
+        }
 
-            &.clear {
-                color: #ff3737;
-            }
+        &.clear {
+            color: #ff3737;
+        }
 
-            &.save {
-                color: #00bcd4;
-            }
+        &.save {
+            color: #00bcd4;
+        }
 
-            &:hover {
-                filter: brightness(0.9);
-            }
+        &.copy {
+            color: #ffffff99 !important;
+        }
+
+        &:hover {
+            filter: brightness(0.9);
         }
     }
 
@@ -700,7 +720,7 @@ bye jaan`;
     .output {
         min-width: 40%;
         //width: 100%;
-        padding: 20px;
+        padding: 0 20px 5px;
         height: 25rem;
         flex-grow: 1;
         border: 1px solid #000000;
@@ -714,23 +734,6 @@ bye jaan`;
         .topbar {
             padding: 0;
             margin: 0;
-            border: none;
-        }
-
-        button {
-            background: none;
-            border: none;
-            box-shadow: none;
-            padding: 0 10px;
-            font-weight: 100;
-
-            &:hover {
-                filter: brightness(0.9);
-            }
-
-            i {
-                color: #ff4444;
-            }
         }
     }
 </style>
