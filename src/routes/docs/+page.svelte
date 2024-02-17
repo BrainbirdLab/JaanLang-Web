@@ -159,9 +159,10 @@
     }
 
     //on mobile ratio, make it column
-    @media screen and (min-device-aspect-ratio: 5/3) and (max-device-aspect-ratio: 16/9) and (orientation: portrait){
+    @media screen and (orientation: portrait){
         section .row{
             flex-direction: column;
+            align-items: flex-start;
         }
     }
 </style>
