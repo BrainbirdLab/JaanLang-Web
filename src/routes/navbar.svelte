@@ -18,7 +18,6 @@
         },
     ];
 
-    console.log($currentPage);
 </script>
 
 <div class="navbar" in:fly={{ x: 20, delay: 200 }}>

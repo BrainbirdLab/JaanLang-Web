@@ -4,7 +4,7 @@
     import "highlight.js/styles/atom-one-dark.min.css";
     import { showToastMessage } from "domtoastmessage";
     import { onMount } from "svelte";
-    import { fade, fly } from "svelte/transition";
+    import { fade } from "svelte/transition";
     import Logo from "./logo.svelte";
     import Navbar from "./navbar.svelte";
     import { currentPage } from "$lib/store";

@@ -171,23 +171,21 @@
 
     $: rawCode = `hi jaan
 
-    #declare a variable
-    dhoro tmrCG holo 3.2
-    dhoro amrCG holo 3.8
-
-
-    #check if tmrCG is greater than amrCG
-    amrCG jodi tmrCG er beshi hoy tahole
-        bolo "I love you"
-    nahole
-        bolo "Breakup!!"
-    huh
-
-    #say sorry 5 times. '$' is a counter variable
-    5 bar
-        bolo "Sorry " + $
-    huh
-
+  #declare a variable
+  dhoro tmrCG holo 3.2
+  dhoro amrCG holo 3.8
+  
+  #check if tmrCG is greater than amrCG
+  amrCG jodi tmrCG er beshi hoy tahole
+    bolo "I love you"
+  nahole
+    bolo "Breakup!!"
+  huh
+  
+  #say sorry 5 times. '$' is a counter variable
+  5 bar
+    bolo "Sorry " + $
+  huh
 
 bye jaan`;
 
@@ -237,7 +235,7 @@ bye jaan`;
             new Function(compiledCode)();
             //originalConsoleLog("Hi");
             output +=
-                "<div class='output'>Output >\n" +
+                "Output &gt;<div class='output'>" +
                 capturedOutput.join("\n") +
                 "</div>";
         } catch (error) {
@@ -459,26 +457,6 @@ bye jaan`;
         font-family: "thin";
     }
 
-    .outputcontent {
-        user-select: text;
-        white-space: pre-wrap;
-        font-family: monospace;
-
-        :global(*) {
-            font-family: monospace;
-        }
-
-        :global(.error) {
-            color: #ff4444;
-            font-family: monospace;
-        }
-
-        :global(.run) {
-            color: #ffe044;
-            font-family: monospace;
-        }
-    }
-
     .head {
         margin-top: 20px;
         padding: 10px;
@@ -621,10 +599,10 @@ bye jaan`;
     .editorContainer {
         height: 25rem;
         overflow: hidden;
-        flex-grow: 1;
-        -moz-tab-size: 4ch;
-        -o-tab-size: 4ch;
-        tab-size: 4ch;
+        
+        -moz-tab-size: 2ch;
+        -o-tab-size: 2ch;
+        tab-size: 2ch;
         color: #fff;
         background-color: #35315f;
         position: relative;
@@ -657,7 +635,7 @@ bye jaan`;
         .editor {
             position: relative;
             overflow-x: scroll;
-            width: 100%;
+            width: 35vw;
             max-width: calc(100% - 50px);
             height: max-content;
             //opacity: 0;
@@ -718,12 +696,13 @@ bye jaan`;
         }
     }
 
-    .output {
-        min-width: 40%;
+    #output {
         //width: 100%;
         padding: 0 20px 5px;
         height: 25rem;
-        flex-grow: 1;
+        width: 25vw;
+        overflow: hidden;
+        //flex-grow: 1;
         border: 1px solid #000000;
         font-family: monospace;
         color: white;
@@ -731,10 +710,44 @@ bye jaan`;
         background: #0000009c;
         border-radius: 10px;
         position: relative;
+        user-select: text;
 
         .topbar {
             padding: 0;
             margin: 0;
+        }
+
+        .outputcontent {
+            //user-select: text;
+            white-space: pre;
+            overflow: scroll;
+            font-family: monospace;
+
+            :global(*) {
+                font-family: monospace;
+            }
+
+            :global(.error) {
+                color: #ff4444;
+                font-family: monospace;
+                user-select: text;
+            }
+
+            :global(.run) {
+                color: #ffe044;
+                font-family: monospace;
+            }
+
+            :global(.output){
+                user-select: text;
+            }
+        }
+    }
+
+    @media screen and (orientation: portrait) {
+
+        #output, .editorContainer, .editorContainer .editor {
+            width: 100%;
         }
     }
 </style>
