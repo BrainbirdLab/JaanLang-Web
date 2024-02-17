@@ -310,6 +310,10 @@ bye jaan`;
     }}
 />
 
+<svelte:head>
+    <title>JaanLang - Playground</title>
+</svelte:head>
+
 <h1 class="bold head" in:fly|global={{ y: -10, delay: 100 }}>
     <Logo height={70} width={70} />
     <div class="name">

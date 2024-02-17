@@ -3,6 +3,10 @@
 
 </script>
 
+<svelte:head>
+    <title>JaanLang - Documentation</title>
+</svelte:head>
+
 <section in:fly|global={{ y: 10, delay: 100 }}>
     <div class="title">About JaanLang</div>
     <p>
