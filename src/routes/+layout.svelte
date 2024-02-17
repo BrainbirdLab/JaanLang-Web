@@ -104,6 +104,7 @@
         height: 100%;
         width: 95%;
         gap: 10px;
+        padding: 10px;
     }
 
     @media screen and (orientation: landscape) {
