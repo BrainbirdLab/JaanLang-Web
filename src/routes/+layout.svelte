@@ -38,6 +38,8 @@
 
 </script>
 
+<svelte:window on:contextmenu|preventDefault />
+
 {#if !loaded}
 <div class="loading" transition:fade={{duration: 300}}>
     <Logo height={40} width={40}/>
