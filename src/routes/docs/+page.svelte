@@ -80,10 +80,6 @@
         text-align: justify;
         //box-shadow: 2px 2px 5px #00000029;
 
-        &.pad {
-            margin-top: 100px;
-        }
-
         .title {
             font-size: 1.5rem;
             padding: unset;

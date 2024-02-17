@@ -92,25 +92,29 @@
             justify-content: flex-start;
             overflow: hidden;
 
-            .container{
-                display: flex;
-                flex-direction: column;
-                overflow: scroll;
-                justify-content: flex-start;
-                align-items: center;
-                height: 100%;
-                width: 80%;
-                gap: 10px;
-            }
         }
+    }
+    
+    .container{
+        display: flex;
+        flex-direction: column;
+        overflow: scroll;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100%;
+        width: 95%;
+        gap: 10px;
     }
 
     footer{
         font-size: 0.7rem;
         padding: 10px;
         color: white;
-        a{
-            color: #ffffff;
+    }
+
+    @media screen and (orientation: landscape) {
+        .container{
+            width: 70%;
         }
     }
 </style>
