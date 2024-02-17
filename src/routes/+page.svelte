@@ -369,6 +369,7 @@ bye jaan`;
                     on:click={() => {
                         //console.log('Clearing');
                         textarea.value = "";
+                        rawCode = "";
                         parsedCode = `<pre><code class="jaan">${
                             hljs.highlight(textarea.value, {
                                 language: "jaan",
