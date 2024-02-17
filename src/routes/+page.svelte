@@ -471,7 +471,7 @@ bye jaan`;
         .title{
             font-size: 1.5rem;
             padding: unset;
-            width: max-content;
+            width: 100%;
             color: ghostwhite;
             //color: var(--secondary-color);
         }
@@ -485,17 +485,18 @@ bye jaan`;
             background: #ffffff1f;
             padding: 0 4px;
             border-radius: 2px;
+            white-space: unset;
         }
 
         p {
             margin-top: 0;
         }
         .row{
-            display: grid;
-            grid-auto-flow: dense;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
             gap: 20px;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            grid-auto-rows: minmax(100px, auto);
         }
 
         .col{
@@ -872,6 +873,13 @@ bye jaan`;
             i{
                 color: #ff4444;
             }
+        }
+    }
+
+    //on mobile ratio, make it column
+    @media screen and (min-device-aspect-ratio: 5/3) and (max-device-aspect-ratio: 16/9) and (orientation: portrait){
+        section .row{
+            flex-direction: column;
         }
     }
 </style>

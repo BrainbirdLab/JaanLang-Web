@@ -15,6 +15,13 @@
     font-family: 'thin';
     user-select: none;
     scrollbar-width: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+//image drag disable
+img {
+    user-drag: none;
+    user-select: none;
 }
 
 body{
