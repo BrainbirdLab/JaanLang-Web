@@ -37,7 +37,7 @@
 <style lang="scss">
     .navbar {
         width: 100%;
-        padding: 20px;
+        padding: 10px;
         background: inherit;
         z-index: 2;
         display: flex;

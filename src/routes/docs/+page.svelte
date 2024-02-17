@@ -3,7 +3,7 @@
 
 </script>
 
-<section class="pad" in:fly|global={{ y: 10, delay: 100 }}>
+<section in:fly|global={{ y: 10, delay: 100 }}>
     <div class="title">About JaanLang</div>
     <p>
         JaanLang is a language for couples. It is designed to be a fun and easy
@@ -72,7 +72,7 @@
         padding: 20px;
         margin: 20px 0;
         border-radius: 10px;
-        background: #ffffff17;
+        //background: #ffffff17;
         color: rgb(240, 240, 240);
         font-size: 0.9rem;
         width: 100%;
