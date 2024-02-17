@@ -7,6 +7,7 @@
     import { fade, fly } from "svelte/transition";
     import Logo from "./logo.svelte";
     import Navbar from "./navbar.svelte";
+    import { currentPage } from "$lib/store";
 
     async function detectSWUpdate(){
         const registration = await navigator.serviceWorker.ready;
@@ -26,6 +27,9 @@
     let loaded = false;
 
     onMount(() => {
+
+        currentPage.set(window.location.pathname);
+
         setTimeout(() => {
             loaded = true;
         }, 600);
