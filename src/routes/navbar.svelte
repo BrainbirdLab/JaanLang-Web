@@ -9,7 +9,7 @@
 
     const navLinks = [
         {
-            name: "Home",
+            name: "Plaground",
             href: "/",
         },
         {
