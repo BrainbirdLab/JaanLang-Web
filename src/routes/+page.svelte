@@ -603,7 +603,7 @@ bye jaan`;
     .editorContainer {
         height: 25rem;
         overflow: hidden;
-        
+        flex-grow: 1;
         -moz-tab-size: 2ch;
         -o-tab-size: 2ch;
         tab-size: 2ch;
@@ -706,7 +706,7 @@ bye jaan`;
         height: 25rem;
         width: 25vw;
         overflow: hidden;
-        //flex-grow: 1;
+        flex-grow: 1;
         border: 1px solid #000000;
         font-family: monospace;
         color: white;
