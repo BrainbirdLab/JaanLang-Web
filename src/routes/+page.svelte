@@ -276,6 +276,26 @@ bye jaan`;
             //console.log('Saving');
         }
 
+        //run code on ctrl+enter
+        if (e.key === 'Enter' && e.ctrlKey) {
+            e.preventDefault();
+            runCode();
+        }
+
+        //clear output on escape
+        if (e.key === 'Escape') {
+            output = '';
+        }
+
+        //clear code on ctrl+backspace
+        if (e.key === 'Backspace' && e.ctrlKey) {
+            e.preventDefault();
+            textarea.value = '';
+            parsedCode = `<pre><code class="jaan">${hljs.highlight(textarea.value, {
+                language: 'jaan'
+            }).value}</code></pre>`;
+        }
+
         //override tab to indent
         if (e.key === 'Tab' && textAreaFocused) {
             e.preventDefault();
@@ -310,14 +330,14 @@ bye jaan`;
             <div class="topbar">
                 <div class="title">Playground <span class="caret"></span></div>
                 <div class="btn-grp" >
-                    <button class="run" on:click={runCode} in:fly|global={{y: 10, delay: 500}}>
+                    <button title="Ctrl+Enter" class="run" on:click={runCode} in:fly|global={{y: 10, delay: 500}}>
                         {#if runState === 'Compiling...'}
                         <i class="fa-solid fa-spinner"></i>
                         {:else}
                         <i class="fa-solid fa-play"></i>
                         {/if}
                     </button>
-                    <button class="save" in:fly|global={{y: 10, delay: 600}} on:click={() => {
+                    <button title="Ctrl+s" class="save" in:fly|global={{y: 10, delay: 600}} on:click={() => {
                         //console.log('Saving');
                 
                         //save code in .jaan file
@@ -331,7 +351,7 @@ bye jaan`;
                         
                     }}><i class="fa-solid fa-floppy-disk"></i>
                     </button>
-                    <button class="clear" in:fly|global={{y: 10, delay: 700}} on:click={() => {
+                    <button title="Ctrl+Backspace to clear" class="clear" in:fly|global={{y: 10, delay: 700}} on:click={() => {
                         //console.log('Clearing');
                         textarea.value = '';
                         parsedCode = `<pre><code class="jaan">${hljs.highlight(textarea.value, {
@@ -354,7 +374,7 @@ bye jaan`;
 
         <div class="output" id="output" in:fly|global={{x: -10, delay: 800}}>
             <div class="topbar">
-                JaanLang Console <button on:click={() => {output = ''}}><i class="fa-solid fa-trash"></i></button>
+                JaanLang Console <button title="Esc to clear" on:click={() => {output = ''}}><i class="fa-solid fa-trash"></i></button>
             </div>
             <div class="outputcontent">
                 {@html output}
