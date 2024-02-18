@@ -450,6 +450,7 @@ bye jaan`;
 
     .bold,
     .name {
+        position: inherit;
         font-family: "Bold";
         * {
             font-family: "Bold";
@@ -469,6 +470,7 @@ bye jaan`;
         align-items: center;
         justify-content: center;
         color: #9c27b0;
+        position: relative;
     }
 
     .sub-title {
