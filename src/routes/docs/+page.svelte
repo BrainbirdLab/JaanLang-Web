@@ -1,5 +1,6 @@
 <script lang="ts">
     import { fly } from "svelte/transition";
+    import Logo from "../logo.svelte";
 
 </script>
 
@@ -8,7 +9,10 @@
 </svelte:head>
 
 <section in:fly|global={{ y: 10, delay: 100 }}>
-    <div class="title">About JaanLang</div>
+    <div class="title">
+        <Logo height={40} width={40} />
+        About JaanLang
+    </div>
     <p>
         JaanLang is a language for couples. It is designed to be a fun and easy
         way to communicate with your partner. It is inspired by the way couples
