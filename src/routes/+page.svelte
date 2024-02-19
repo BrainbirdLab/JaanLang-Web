@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { onMount, tick } from "svelte";
+    import { onDestroy, onMount, tick } from "svelte";
     //import {highlight} from '$lib/index';
     import hljs from "highlight.js";
     import { compile } from "jaan/compiler";
     import Logo from "./logo.svelte";
-    import { fly } from "svelte/transition";
+    import { fly, slide } from "svelte/transition";
     import { showToastMessage } from "domtoastmessage";
 
     /**
@@ -193,6 +193,10 @@ bye jaan`;
     let output: string = "";
 
     onMount(() => {
+
+        lineNumbers.addEventListener('scroll', syncScroll);
+        editor.addEventListener('scroll', syncScroll);
+
         parsedCode = `<code class="jaan">${
             hljs.highlight(rawCode, {
                 language: "jaan",
@@ -222,13 +226,18 @@ bye jaan`;
         parsedCode = `<code class="jaan">${syntaxedCode}</code>`;
     }
 
+    let outputTerminal: HTMLDivElement;
+
     function runCode() {
+
+        
         errorLine = 0;
         runState = "Compiling...";
         capturedOutput.length = 0;
         output = "<div class='run'>Compiling...</div>";
-
+        //await tick();
         //log(textarea.value);
+        //outputTerminal.scrollIntoView({ behavior: "smooth" });
 
         try {
             compiledCode = compile(textarea.value);
@@ -264,10 +273,51 @@ bye jaan`;
         }
         textarea.focus();
     }
+
+    let currentLine: number = 0;
+
+    function getCurrentLineNumber(event: Event) {
+        requestAnimationFrame(() => {
+            const target = event.target as HTMLTextAreaElement;
+            const cursorPosition = target.selectionStart;
+            const textBeforeCursor = target.value.substring(0, cursorPosition);
+            const lineNumber = textBeforeCursor.split('\n').length;
+            //log(`Cursor at line ${lineNumber}`);
+            currentLine = lineNumber;
+        });
+    }
+
+    let editor: HTMLPreElement;
+    let lineNumbers: HTMLDivElement;
+
+    let isScrolling = false;
+
+    function syncScroll(evt: Event){
+        if (!isScrolling){
+            const target = evt.target as HTMLElement;
+            const other = target === lineNumbers ? editor : lineNumbers;
+            //log("Removed: ", other.className);
+            other.removeEventListener('scroll', syncScroll);
+            other.scrollTop = target.scrollTop;
+            isScrolling = false;
+            
+            other.onscrollend = () => {
+                //log("Again set other: ", other.className);
+                other.addEventListener('scroll', syncScroll);
+            }
+        }
+    }
+
+    onDestroy(() => {
+        lineNumbers.removeEventListener('scroll', syncScroll);
+        editor.removeEventListener('scroll', syncScroll);
+    });
+
 </script>
 
 <svelte:document
     on:keydown={(e) => {
+
         if (e.key === "s" && e.ctrlKey) {
             e.preventDefault();
             //console.log('Saving');
@@ -315,7 +365,7 @@ bye jaan`;
 </svelte:head>
 
 <h1 class="bold head" in:fly|global={{ y: -10, delay: 100 }}>
-    <Logo height={70} width={70} />
+    <Logo height={40} width={40} />
     <div class="name">
         <span class="pink">Jaan</span><span class="blue">Lang</span>
     </div>
@@ -382,22 +432,27 @@ bye jaan`;
             </div>
         </div>
         <div class="parent">
-            <div class="line-numbers">
-                {#each rawCode.split("\n") as _, i}
-                    <span
-                        class="line-number"
-                        data-line={i + 1}
-                        class:error={errorLine == i + 1}
-                    ></span>
-                {/each}
+            <div class="line-numbers" bind:this={lineNumbers}>
+                <div class="line-content">
+                    {#each rawCode.split("\n") as _, i}
+                        <span
+                            class="line-number"
+                            data-line={i + 1}
+                            class:error={errorLine == i + 1}
+                            class:currentLine={currentLine == i + 1}
+                        ></span>
+                    {/each}
+                </div>
             </div>
-            <pre class="editor">   
-                    <div class="inputWrapper">{@html parsedCode}<textarea
+            <pre class="editor" bind:this={editor}><div class="inputWrapper">{@html parsedCode}<textarea
                         aria-hidden="true"
                         placeholder="# Write your code here"
                         class="textarea codeArea"
                         spellcheck="false"
                         bind:this={textarea}
+                        bind:value={rawCode}
+                        on:keydown={getCurrentLineNumber}
+                        on:mousedown={getCurrentLineNumber}
                         on:focus={() => {
                             textAreaFocused = true;
                         }}
@@ -405,13 +460,13 @@ bye jaan`;
                             textAreaFocused = false;
                         }}
                         on:input={parseCode}
-                        bind:value={rawCode}
                     ></textarea></div>                     
-                </pre>
+            </pre>
         </div>
     </div>
 
-    <div class="output" id="output" in:fly|global={{ x: -10, delay: 300 }}>
+    {#if output}
+    <div class="output" id="output" in:fly={{y: 10, duration: 300}}>
         <div class="topbar">
             <div class="title">
                 Console <span class="caret"></span>
@@ -432,10 +487,11 @@ bye jaan`;
                 >
             </div>
         </div>
-        <div class="outputcontent">
+        <div class="outputcontent" bind:this={outputTerminal}>
             {@html output}
         </div>
     </div>
+    {/if}
 </div>
 
 <style lang="scss">
@@ -463,18 +519,18 @@ bye jaan`;
     }
 
     .head {
-        margin-top: 20px;
         padding: 10px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         color: #9c27b0;
+        font-size: 1.2rem;
         position: relative;
     }
 
     .sub-title {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
         color: var(--secondary-color);
     }
 
@@ -558,8 +614,10 @@ bye jaan`;
         display: flex;
         flex-direction: column;
         align-items: flex-end;
-        justify-content: center;
+        justify-content: flex-start;
         width: min-content;
+        overflow-y: scroll;
+        height: 100%;
         font-size: 1rem;
         line-height: var(--line-height);
         padding: 0 5px;
@@ -568,18 +626,32 @@ bye jaan`;
         counter-reset: codeLine;
         width: 50px;
         flex-shrink: 0;
+
+        .line-content{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: flex-start;
+        }
     }
 
     .line-number {
+
         &.error {
             border-right: 2px solid #ff3737;
         }
 
+        
         counter-increment: codeLine;
         height: var(--line-height);
+        color: #ffffff50;
+
+        &.currentLine {
+            color: #ffffffba;
+        }
+
         &::before {
             content: counter(codeLine);
-            color: #ffffff50;
             margin-right: 5px;
             font-family: monospace;
         }
@@ -587,12 +659,13 @@ bye jaan`;
 
     .editorWrapper {
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+        flex-direction: column;
+        //flex-wrap: wrap;
         flex-grow: 1;
         width: 100%;
-        gap: 20px;
-
+        border-radius: 10px;
+        overflow: scroll;
+        background: #35315f;
         //max-width: min(900px, 100vw);
     }
     .codeArea {
@@ -603,7 +676,8 @@ bye jaan`;
     }
 
     .editorContainer {
-        height: 25rem;
+        height: 100%;
+        width: 100%;
         overflow: hidden;
         flex-grow: 1;
         -moz-tab-size: 2ch;
@@ -612,7 +686,6 @@ bye jaan`;
         color: #fff;
         background-color: #35315f;
         position: relative;
-        border-radius: 10px;
 
         .editor,
         .parent {
@@ -640,14 +713,13 @@ bye jaan`;
 
         .editor {
             position: relative;
-            overflow-x: scroll;
-            width: 35vw;
+            cursor: text;
+            overflow: scroll;
+            width: 100%;
             max-width: calc(100% - 50px);
-            height: max-content;
-            //opacity: 0;
+            height: 100%;
             z-index: 0;
             line-height: var(--line-height);
-            //background: rgba(255, 255, 255, 0.07);
 
             .inputWrapper {
                 width: 100%;
@@ -661,6 +733,7 @@ bye jaan`;
                 //left: 0;
                 display: inline-block;
                 width: max-content;
+                min-width: 100%;
                 height: max-content;
                 color: #c79a66;
                 padding: 0 5px;
@@ -705,16 +778,15 @@ bye jaan`;
     #output {
         //width: 100%;
         padding: 0 20px 5px;
-        height: 25rem;
-        width: 25vw;
+        height: 100%;
+        width: 100%;
         overflow: hidden;
         flex-grow: 1;
-        border: 1px solid #000000;
+        //border: 1px solid #000000;
         font-family: monospace;
         color: white;
         font-size: 0.9rem;
-        background: #0000009c;
-        border-radius: 10px;
+        background: #0000002e;
         position: relative;
         user-select: text;
 
@@ -750,7 +822,7 @@ bye jaan`;
         }
     }
 
-    @media screen and (orientation: portrait) {
+    @media screen and (orientation: portrait) and (min-device-aspect-ratio: 1 / 1) {
 
         #output, .editorContainer, .editorContainer .editor {
             width: 100%;
