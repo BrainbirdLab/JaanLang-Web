@@ -240,7 +240,7 @@ bye jaan`;
         //outputTerminal.scrollIntoView({ behavior: "smooth" });
 
         try {
-            compiledCode = compile(textarea.value);
+            compiledCode = compile(textarea.value, false);
             new Function(compiledCode)();
             //originalConsoleLog("Hi");
             output +=
