@@ -466,7 +466,7 @@ bye jaan`;
     </div>
 
     {#if output}
-    <div class="output" id="output" in:fly={{y: 10, duration: 300}}>
+    <div class="output" id="output" transition:fly={{y: 10, duration: 200}}>
         <div class="topbar">
             <div class="title">
                 Console <span class="caret"></span>
@@ -488,7 +488,9 @@ bye jaan`;
             </div>
         </div>
         <div class="outputcontent" bind:this={outputTerminal}>
-            {@html output}
+            <div class="container">
+                {@html output}
+            </div>
         </div>
     </div>
     {/if}
@@ -519,7 +521,6 @@ bye jaan`;
     }
 
     .head {
-        padding: 10px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -666,6 +667,7 @@ bye jaan`;
         border-radius: 10px;
         overflow: scroll;
         background: #35315f;
+        position: relative;
         //max-width: min(900px, 100vw);
     }
     .codeArea {
@@ -778,7 +780,7 @@ bye jaan`;
     #output {
         //width: 100%;
         padding: 0 20px 5px;
-        height: 100%;
+        height: 50%;
         width: 100%;
         overflow: hidden;
         flex-grow: 1;
@@ -786,8 +788,10 @@ bye jaan`;
         font-family: monospace;
         color: white;
         font-size: 0.9rem;
-        background: #0000002e;
-        position: relative;
+        background: #2b284e;
+        position: absolute;
+        top: 50%;
+
         user-select: text;
 
         .topbar {
@@ -798,8 +802,15 @@ bye jaan`;
         .outputcontent {
             //user-select: text;
             white-space: pre;
-            overflow: scroll;
+            overflow: hidden;
+            height: calc(100% - 50px);
+
             font-family: monospace;
+
+            .container{
+                overflow: scroll;
+                height: 100%;
+            }
 
             :global(*) {
                 font-family: monospace;
