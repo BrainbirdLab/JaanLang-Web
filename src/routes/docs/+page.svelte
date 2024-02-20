@@ -1,6 +1,16 @@
 <script lang="ts">
     import { fly } from "svelte/transition";
     import Logo from "../logo.svelte";
+    import { marked } from "marked";
+    import { onMount } from "svelte";
+    import hljs from "$lib/lib";
+    import md from "$lib/docs.md?raw";
+
+    onMount(() => {
+        //console.log(md);
+        //const html = marked(md);
+        hljs.highlightAll();
+    });
 
 </script>
 
@@ -23,32 +33,7 @@
 </section>
 
 <section in:fly|global={{ y: 10, delay: 200 }}>
-    <div class="docs title">How to use</div>
-    <article>
-        <div class="title">#Start program</div>
-        <p>
-            Code must start with <code>hi jaan</code> and end with
-            <code>bye jaan</code>.
-        </p>
-    </article>
-    <article>
-        <div class="title">#Variables</div>
-        <p>
-            To declare a variable, use <code>dhoro</code> keyword. For example,
-            <code>dhoro a holo 5</code>
-            will declare a variable <code>a</code> with value <code>5</code>.
-        </p>
-    </article>
-    <article>
-        <div class="title">#Conditional statements</div>
-        <p>
-            To write a conditional statement, use <code>jodi</code> and
-            <code>tahole</code>
-            or <code>nahole</code> keywords. For example,
-            <code>a jodi b er beshi hoy tahole</code>
-            will check if <code>a</code> is greater than <code>b</code>.
-        </p>
-    </article>
+    {@html marked(md)}
 </section>
 
 <section in:fly|global={{ y: 10, delay: 300 }}>
@@ -78,14 +63,13 @@
 <style lang="scss">
     section {
         padding: 20px;
-        margin: 20px 0;
         border-radius: 10px;
         //background: #ffffff17;
         color: rgb(240, 240, 240);
         font-size: 0.9rem;
         width: 100%;
         max-width: 900px;
-        text-align: justify;
+        line-height: 1.5;
         //box-shadow: 2px 2px 5px #00000029;
 
         .title {
@@ -132,16 +116,6 @@
             width: 400px;
         }
 
-        article {
-            margin-bottom: 20px;
-            .title {
-                font-size: 1.2rem;
-                color: #ffffffc2;
-                padding: unset;
-                margin: unset;
-            }
-        }
-
         a {
             padding: 10px 20px;
             border-radius: 5px;
@@ -162,9 +136,6 @@
         }
     }
 
-    .docs {
-        margin-top: 0;
-    }
 
     //on mobile ratio, make it column
     @media screen and (orientation: portrait){

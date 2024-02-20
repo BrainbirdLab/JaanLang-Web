@@ -36,7 +36,7 @@ img {
 }
 
 body{
-    background: linear-gradient(120deg, #f181cd, #1374a0);
+    background: #35315f;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,6 +50,70 @@ pre, code {
         font-family: monospace;
     }
 }
+
+.outputcontent{
+    * {
+        font-family: monospace;
+    }
+    .error {
+        color: #ff4444;
+        font-family: monospace;
+        user-select: text;
+    }
+    
+    .run {
+        color: #ffe044;
+        font-family: monospace;
+    }
+    
+    .output{
+        user-select: text;
+    }
+}
+
+pre, .hljs {
+    background: #35315f;
+    border-radius: 5px;
+}
+
+code {
+    padding: 1px 3px;
+    background: #ffffff29;
+    border-radius: 5px;
+}
+
+pre {
+    margin: 10px 0;
+}
+
+h1, h2, h3, h4{
+    margin: 20px 0;
+}
+
+p code{
+    white-space: pre-wrap;
+}
+
+ul{
+    list-style: circle;
+    padding-left: 20px;
+}
+
+pre{
+    code {
+        //position: absolute;
+        //top: 0;
+        //left: 0;
+        display: inline-block;
+        width: max-content;
+        background: none !important;
+        min-width: 100%;
+        height: max-content;
+        color: #c79a66;
+        padding: 0 5px !important;
+    }
+}
+
 
 .hljs-variables{
     color: ghostwhite;

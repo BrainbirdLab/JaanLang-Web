@@ -104,14 +104,10 @@
         justify-content: flex-start;
         align-items: center;
         height: 100%;
-        width: 95%;
+        width: 140vh;
+        max-width: 100vw;
         gap: 10px;
         padding: 10px 10px 20px 10px;
     }
 
-    @media screen and (orientation: landscape) {
-        .container{
-            width: 70%;
-        }
-    }
 </style>

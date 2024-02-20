@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onDestroy, onMount, tick } from "svelte";
     //import {highlight} from '$lib/index';
-    import hljs from "highlight.js";
+    import hljs from "$lib/lib";
     import { compile } from "jaan/compiler";
     import Logo from "./logo.svelte";
     import { fly, slide } from "svelte/transition";
@@ -89,75 +89,6 @@
 	}
 }
  */
-
-    hljs.registerLanguage("jaan", (h) => {
-        return {
-            name: "JaanLang",
-            keywords: [
-                "dhoro",
-                "hi jaan",
-                "bye jaan",
-                "jodi",
-                "tahole",
-                "nahole",
-                "huh",
-                "bar",
-                "and",
-                "or",
-                "holo",
-            ],
-            contains: [
-                {
-                    className: "comment",
-                    begin: "#",
-                    end: "$",
-                },
-                {
-                    className: "operator-logical",
-                    begin: "\\b(?:na hoy|hoy|er beshi na hoy|er kom na hoy|er beshi hoy|er kom hoy|er soman na hoy|er soman hoy)\\b",
-                },
-                {
-                    className: "keyword",
-                    begin: "\\b(?:dhoro)\\b",
-                },
-                {
-                    className: "keyword",
-                    begin: "\\b(?:hi jaan|bye jaan|jodi|tahole|nahole|huh|bar|and|or|holo)\\b",
-                },
-                {
-                    className: "function",
-                    begin: "\\b(?:bolo)\\b",
-                },
-                {
-                    className: "string",
-                    begin: "'",
-                    end: "'",
-                },
-                {
-                    className: "string",
-                    begin: '"',
-                    end: '"',
-                },
-                {
-                    className: "variables",
-                    //start with a letter or underscore is mandatory
-                    begin: "\\b(?:[a-zA-Z_$][a-zA-Z0-9_$]*)\\b",
-                },
-                {
-                    className: "number",
-                    begin: "\\b(?:-?\\d+(?:\\.\\d+)?)\\b",
-                },
-                {
-                    className: "symbols",
-                    begin: "\\b(?:\\+|-|\\*|/|\\^|\\(|\\)|\\{|\\}|\\[|\\]|<|>|=|,|;|:|\\.)\\b",
-                },
-                {
-                    className: "empty-line",
-                    begin: "^$",
-                },
-            ],
-        };
-    });
 
     /*
     $: parsedCode = `<pre><code class="jaan">${hljs.highlight(textarea.value, {
@@ -296,21 +227,22 @@ bye jaan`;
         if (!isScrolling){
             const target = evt.target as HTMLElement;
             const other = target === lineNumbers ? editor : lineNumbers;
-            //log("Removed: ", other.className);
-            other.removeEventListener('scroll', syncScroll);
+            log("Removed: ", other.className);
+            other.onscroll = null;
             other.scrollTop = target.scrollTop;
             isScrolling = false;
             
-            other.onscrollend = () => {
-                //log("Again set other: ", other.className);
-                other.addEventListener('scroll', syncScroll, {passive: true});
+            target.onscrollend = () => {
+                log("Again set other: ", other.className);
+                other.onscroll = syncScroll;
             }
+
         }
     }
 
     onDestroy(() => {
-        lineNumbers.removeEventListener('scroll', syncScroll);
-        editor.removeEventListener('scroll', syncScroll);
+        lineNumbers.onscroll = null;
+        editor.onscroll = null;
     });
 
 </script>
@@ -666,7 +598,8 @@ bye jaan`;
         width: 100%;
         border-radius: 10px;
         overflow: scroll;
-        background: #35315f;
+        //background: #35315f;
+        border: 2px solid #ffffff26;
         position: relative;
         //max-width: min(900px, 100vw);
     }
@@ -686,7 +619,6 @@ bye jaan`;
         -o-tab-size: 2ch;
         tab-size: 2ch;
         color: #fff;
-        background-color: #35315f;
         position: relative;
 
         .editor,
@@ -710,7 +642,7 @@ bye jaan`;
             overflow: hidden;
             overflow-y: scroll;
             min-width: 100%;
-            height: calc(100% - 55px);
+            height: calc(100% - 45px);
         }
 
         .editor {
@@ -727,18 +659,6 @@ bye jaan`;
                 width: 100%;
                 min-width: max-content;
                 position: relative;
-            }
-
-            :global(code) {
-                //position: absolute;
-                //top: 0;
-                //left: 0;
-                display: inline-block;
-                width: max-content;
-                min-width: 100%;
-                height: max-content;
-                color: #c79a66;
-                padding: 0 5px;
             }
         }
 
@@ -779,7 +699,7 @@ bye jaan`;
 
     #output {
         //width: 100%;
-        padding: 0 20px 5px;
+        padding: 0 10px 5px;
         height: 100%;
         width: 100%;
         overflow: hidden;
@@ -811,32 +731,6 @@ bye jaan`;
                 overflow: scroll;
                 height: 100%;
             }
-
-            :global(*) {
-                font-family: monospace;
-            }
-
-            :global(.error) {
-                color: #ff4444;
-                font-family: monospace;
-                user-select: text;
-            }
-
-            :global(.run) {
-                color: #ffe044;
-                font-family: monospace;
-            }
-
-            :global(.output){
-                user-select: text;
-            }
-        }
-    }
-
-    @media screen and (min-device-aspect-ratio: 1 / 1) and (orientation: portrait)  {
-
-        #output, .editorContainer, .editorContainer .editor {
-            width: 100%;
         }
     }
 </style>
