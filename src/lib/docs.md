@@ -1,6 +1,6 @@
 ## Introduction
 
-Let's explore the basics of a custom programming language designed for simple comparisons and repetitive tasks.
+Let's explore the basics of JaanLang to do simple tasks.
 
 ## Starting program
 
