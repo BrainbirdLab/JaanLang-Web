@@ -13,8 +13,8 @@
             href: "/",
         },
         {
-            name: "Docs",
-            href: "/docs",
+            name: "Learn",
+            href: "/learn",
         },
     ];
 

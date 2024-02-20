@@ -19,10 +19,10 @@
 </svelte:head>
 
 <section in:fly|global={{ y: 10, delay: 100 }}>
-    <div class="title">
+    <h1 class="title">
         <Logo height={40} width={40} />
         About JaanLang
-    </div>
+    </h1>
     <p>
         JaanLang is a language for couples. It is designed to be a fun and easy
         way to communicate with your partner. It is inspired by the way couples
@@ -37,7 +37,7 @@
 </section>
 
 <section in:fly|global={{ y: 10, delay: 300 }}>
-    <div class="title">Installing Compiler</div>
+    <h2 class="title">Installing Compiler</h2>
     <p>
         Download <b>Node.JS</b> on your machine. Then run
         <code>npm i -g jaan</code>
@@ -45,7 +45,7 @@
 </section>
 
 <section in:fly|global={{ y: 10, delay: 400 }}>
-    <div class="title">VScode Extension</div>
+    <h2 class="title">VScode Extension</h2>
     <div class="row">
         <div class="col">
             Download the VScode extension for syntax highlighting and code
@@ -73,7 +73,6 @@
         //box-shadow: 2px 2px 5px #00000029;
 
         .title {
-            font-size: 1.5rem;
             padding: unset;
             width: 100%;
             color: ghostwhite;

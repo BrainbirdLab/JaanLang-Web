@@ -80,6 +80,7 @@ code {
     padding: 1px 3px;
     background: #ffffff29;
     border-radius: 5px;
+    user-select: text;
 }
 
 pre {
@@ -88,6 +89,32 @@ pre {
 
 h1, h2, h3, h4{
     margin: 20px 0;
+}
+
+section {
+    p{
+        color: #edededde;
+    }
+
+    h1{
+        font-size: 2.3rem;
+    }
+
+    h2{
+        font-size: 2rem;
+    }
+
+    h3{
+        font-size: 1.7rem;
+    }
+
+    h4{
+        font-size: 1.5rem;
+    }
+}
+
+h1{
+    font-size: 2rem;
 }
 
 p code{
@@ -111,6 +138,10 @@ pre{
         height: max-content;
         color: #c79a66;
         padding: 0 5px !important;
+        cursor: text;
+        * {
+            user-select: text;
+        }
     }
 }
 
