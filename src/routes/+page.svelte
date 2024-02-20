@@ -653,6 +653,7 @@ bye jaan`;
             max-width: calc(100% - 50px);
             height: 100%;
             z-index: 0;
+            margin: 0;
             line-height: var(--line-height);
 
             .inputWrapper {

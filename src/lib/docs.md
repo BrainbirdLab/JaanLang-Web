@@ -97,7 +97,7 @@ For example:
 huh
 ```
 Output:
-```output
+```txt
 Sorry
 Sorry
 Sorry
@@ -116,7 +116,7 @@ For example:
 huh
 ```
 Output:
-```
+```txt
 Sorry 1
 Sorry 2
 Sorry 3
