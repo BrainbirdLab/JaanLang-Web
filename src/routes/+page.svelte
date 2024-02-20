@@ -194,8 +194,8 @@ bye jaan`;
 
     onMount(() => {
 
-        lineNumbers.addEventListener('scroll', syncScroll);
-        editor.addEventListener('scroll', syncScroll);
+        lineNumbers.addEventListener('scroll', syncScroll, {passive: true});
+        editor.addEventListener('scroll', syncScroll, {passive: true});
 
         parsedCode = `<code class="jaan">${
             hljs.highlight(rawCode, {
@@ -303,7 +303,7 @@ bye jaan`;
             
             other.onscrollend = () => {
                 //log("Again set other: ", other.className);
-                other.addEventListener('scroll', syncScroll);
+                other.addEventListener('scroll', syncScroll, {passive: true});
             }
         }
     }
@@ -460,7 +460,7 @@ bye jaan`;
                             textAreaFocused = false;
                         }}
                         on:input={parseCode}
-                    ></textarea></div>                     
+                    ></textarea></div>
             </pre>
         </div>
     </div>
