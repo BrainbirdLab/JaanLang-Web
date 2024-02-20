@@ -466,7 +466,7 @@ bye jaan`;
     </div>
 
     {#if output}
-    <div class="output" id="output" transition:fly={{y: 10, duration: 200}}>
+    <div class="output" id="output" in:fly={{y: 50, duration: 100}} out:slide={{duration: 100}}>
         <div class="topbar">
             <div class="title">
                 Console <span class="caret"></span>
@@ -780,7 +780,7 @@ bye jaan`;
     #output {
         //width: 100%;
         padding: 0 20px 5px;
-        height: 50%;
+        height: 100%;
         width: 100%;
         overflow: hidden;
         flex-grow: 1;
@@ -789,7 +789,7 @@ bye jaan`;
         color: white;
         font-size: 0.9rem;
         background: #2b284e;
-        position: absolute;
+        //position: absolute;
         top: 50%;
 
         user-select: text;
