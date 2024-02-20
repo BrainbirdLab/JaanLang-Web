@@ -833,7 +833,7 @@ bye jaan`;
         }
     }
 
-    @media screen and (orientation: portrait) and (min-device-aspect-ratio: 1 / 1) {
+    @media screen and (min-device-aspect-ratio: 1 / 1) and (orientation: portrait)  {
 
         #output, .editorContainer, .editorContainer .editor {
             width: 100%;
