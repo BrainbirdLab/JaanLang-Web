@@ -20,16 +20,9 @@
 
 <section in:fly|global={{ y: 10, delay: 100 }}>
     <h1 class="title">
+        JaanLang
         <Logo height={40} width={40} />
-        About JaanLang
     </h1>
-    <p>
-        JaanLang is a language for couples. It is designed to be a fun and easy
-        way to communicate with your partner. It is inspired by the way couples
-        talk to each other and the way they express their love. It is a simple
-        and easy to learn language that can be used to write small programs and
-        scripts.
-    </p>
 </section>
 
 <section in:fly|global={{ y: 10, delay: 200 }}>
