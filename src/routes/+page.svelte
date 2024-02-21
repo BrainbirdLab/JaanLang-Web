@@ -550,7 +550,7 @@ bye jaan`;
         overflow-y: scroll;
         height: 100%;
         font-size: 1rem;
-        line-height: var(--line-height);
+        //line-height: var(--line-height);
         padding: 0 5px;
         border-right: 2px solid #ffffff26;
         min-width: 4.5ch;
@@ -563,6 +563,7 @@ bye jaan`;
             flex-direction: column;
             align-items: flex-end;
             justify-content: flex-start;
+            line-height: 1.1;
         }
     }
 
