@@ -125,8 +125,8 @@ bye jaan`;
 
     onMount(() => {
 
-        lineNumbers.addEventListener('scroll', syncScroll, {passive: true});
-        editor.addEventListener('scroll', syncScroll, {passive: true});
+        lineNumbers.onscroll = syncScroll;
+        editor.onscroll = syncScroll;
 
         parsedCode = `<code class="jaan">${
             hljs.highlight(rawCode, {
@@ -221,23 +221,21 @@ bye jaan`;
     let editor: HTMLPreElement;
     let lineNumbers: HTMLDivElement;
 
-    let isScrolling = false;
+    let editorScrollTop = 0;
+
+    $: {
+        if (editor) {
+            editor.scrollTop = editorScrollTop;
+        }
+
+        if (lineNumbers) {
+            lineNumbers.scrollTop = editorScrollTop;
+        }
+    }
 
     function syncScroll(evt: Event){
-        if (!isScrolling){
-            const target = evt.target as HTMLElement;
-            const other = target === lineNumbers ? editor : lineNumbers;
-            log("Removed: ", other.className);
-            other.onscroll = null;
-            other.scrollTop = target.scrollTop;
-            isScrolling = false;
-            
-            target.onscrollend = () => {
-                log("Again set other: ", other.className);
-                other.onscroll = syncScroll;
-            }
-
-        }
+        const target = evt.target as HTMLElement;
+        editorScrollTop = target.scrollTop;
     }
 
     onDestroy(() => {
