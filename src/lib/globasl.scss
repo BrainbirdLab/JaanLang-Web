@@ -51,6 +51,15 @@ pre, code {
     }
 }
 
+a {
+    text-decoration: none;
+    color: #59cbff;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+
 .outputcontent{
     * {
         font-family: monospace;
@@ -88,7 +97,7 @@ pre {
 }
 
 h1, h2, h3, h4{
-    margin: 20px 0;
+    margin: 35px 0 15px 0
 }
 
 section {

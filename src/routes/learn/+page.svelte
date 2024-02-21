@@ -29,14 +29,6 @@
     {@html marked(md)}
 </section>
 
-<section in:fly|global={{ y: 10, delay: 300 }}>
-    <h2 class="title">Installing Compiler</h2>
-    <p>
-        Download <b>Node.JS</b> on your machine. Then run
-        <code>npm i -g jaan</code>
-    </p>
-</section>
-
 <section in:fly|global={{ y: 10, delay: 400 }}>
     <h2 class="title">VScode Extension</h2>
     <div class="row">
@@ -72,21 +64,6 @@
             //color: var(--secondary-color);
         }
 
-        b {
-            font-weight: 900;
-            color: var(--secondary-color);
-        }
-
-        code {
-            background: #ffffff1f;
-            padding: 0 4px;
-            border-radius: 2px;
-            white-space: unset;
-        }
-
-        p {
-            margin-top: 0;
-        }
         .row {
             display: flex;
             flex-direction: row;
