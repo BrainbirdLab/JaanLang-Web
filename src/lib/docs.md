@@ -16,7 +16,7 @@ hi jaan
 bye jaan
 ```
 
-## Variable Declaration 📝
+## Variables 📝
 
 To declare a variable, you can use the `dhoro` keyword followed by the variable name and its value:
 
@@ -27,7 +27,7 @@ dhoro tmrCG holo 3.2
 dhoro amrCG holo 3.8
 ```
 
-## Conditional Statements 🤔
+## Conditions 🤔
 
 ### If condition 🤔
 To perform a task if a condition is true, you can use the `jodi` keyword and end the block with `huh`:
@@ -66,9 +66,13 @@ Example: `tmrCG jodi 3.2 na hoy` - if `tmrCG` is not equal to `3.2`.
 
 #### Multiple conditions 😐
 Use `and` or `or` to check for multiple conditions. 
-Example: `tmrCG jodi 3.2 er beshi hoy and amrCG jodi 3.8 er kom hoy` - if `tmrCG` is greater than `3.2` and `amrCG` is less than `3.8`.
+Example: 
+```jaan
+tmrCG jodi 3.2 er beshi hoy and amrCG jodi 3.8 er kom hoy
+```
+> if `tmrCG` is greater than `3.2` and `amrCG` is less than `3.8`.
 
-### Else condition 🙎‍♂️
+### Else 🙎‍♂️
 To perform a task if a condition is false, you can use the `nahole` keyword and end the block with `huh`. But you must use `jodi` before using `nahole`:
 
 For example:
@@ -80,7 +84,7 @@ nahole
 huh
 ```
 
-### Else if condition 💁‍♂️
+### Else if 💁‍♂️
 To check for multiple conditions, you can use the `nahole jodi` keyword like `else if` in other programming languages:
 
 For example:

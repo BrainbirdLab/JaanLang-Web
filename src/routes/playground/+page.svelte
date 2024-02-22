@@ -567,6 +567,7 @@
             z-index: 0;
             margin: 0;
             line-height: var(--line-height);
+            background: none;
 
             .inputWrapper {
                 width: 100%;
