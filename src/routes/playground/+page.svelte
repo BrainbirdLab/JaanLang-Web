@@ -39,6 +39,8 @@
         //originalConsoleLog(...args); // Optionally keep logging to the dev console
     };
 
+    let runTimeOut: number;
+
     async function parseCode() {
         await tick();
         const syntaxedCode = hljs.highlight(textarea.value, {
@@ -46,24 +48,34 @@
         }).value;
         //textarea.value = text;
         parsedCode = `<code class="jaan">${syntaxedCode}</code>`;
+
+        clearTimeout(runTimeOut);
+
+        runTimeOut = setTimeout(() => {
+            runCode(false);
+        }, 1000);
     }
 
     let outputTerminal: HTMLDivElement;
 
-    async function runCode() {
+    let highlightedLineError: string;
 
-        
+    let showTerminal = false;
+
+    async function runCode(showOutput: boolean = true) {
+
         errorLine = 0;
         runState = "Compiling...";
         capturedOutput.length = 0;
         capturedOutput = [];
         output = "<div class='run'>Compiling...</div>";
-        await tick();
-        //log(textarea.value);
-        outputTerminal.scrollIntoView({ behavior: "smooth" });
 
         try {
-            compiledCode = compile(textarea.value, false);
+            //new instance of the compile function
+            //clone the function to avoid memory leaks
+            //log("text area value", textarea.value);
+            const compiledCode = compile(textarea.value);
+            //log(compiledCode);
             new Function(compiledCode)();
             //originalConsoleLog("Hi");
             output +=
@@ -78,13 +90,29 @@
             let line = msg.match(/line (\d+)/);
             if (line) {
                 errorLine = parseInt(line[1]);
+                highlightedLineError = msg.split("\n").filter((line) => line.includes("~"))[0];
+                highlightedLineError = highlightedLineError.split(" ").map((word) => {
+                    if (word.includes("~")) {
+                        return `<span class="error-token">${word}</span>`;
+                    }
+                    return word;
+                }).join(" ");
+                const previousWhitespaceOnLine = textarea.value.split("\n")[errorLine - 1].match(/^\s*/)?.[0] || "";
+                highlightedLineError = previousWhitespaceOnLine + highlightedLineError;
+                log(highlightedLineError);
             } else {
                 msg = "Runtime error: " + msg;
             }
 
             output += "<div class='error'>" + msg + "</div>";
+        } finally {
+            if (showOutput){
+                showTerminal = true;
+            }
+            await tick();
+            runState = "Run";
+            outputTerminal.scrollIntoView({ behavior: "smooth" });
         }
-        runState = "Run";
     }
 
     let textAreaFocused = false;
@@ -98,6 +126,8 @@
     }
 
     let currentLine: number = 0;
+
+    let selection = "";
 
     function getCurrentLineNumber(event: Event) {
         requestAnimationFrame(() => {
@@ -123,6 +153,7 @@
         //run code on ctrl+enter
         if (e.key === "Enter" && e.ctrlKey) {
             e.preventDefault();
+            clearTimeout(runTimeOut);
             runCode();
         }
 
@@ -171,7 +202,10 @@
                 <button
                     title="Ctrl+Enter"
                     class="run"
-                    on:click={runCode}
+                    on:click={() => {
+                        clearTimeout(runTimeOut);
+                        runCode();
+                    }}
                 >
                     {#if runState === "Compiling..."}
                         <i class="fa-solid fa-spinner"></i>
@@ -243,18 +277,35 @@
                         on:keydown={getCurrentLineNumber}
                         on:mousedown={getCurrentLineNumber}
                         on:focus={() => {
+                            log("focus");
                             textAreaFocused = true;
                         }}
                         on:blur={() => {
+                            log("blur");
                             textAreaFocused = false;
                         }}
                         on:input={parseCode}
                     ></textarea></div>
             </pre>
+            <div class="line-shadows">
+                {#each rawCode.split("\n") as _, i}
+                    <span
+                        class="line"
+                        data-line={i + 1}
+                        class:error={errorLine == i + 1}
+                        class:currentLine={currentLine == i + 1}
+                        class:noSelection={selection.length == 0}
+                    >
+                {#if errorLine === i + 1}
+                    {@html highlightedLineError}
+                {/if}
+                </span>
+                {/each}
+            </div>
         </div>
     </div>
 
-    {#if output}
+    {#if showTerminal}
     <div class="output" id="output" in:fly={{y: 50, duration: 100}} out:slide={{duration: 100}}>
         <div class="topbar">
             <div class="title">
@@ -272,6 +323,7 @@
                     class="clear"
                     on:click={() => {
                         output = "";
+                        showTerminal = false;
                     }}><i class="fa-solid fa-trash"></i></button
                 >
             </div>
@@ -360,6 +412,41 @@
 
         &:hover {
             filter: brightness(0.9);
+        }
+    }
+
+    .line-shadows{
+        position: absolute;
+        display: flex;
+        right: 0;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        width: calc(100% - 50px);
+        padding: 0 5px;
+        height: 100%;
+        pointer-events: none;
+        white-space: pre;
+        .line{
+            height: var(--line-height);
+            min-height: var(--line-height);
+            
+            font-family: monospace !important;
+            
+            :global(.error-token){
+                color: #ff3737;
+                bottom: -8px;
+                position: relative;
+            }
+
+            * {
+                font-family: monospace !important;
+            }
+            
+            &.currentLine.noSelection {
+                background: #ffffff0f;
+            }
+            
         }
     }
 
@@ -516,7 +603,7 @@
         }
 
         ::selection {
-            background: #ffffff2f;
+            background: #ffffff0f;
             color: rgba(255, 255, 255, 0);
         }
     }
@@ -534,7 +621,7 @@
         font-size: 0.9rem;
         background: #15132a;
         //position: absolute;
-        top: 50%;
+        border-radius: inherit;
 
         user-select: text;
 

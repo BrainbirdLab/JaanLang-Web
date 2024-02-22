@@ -12,7 +12,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'thin';
     user-select: none;
     scrollbar-width: none;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -47,6 +46,7 @@ body{
     justify-content: center;
     min-height: 100vh;
     overscroll-behavior-y: none;
+    font-family: 'thin';
 }
 
 pre, code {
