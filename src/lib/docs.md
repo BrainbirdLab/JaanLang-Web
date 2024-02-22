@@ -70,7 +70,7 @@ Example:
 ```jaan
 tmrCG jodi 3.2 er beshi hoy and amrCG jodi 3.8 er kom hoy
 ```
-> if `tmrCG` is greater than `3.2` and `amrCG` is less than `3.8`.
+if `tmrCG` is greater than `3.2` and `amrCG` is less than `3.8`.
 
 ### Else 🙎‍♂️
 To perform a task if a condition is false, you can use the `nahole` keyword and end the block with `huh`. But you must use `jodi` before using `nahole`:
@@ -109,13 +109,12 @@ For example:
 huh
 ```
 Output:
-```txt
+
+> Sorry
 Sorry
 Sorry
 Sorry
 Sorry
-Sorry
-```
 
 Here, the program will print "Sorry" 5 times.
 
@@ -128,13 +127,12 @@ For example:
 huh
 ```
 Output:
-```txt
-Sorry 1
+> Sorry 1
 Sorry 2
 Sorry 3
 Sorry 4
 Sorry 5
-```
+
 
 Here, the program will print "Sorry" followed by the counter variable 5 times.
 ### Happy Coding! 😊
@@ -143,8 +141,8 @@ Here, the program will print "Sorry" followed by the counter variable 5 times.
 ## Installation
 Install Node.js and npm from [here](https://nodejs.org/en/download/).
 
-> Run `npm install -g jaan` to install JaanLang compiler globally.
+Run `npm install -g jaan` to install JaanLang compiler globally.
 
 You can the use `jaan` command to compile and run JaanLang programs.
 
-> Run `jaan -h` to see the help menu.
+Run `jaan -h` to see the help menu.

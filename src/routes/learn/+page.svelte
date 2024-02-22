@@ -36,6 +36,8 @@
         overflow-y: scroll;
         line-height: 1.5;
         //box-shadow: 2px 2px 5px #00000029;
+
+        user-select: text;
     }
 
 </style>
