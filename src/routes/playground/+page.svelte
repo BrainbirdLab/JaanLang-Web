@@ -426,7 +426,10 @@
             
             :global(.error-token){
                 color: #ff3737;
-                bottom: -8px;
+                display: inline-block;
+                transform: rotate(180deg);
+                height: 35px;
+                top: -8px;
                 position: relative;
             }
 
@@ -436,6 +439,10 @@
             
             &.currentLine.noSelection {
                 background: #ffffff0f;
+            }
+
+            &:hover{
+                background: #ff6c6cc1;
             }
             
         }
