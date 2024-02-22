@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onDestroy, onMount, tick } from "svelte";
+    import { onMount, tick } from "svelte";
     //import {highlight} from '$lib/index';
     import hljs from "$lib/lib";
     import { compile } from "jaan/compiler";
@@ -7,143 +7,12 @@
     import { fly, slide } from "svelte/transition";
     import { showToastMessage } from "domtoastmessage";
 
-    /**
-{
-	"scopeName": "source.jaan",
-	"patterns": [
-		{
-			"include": "#comments"
-		},
-		{
-			"include": "#numbers"
-		},
-		{
-			"include": "#operator-logical"
-		},
-		{
-			"include": "#reservedKeywords"
-		},
-		{
-			"include": "#conditionalKeywords"
-		},
-		{
-			"include": "#functions"
-		},
-		{
-			"include": "#strings-single"
-		},
-		{
-			"include": "#strings-double"
-		},
-		{
-			"include": "#variables"
-		}
-	],
-	"repository": {
-		"comments": {
-			"patterns": [
-				{
-					"name": "comment.line.jaan",
-					"match": "#.*$"
-				}
-			]
-		},
-		"operator-logical": {
-			"name": "support.function.jaan",
-			"match": "\\b(?:na hoy|hoy|er beshi na hoy|er kom na hoy|er beshi hoy|er kom hoy|er soman na hoy|er soman hoy)\\b"
-		},
-		"reservedKeywords": {
-			"name": "keyword.reserved.jaan",
-			"match": "\\b(?:dhoro)\\b"
-		},
-		"conditionalKeywords": {
-			"name": "keyword.control.jaan",
-			"match": "\\b(?:hi jaan|bye jaan|jodi|tahole|nahole|huh|bar|and|or|holo)\\b"
-		},
-		"functions": {
-			"name": "entity.name.function.jaan",
-			"match": "\\b(?:bolo)\\b"
-		},
-		"strings-single": {
-			"name": "string.quoted.single.jaan",
-			"begin": "'",
-			"end": "'"
-		},
-		"strings-double": {
-			"name": "string.quoted.double.jaan",
-			"begin": "\"",
-			"end": "\""
-		},
-		"variables": {
-			"name": "variable.constant.jaan",
-			"match": "\\b(?:[a-zA-Z0-9_$]+)\\b"
-		},
-		"numbers": {
-			"name": "constant.numeric.jaan",
-			"match": "\\b(?:-?\\d+(?:\\.\\d+)?)\\b"
-		},
-		"symbols": {
-			"name": "punctuation.definition.symbol.jaan",
-			"match": "\\b(?:\\+|-|\\*|/|\\^|\\(|\\)|\\{|\\}|\\[|\\]|<|>|=|,|;|:|\\.)\\b"
-		}
-	}
-}
- */
-
-    /*
-    $: parsedCode = `<pre><code class="jaan">${hljs.highlight(textarea.value, {
-        language: 'jaan'
-    }).value}</code></pre>`;
-    $: console.log(textarea.value);
-    */
+    import exampleCode from "$lib/source.jaan?raw";
 
     let parsedCode: string = "";
     let textarea: HTMLTextAreaElement;
 
-    $: rawCode = `hi jaan
-
-
-
-
-
-
-
-  #declare a variable
-  dhoro tmrCG holo 3.2
-  dhoro amrCG holo 3.8
-
-
-
-
-
-
-
-
-
-
-  
-  #check if tmrCG is greater than amrCG
-  amrCG jodi tmrCG er beshi hoy tahole
-    bolo "I love you"
-  nahole
-    bolo "Breakup!!"
-  huh
-
-
-
-
-
-
-
-
-
-  
-  #say sorry 5 times. '$' is a counter variable
-  5 bar
-    bolo "Sorry " + $
-  huh
-
-bye jaan`;
+    $: rawCode = exampleCode;
 
     let compiledCode: string = "";
     let output: string = "";
@@ -190,7 +59,7 @@ bye jaan`;
         output = "<div class='run'>Compiling...</div>";
         //await tick();
         //log(textarea.value);
-        //outputTerminal.scrollIntoView({ behavior: "smooth" });
+        outputTerminal.scrollIntoView({ behavior: "smooth" });
 
         try {
             compiledCode = compile(textarea.value, false);

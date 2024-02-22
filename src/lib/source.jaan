@@ -1,0 +1,19 @@
+hi jaan
+
+  #declare a variable
+  dhoro tmrCG holo 3.2
+  dhoro amrCG holo 3.8
+ 
+  #check if tmrCG is greater than amrCG
+  amrCG jodi tmrCG er beshi hoy tahole
+    bolo "I love you"
+  nahole
+    bolo "Breakup!!"
+  huh
+
+  #say sorry 5 times. '$' is a counter variable
+  5 bar
+    bolo "Sorry " + $
+  huh
+
+bye jaan
