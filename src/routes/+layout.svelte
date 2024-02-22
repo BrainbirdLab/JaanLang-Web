@@ -70,7 +70,7 @@
 
         height: 100vh;
         width: 100%;
-        background: ghostwhite;
+        background: #1b1930;
         color: #282c34;
         font-size: 1rem;
     }
