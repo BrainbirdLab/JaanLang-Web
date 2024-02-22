@@ -419,7 +419,7 @@
         width: 100%;
         min-height: 400px;
         border-radius: 10px;
-        overflow: scroll;
+        //overflow: scroll;
         //background: #35315f;
         border: 2px solid #ffffff26;
         position: relative;
