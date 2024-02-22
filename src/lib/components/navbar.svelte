@@ -2,6 +2,7 @@
     import { onNavigate } from "$app/navigation";
     import { currentPage } from "$lib/store";
     import { fly } from "svelte/transition";
+    import Logo from "./logo.svelte";
 
     onNavigate(() => {
         currentPage.set(window.location.pathname);
@@ -24,7 +25,8 @@
 
 </script>
 
-<div class="navbar" in:fly={{ x: 20, delay: 200 }}>
+<div class="navbar" in:fly={{ x: 20, delay: 200 }} >
+    <Logo height={30} width={30} />
     <div class="menu">
         {#each navLinks as menu}
             <a href={menu.href} class:active={$currentPage === menu.href}>
@@ -40,18 +42,19 @@
 <style lang="scss">
     .navbar {
         width: 100%;
+        height: 50px;
         padding: 10px;
         background: inherit;
         z-index: 2;
         display: flex;
-        justify-content: flex-end;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .menu {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
     }
 
     .menu a {

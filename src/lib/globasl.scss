@@ -31,6 +31,7 @@
 :root {
     --secondary-color: #59cbff;
     --line-height: 20px;
+    --button-bg-degree: 45deg;
 }
 
 //image drag disable
@@ -53,6 +54,35 @@ pre, code {
     * {
         font-family: monospace;
     }
+}
+
+.flex{
+    display: flex;
+}
+
+.center{
+    align-items: center;
+    justify-content: center;
+}
+
+.column{
+    flex-direction: column;
+}
+
+.gap {
+    gap: 10px;
+}
+
+.row{
+    flex-direction: row;
+}
+
+.pink {
+    color: #ffa8c6;
+}
+
+.blue {
+    color: #59cbff;
 }
 
 a {

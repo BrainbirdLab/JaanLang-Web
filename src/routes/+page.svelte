@@ -1,6 +1,6 @@
 <script lang="ts">
     import { fade, fly } from "svelte/transition";
-    import Logo from "$lib/components/logo.svelte";
+    import TextedLogo from "$lib/components/textedLogo.svelte";
 
     const compilerVersion = __VERSION__;
 </script>
@@ -10,19 +10,16 @@
     <title>JaanLang</title>
 </svelte:head>
 
-
-<h1 class="bold head" in:fly|global={{ y: -10, delay: 100 }}>
-    <Logo height={40} width={40} />
+<div class="center flex column" in:fly|global={{ y: -10, delay: 100 }}>
     <div class="name">
-        <div class="nameContainer">
-            <span class="pink">Jaan</span><span class="blue">Lang</span>
-        </div>
-        <div class="info">
-            <div class="version">v.{compilerVersion}</div>
-            Free and Open Source
-        </div>
+        <span class="pink">Jaan</span><span class="blue">Lang</span>
     </div>
-</h1>
+    <div class="info">
+        <div class="version">v.{compilerVersion}</div>
+        Free and Open Source
+    </div>
+</div>
+
 
 <span class="sub-title center" in:fly={{x: -10, delay: 200}}>A programming language for couples</span>
 <div class="more center" in:fade={{delay: 250}}>
@@ -49,31 +46,14 @@
 
 
 <style lang="scss">
-    .pink {
-        color: #ffa8c6;
-    }
 
-    .blue {
-        color: #59cbff;
-    }
-
-    
-    .bold,
-    .name {
-        position: inherit;
-        font-size: 1.2rem;
-    }
-    
     .name{
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
-        gap: 5px;
-    }
-    
-    .nameContainer{
-        font-family: "Bold";
+        margin-top: 50px;
+        font-size: 2rem;
         * {
             font-family: "Bold";
         }
@@ -109,26 +89,17 @@
         color: #ffffff !important;
         font-family: "thin";
         line-height: 1;
-        max-width: 800px;
-        font-size: 5rem !important;
+        max-width: min(800px, 98vw);
+        font-size: 15vw !important;
         text-align: center;
     }
 
     .more{
-        font-size: 1.1rem;
+        font-size: min(4.5vw, 1.1rem);
         max-width: 600px;
         color: #ababab;
         text-align: center;
         padding: 10px 0;
-    }
-    
-    .head {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.2rem;
-        position: relative;
     }
 
     .sub-title {
@@ -177,7 +148,8 @@
         padding: 15px 20px;
         border-radius: 10px;
         font-size: 1rem;
-        background: #3ebbff;
+        background: #59cbff;
+        animation: rotateBgDegree 100ms infinite;
         outline: none;
         border: none;
         cursor: pointer;
@@ -191,6 +163,7 @@
             filter: brightness(0.9);
         }
     }
+
     //on mobile ratio, make it column
     @media screen and (orientation: portrait){
         section .row{
