@@ -99,7 +99,6 @@
                 }).join(" ");
                 const previousWhitespaceOnLine = textarea.value.split("\n")?.[errorLine - 1].match(/^\s*/)?.[0] || "";
                 highlightedLineError = previousWhitespaceOnLine + highlightedLineError;
-                log(highlightedLineError);
             } else {
                 msg = "Runtime error: " + msg;
             }
@@ -276,14 +275,6 @@
                         bind:value={rawCode}
                         on:keydown={getCurrentLineNumber}
                         on:mousedown={getCurrentLineNumber}
-                        on:focus={() => {
-                            log("focus");
-                            textAreaFocused = true;
-                        }}
-                        on:blur={() => {
-                            log("blur");
-                            textAreaFocused = false;
-                        }}
                         on:input={parseCode}
                     ></textarea></div>
             </pre>
