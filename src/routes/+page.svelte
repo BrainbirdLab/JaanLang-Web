@@ -518,6 +518,7 @@
             width: 100%;
             max-width: calc(100% - 50px);
             height: max-content;
+            min-height: 100%;
             z-index: 0;
             margin: 0;
             line-height: var(--line-height);
