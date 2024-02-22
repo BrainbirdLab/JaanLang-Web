@@ -74,7 +74,7 @@
             //new instance of the compile function
             //clone the function to avoid memory leaks
             //log("text area value", textarea.value);
-            const compiledCode = compile(textarea.value);
+            const compiledCode = compile(textarea.value, false);
             //log(compiledCode);
             new Function(compiledCode)();
             //originalConsoleLog("Hi");
@@ -90,14 +90,14 @@
             let line = msg.match(/line (\d+)/);
             if (line) {
                 errorLine = parseInt(line[1]);
-                highlightedLineError = msg.split("\n").filter((line) => line.includes("~"))[0];
-                highlightedLineError = highlightedLineError.split(" ").map((word) => {
+                highlightedLineError = msg.split("\n").filter((line) => line.includes("~"))[0] || "";
+                highlightedLineError = highlightedLineError.split(" ")?.map((word) => {
                     if (word.includes("~")) {
                         return `<span class="error-token">${word}</span>`;
                     }
                     return word;
                 }).join(" ");
-                const previousWhitespaceOnLine = textarea.value.split("\n")[errorLine - 1].match(/^\s*/)?.[0] || "";
+                const previousWhitespaceOnLine = textarea.value.split("\n")?.[errorLine - 1].match(/^\s*/)?.[0] || "";
                 highlightedLineError = previousWhitespaceOnLine + highlightedLineError;
                 log(highlightedLineError);
             } else {
@@ -108,10 +108,10 @@
         } finally {
             if (showOutput){
                 showTerminal = true;
+                await tick();
+                outputTerminal.scrollIntoView({ behavior: "smooth" });
             }
-            await tick();
             runState = "Run";
-            outputTerminal.scrollIntoView({ behavior: "smooth" });
         }
     }
 
@@ -261,7 +261,7 @@
                         <span
                             class="line-number"
                             data-line={i + 1}
-                            class:error={errorLine == i + 1}
+                            class:error={errorLine == i + 1 && rawCode.length > 0}
                             class:currentLine={currentLine == i + 1}
                         ></span>
                     {/each}
@@ -292,7 +292,7 @@
                     <span
                         class="line"
                         data-line={i + 1}
-                        class:error={errorLine == i + 1}
+                        class:error={errorLine == i + 1 && rawCode.length > 0}
                         class:currentLine={currentLine == i + 1}
                         class:noSelection={selection.length == 0}
                     >
