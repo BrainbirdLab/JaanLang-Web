@@ -50,14 +50,14 @@
 
     let outputTerminal: HTMLDivElement;
 
-    function runCode() {
+    async function runCode() {
 
         
         errorLine = 0;
         runState = "Compiling...";
         capturedOutput.length = 0;
         output = "<div class='run'>Compiling...</div>";
-        //await tick();
+        await tick();
         //log(textarea.value);
         outputTerminal.scrollIntoView({ behavior: "smooth" });
 
