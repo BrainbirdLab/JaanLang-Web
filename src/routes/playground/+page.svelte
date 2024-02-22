@@ -3,7 +3,6 @@
     //import {highlight} from '$lib/index';
     import hljs from "$lib/lib";
     import { compile } from "jaan/compiler";
-    import Logo from "$lib/components/logo.svelte";
     import { fly, slide } from "svelte/transition";
     import { showToastMessage } from "domtoastmessage";
 
@@ -62,26 +61,31 @@
 
     let showTerminal = false;
 
+    let fun: Function;
+
     async function runCode(showOutput: boolean = true) {
 
         errorLine = 0;
         runState = "Compiling...";
         capturedOutput.length = 0;
         capturedOutput = [];
-        output = "<div class='run'>Compiling...</div>";
+
+        showOutput ? output = "<div class='run'>Compiling...</div>" : null;
 
         try {
             //new instance of the compile function
             //clone the function to avoid memory leaks
             //log("text area value", textarea.value);
+            await tick();
             const compiledCode = compile(textarea.value, false);
             //log(compiledCode);
-            new Function(compiledCode)();
+            fun = new Function(compiledCode);
+            fun();
             //originalConsoleLog("Hi");
-            output +=
+            showOutput ? output +=
                 "Output &gt;<div class='output'>" +
                 capturedOutput.join("\n") +
-                "</div>";
+                "</div>" : null;
         } catch (error) {
             //console.error(error);
             let msg = (error as Error).message;
@@ -103,7 +107,7 @@
                 msg = "Runtime error: " + msg;
             }
 
-            output += "<div class='error'>" + msg + "</div>";
+            showOutput ? output += "<div class='error'>" + msg + "</div>" : null;
         } finally {
             if (showOutput){
                 showTerminal = true;
