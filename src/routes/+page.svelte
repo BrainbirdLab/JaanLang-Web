@@ -102,9 +102,25 @@
 
     $: rawCode = `hi jaan
 
+
+
+
+
+
+
   #declare a variable
   dhoro tmrCG holo 3.2
   dhoro amrCG holo 3.8
+
+
+
+
+
+
+
+
+
+
   
   #check if tmrCG is greater than amrCG
   amrCG jodi tmrCG er beshi hoy tahole
@@ -112,6 +128,15 @@
   nahole
     bolo "Breakup!!"
   huh
+
+
+
+
+
+
+
+
+
   
   #say sorry 5 times. '$' is a counter variable
   5 bar
@@ -124,9 +149,6 @@ bye jaan`;
     let output: string = "";
 
     onMount(() => {
-
-        lineNumbers.onscroll = syncScroll;
-        editor.onscroll = syncScroll;
 
         parsedCode = `<code class="jaan">${
             hljs.highlight(rawCode, {
@@ -217,31 +239,6 @@ bye jaan`;
             currentLine = lineNumber;
         });
     }
-
-    let editor: HTMLPreElement;
-    let lineNumbers: HTMLDivElement;
-
-    let editorScrollTop = 0;
-
-    $: {
-        if (editor) {
-            editor.scrollTop = editorScrollTop;
-        }
-
-        if (lineNumbers) {
-            lineNumbers.scrollTop = editorScrollTop;
-        }
-    }
-
-    function syncScroll(evt: Event){
-        const target = evt.target as HTMLElement;
-        editorScrollTop = target.scrollTop;
-    }
-
-    onDestroy(() => {
-        lineNumbers.onscroll = null;
-        editor.onscroll = null;
-    });
 
 </script>
 
@@ -362,7 +359,7 @@ bye jaan`;
             </div>
         </div>
         <div class="parent">
-            <div class="line-numbers" bind:this={lineNumbers}>
+            <div class="line-numbers">
                 <div class="line-content">
                     {#each rawCode.split("\n") as _, i}
                         <span
@@ -374,7 +371,7 @@ bye jaan`;
                     {/each}
                 </div>
             </div>
-            <pre class="editor" bind:this={editor}><div class="inputWrapper">{@html parsedCode}<textarea
+            <pre class="editor"><div class="inputWrapper">{@html parsedCode}<textarea
                         aria-hidden="true"
                         placeholder="# Write your code here"
                         class="textarea codeArea"
@@ -548,7 +545,7 @@ bye jaan`;
         justify-content: flex-start;
         width: min-content;
         overflow-y: scroll;
-        height: 100%;
+        height: max-content;
         font-size: 1rem;
         //line-height: var(--line-height);
         padding: 0 5px;
@@ -650,7 +647,7 @@ bye jaan`;
             overflow: scroll;
             width: 100%;
             max-width: calc(100% - 50px);
-            height: 100%;
+            height: max-content;
             z-index: 0;
             margin: 0;
             line-height: var(--line-height);
