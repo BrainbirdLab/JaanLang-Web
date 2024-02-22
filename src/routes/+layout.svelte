@@ -83,7 +83,7 @@
         overflow: hidden;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         
         .main{
             height: 100%;

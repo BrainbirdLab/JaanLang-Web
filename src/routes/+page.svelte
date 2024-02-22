@@ -461,6 +461,7 @@
         //flex-wrap: wrap;
         flex-grow: 1;
         width: 100%;
+        min-height: 400px;
         border-radius: 10px;
         overflow: scroll;
         //background: #35315f;
