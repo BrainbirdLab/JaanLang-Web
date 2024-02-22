@@ -90,7 +90,7 @@
         font-family: "thin";
         line-height: 1;
         max-width: min(800px, 98vw);
-        font-size: 15vw !important;
+        font-size: min(5rem, 15vw) !important;
         text-align: center;
     }
 
