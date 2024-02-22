@@ -427,9 +427,9 @@
             :global(.error-token){
                 color: #ff3737;
                 display: inline-block;
-                transform: rotate(180deg);
-                height: 35px;
-                top: -8px;
+                //transform: rotate(180deg);
+                height: 20px;
+                bottom: -8px;
                 position: relative;
             }
 
