@@ -531,7 +531,7 @@
         font-family: monospace;
         color: white;
         font-size: 0.9rem;
-        background: #2b284e;
+        background: #15132a;
         //position: absolute;
         top: 50%;
 
