@@ -29,7 +29,7 @@
     JaanLang is a fun and simple programming language implemented in TypeScript. It is designed to be easy to learn and use.
 </div>
 
-<a href="https://www.npmjs.com/package/jaan" target="_blank" class="button">Install now <i class="fa-solid fa-chevron-right"></i> </a>
+<a in:fly={{y: 10, delay: 300}} href="https://www.npmjs.com/package/jaan" target="_blank" class="button">Install now <i class="fa-solid fa-chevron-right"></i> </a>
 
 <section in:fly|global={{ y: 10, delay: 400 }}>
     <h2 class="title">VScode Extension</h2>
