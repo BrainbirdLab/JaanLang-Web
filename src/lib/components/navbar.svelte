@@ -9,8 +9,12 @@
 
     const navLinks = [
         {
-            name: "Plaground",
+            name: "Home",
             href: "/",
+        },
+        {
+            name: "Playground",
+            href: "/playground",
         },
         {
             name: "Learn",

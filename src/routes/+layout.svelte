@@ -5,8 +5,8 @@
     import { showToastMessage } from "domtoastmessage";
     import { onMount } from "svelte";
     import { fade } from "svelte/transition";
-    import Logo from "./logo.svelte";
-    import Navbar from "./navbar.svelte";
+    import Logo from "$lib/components/logo.svelte";
+    import Navbar from "$lib/components/navbar.svelte";
     import { currentPage } from "$lib/store";
 
     async function detectSWUpdate(){
@@ -84,6 +84,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
+        color: ghostwhite;
         
         .main{
             height: 100%;

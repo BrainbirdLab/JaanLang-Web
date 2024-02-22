@@ -1,6 +1,6 @@
 <script lang="ts">
     import { fly } from "svelte/transition";
-    import Logo from "../logo.svelte";
+    import Logo from "../../lib/components/logo.svelte";
     import { marked } from "marked";
     import { onMount } from "svelte";
     import hljs from "$lib/lib";
@@ -29,22 +29,6 @@
     {@html marked(md)}
 </section>
 
-<section in:fly|global={{ y: 10, delay: 400 }}>
-    <h2 class="title">VScode Extension</h2>
-    <div class="row">
-        <div class="col">
-            Download the VScode extension for syntax highlighting and code
-            snippets. Click download to go to the official marketplace page. Or
-            search on the VScode Extenstions tab.
-            <a
-                href="https://marketplace.visualstudio.com/items?itemName=JaanLang.jaanlang"
-                target="_blank">Download</a
-            >
-        </div>
-        <img src="/ss.png" alt="Cover of VScode Extension" />
-    </div>
-</section>
-
 <style lang="scss">
     section {
         padding: 20px;
@@ -63,54 +47,6 @@
             color: ghostwhite;
             //color: var(--secondary-color);
         }
-
-        .row {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
-
-        .col {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        img {
-            border-radius: 10px;
-            max-width: 100%;
-            width: 400px;
-        }
-
-        a {
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 1rem;
-            background: #3ebbff;
-            outline: none;
-            border: none;
-            cursor: pointer;
-            color: white;
-            box-shadow: 2px 2px 5px #00000029;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 10px;
-
-            &:hover {
-                filter: brightness(0.9);
-            }
-        }
     }
 
-
-    //on mobile ratio, make it column
-    @media screen and (orientation: portrait){
-        section .row{
-            flex-direction: column;
-            align-items: flex-start;
-        }
-    }
 </style>
