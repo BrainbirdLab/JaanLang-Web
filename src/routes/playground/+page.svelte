@@ -29,7 +29,7 @@
     let runState = "Run";
 
     // Redirect console output to a variable
-    const capturedOutput: string[] = [];
+    let capturedOutput: string[] = [];
     const log = console.log;
 
     let errorLine = 0;
@@ -56,6 +56,7 @@
         errorLine = 0;
         runState = "Compiling...";
         capturedOutput.length = 0;
+        capturedOutput = [];
         output = "<div class='run'>Compiling...</div>";
         await tick();
         //log(textarea.value);
