@@ -1,10 +1,10 @@
 {
-    "name": "JaanLang code playground",
-    "short_name": "Jaan Play",
+    "name": "JaanLang Code",
+    "short_name": "Jaan Code",
     "start_url": "./",
     "display": "standalone",
-    "background_color": "#0b1d37",
-    "theme_color": "#0b1d37",
+    "background_color": "#1b1930",
+    "theme_color": "#1b1930",
     "scope": "./",
     "description": "JaanLang code playground. Learn, write and run JaanLang code in your device.",
     "icons": [
