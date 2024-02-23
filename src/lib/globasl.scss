@@ -132,6 +132,10 @@ code {
     user-select: text;
 }
 
+.pad-top{
+    margin-top: 50px;
+}
+
 blockquote {
     white-space: pre;
     margin: 10px 0;
@@ -147,7 +151,7 @@ pre {
     margin: 10px 0;
     overflow-x: scroll;
     background: #ffffff0a;
-    padding: 15px 0 0 5px;
+    padding: 20px 0 0 5px;
 }
 
 h1, h2, h3, h4{

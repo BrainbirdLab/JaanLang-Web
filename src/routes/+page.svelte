@@ -1,6 +1,7 @@
 <script lang="ts">
     import { fade, fly } from "svelte/transition";
     import TextedLogo from "$lib/components/textedLogo.svelte";
+    import Logo from "$lib/components/logo.svelte";
 
     const compilerVersion = __VERSION__;
 </script>
@@ -10,9 +11,12 @@
     <title>JaanLang</title>
 </svelte:head>
 
-<div class="center flex column" in:fly|global={{ y: -10, delay: 100 }}>
-    <div class="name">
-        <span class="pink">Jaan</span><span class="blue">Lang</span>
+<div class="center flex column pad-top" in:fly|global={{ y: -10, delay: 100 }}>
+    <div class="flex column center">
+        <Logo />
+        <div class="name">
+            <span class="pink">Jaan</span><span class="blue">Lang</span>
+        </div>
     </div>
     <div class="info">
         <div class="version">v.{compilerVersion}</div>
@@ -26,7 +30,7 @@
     JaanLang is a fun and simple programming language implemented in TypeScript. It is designed to be easy to learn and use.
 </div>
 
-<a in:fly={{y: 10, delay: 300}} href="https://www.npmjs.com/package/jaan" target="_blank" class="button">Install now <i class="fa-solid fa-chevron-right"></i> </a>
+<a in:fly={{y: 10, delay: 300}} href="https://www.npmjs.com/package/jaan" target="_blank" class="button">Install compiler <i class="fa-solid fa-chevron-right"></i> </a>
 
 <section in:fly|global={{ y: 10, delay: 400 }}>
     <h2 class="title">VScode Extension</h2>
@@ -52,7 +56,6 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        margin-top: 50px;
         font-size: 2rem;
         * {
             font-family: "Bold";
@@ -148,8 +151,9 @@
         padding: 15px 20px;
         border-radius: 10px;
         font-size: 1rem;
-        background: #59cbff;
-        animation: rotateBgDegree 100ms infinite;
+        background: linear-gradient(45deg, #2bbdff, #ff689b);
+        background-size: 500% 500%;
+        animation: rotateBgDegree 15s ease infinite;
         outline: none;
         border: none;
         cursor: pointer;
@@ -161,6 +165,18 @@
 
         &:hover {
             filter: brightness(0.9);
+        }
+    }
+
+    @keyframes rotateBgDegree {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
         }
     }
 
