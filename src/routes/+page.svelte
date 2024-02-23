@@ -50,7 +50,7 @@
                 </a
             >
         </div>
-        <div class="border-animate shadow-bg">
+        <div class="border-animate shadow-bg image-wrapper">
             <img class="animation-border-innerContent" src="/ss.png" alt="Cover of VScode Extension" />
         </div>
     </div>
