@@ -46,7 +46,7 @@ img {
 }
 
 body{
-    background: #1b1930;
+    background: linear-gradient(80deg, #1b1930, #4a0e57);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -89,6 +89,11 @@ pre, code {
 
 .blue {
     color: #59cbff;
+}
+
+.shadow-bg{
+    box-shadow: 0 0 10px #59cbff42 !important;
+    border: 2px solid rgb(89 203 255 / 29%);
 }
 
 a {
@@ -150,8 +155,13 @@ blockquote {
 pre {
     margin: 10px 0;
     overflow-x: scroll;
-    background: #ffffff0a;
+    background: #211835;
     padding: 20px 0 0 5px;
+
+    &:not(.editor){
+        box-shadow: 0 0 10px #59cbff42;
+        border: 2px solid rgb(89 203 255 / 29%);
+    }
 }
 
 h1, h2, h3, h4{

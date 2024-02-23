@@ -30,7 +30,7 @@
     JaanLang is a fun and simple programming language implemented in TypeScript. It is designed to be easy to learn and use.
 </div>
 
-<a in:fly={{y: 10, delay: 300}} href="https://www.npmjs.com/package/jaan" target="_blank" class="button">Install compiler <i class="fa-solid fa-chevron-right"></i> </a>
+<a in:fly={{y: 10, delay: 300}} href="https://www.npmjs.com/package/jaan" target="_blank" class="button shadow-bg">Install compiler <i class="fa-solid fa-chevron-right"></i> </a>
 
 <section in:fly|global={{ y: 10, delay: 400 }}>
     <h2 class="title">VScode Extension</h2>
@@ -39,17 +39,25 @@
             Download the VScode extension for syntax highlighting and code
             snippets. Click download to go to the official marketplace page. Or
             search on the VScode Extenstions tab.
-            <a  class="button"
+            <a  class="button shaodw-bg"
                 href="https://marketplace.visualstudio.com/items?itemName=JaanLang.jaanlang"
                 target="_blank">Download</a
             >
         </div>
-        <img src="/ss.png" alt="Cover of VScode Extension" />
+        <img class="shadow-bg" src="/ss.png" alt="Cover of VScode Extension" />
     </div>
 </section>
 
+<footer>
+    &copy; {new Date().getFullYear()} Fuad Hasan | All rights reserved
+</footer>
+
 
 <style lang="scss">
+
+    footer{
+        font-size: 0.7rem;
+    }
 
     .name{
         display: flex;

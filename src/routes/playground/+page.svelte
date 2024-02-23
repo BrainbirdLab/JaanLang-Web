@@ -195,7 +195,7 @@
     <title>JaanLang - Playground</title>
 </svelte:head>
 
-<div class="editorWrapper" in:fly|global={{ x: 10, delay: 200 }}>
+<div class="editorWrapper shadow-bg" in:fly|global={{ x: 10, delay: 200 }}>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div class="editorContainer" on:click={focusEditor}>
@@ -508,9 +508,7 @@
         width: 100%;
         min-height: 400px;
         border-radius: 10px;
-        //overflow: scroll;
-        //background: #35315f;
-        border: 2px solid #ffffff26;
+        background: #211835;
         position: relative;
         //max-width: min(900px, 100vw);
     }
