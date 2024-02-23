@@ -195,7 +195,8 @@
     <title>JaanLang - Playground</title>
 </svelte:head>
 
-<div class="editorWrapper shadow-bg" in:fly|global={{ x: 10, delay: 200 }}>
+<div class="border-animate mainWrapper" in:fly|global={{ x: 10, delay: 200 }}>
+<div class="editorWrapper animation-border-innerContent shadow-bg">
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div class="editorContainer" on:click={focusEditor}>
@@ -330,6 +331,7 @@
         </div>
     </div>
     {/if}
+</div>
 </div>
 
 <style lang="scss">
@@ -500,7 +502,7 @@
         }
     }
 
-    .editorWrapper {
+    .editorWrapper, .mainWrapper {
         display: flex;
         flex-direction: column;
         //flex-wrap: wrap;
@@ -512,6 +514,7 @@
         position: relative;
         //max-width: min(900px, 100vw);
     }
+    
     .codeArea {
         overflow-wrap: normal !important;
         word-break: keep-all !important;

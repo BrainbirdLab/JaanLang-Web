@@ -73,10 +73,21 @@
         height: 2px;
         bottom: -4px;
         left: 0;
-        background: var(--secondary-color);
+        background: linear-gradient(90deg, transparent, var(--secondary-color), transparent);
+        background-size: 200%;
+        animation: moveLeftRight 8s ease-in-out infinite alternate;
         transform-origin: center;
         transition: 300ms;
         transform: scaleX(0);
+    }
+
+    @keyframes moveLeftRight{
+        0%{
+            background-position: 0%;
+        }
+        100%{
+            background-position: 100%;
+        }
     }
 
     .menu a:not(.active):hover {

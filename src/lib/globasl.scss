@@ -22,6 +22,40 @@
 	-ms-user-select: none;
 }
 
+@property --border-gradient-angle{
+    syntax: '<angle>';
+    inherits: true;
+    initial-value: 0turn;
+}
+
+@property --runtime{
+    syntax: '<color>';
+    initial-value: #59cbff;
+}
+
+@property --line-bg {
+    syntax: '<image>';
+    initial-value: conic-gradient(from var(--border-gradient-angle) at 50% 50%, transparent, var(--runtime) 14%, transparent 17%);
+}
+
+:root {
+    --border-gradient-angle: 0turn;
+    --runtime: #59cbff;
+    --line-bg: conic-gradient(from var(--border-gradient-angle) at 50% 50%, transparent, var(--runtime) 14%, transparent 17%);
+}
+
+@keyframes buttonBorderSpin {
+    0% {
+        --border-gradient-angle: 0turn;
+    }
+
+    100% {
+        --border-gradient-angle: 1turn;
+    }
+
+    
+}
+
 //disable image drag
 img {
     user-drag: none;
@@ -43,6 +77,7 @@ img {
 img {
     user-drag: none;
     user-select: none;
+    display: block;
 }
 
 body{
@@ -93,15 +128,59 @@ pre, code {
 
 .shadow-bg{
     box-shadow: 0 0 10px #59cbff42 !important;
-    border: 2px solid rgb(89 203 255 / 29%);
+    //border: 2px solid rgb(89 203 255 / 29%);
+}
+
+.button {
+    border-radius: 10px;
+    font-size: 1rem;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    //box-shadow: 2px 2px 5px #00000029;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.padding{
+    padding: 10px;
+}
+
+.animation-border-innerContent{
+    background: #211835 !important;
+    height: 100%;
+    min-height: 100%;
+    width: 100%;
+    min-width: 100%;
+    border-radius: 8px;
+    &:is(img){
+        padding: 0 !important;
+        border-radius: 12px !important;
+    }
+}
+
+
+.button-border-animate{
+    padding: 2px;
+    background-image: conic-gradient(from var(--border-gradient-angle) at -10% 100%, transparent, transparent 20%, var(--runtime)) !important;
+    &:hover{
+        animation: buttonBorderSpin 1.2s cubic-bezier(0.52, 0.2, 0.43, 1.0) forwards;
+    }
+}
+
+.border-animate{
+    background-image: conic-gradient(from var(--border-gradient-angle) at 50% 50%, transparent, var(--runtime) 14%, transparent 17%) !important;
+    padding: 2px;
+    border-radius: 15px;
+    width: 100%;
+    height: 100%;
+    animation: 9s linear 0ms infinite normal none running buttonBorderSpin;
 }
 
 a {
     text-decoration: none;
     color: #59cbff;
-    &:hover {
-        text-decoration: underline;
-    }
 }
 
 

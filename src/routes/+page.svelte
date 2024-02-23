@@ -30,7 +30,11 @@
     JaanLang is a fun and simple programming language implemented in TypeScript. It is designed to be easy to learn and use.
 </div>
 
-<a in:fly={{y: 10, delay: 300}} href="https://www.npmjs.com/package/jaan" target="_blank" class="button shadow-bg">Install compiler <i class="fa-solid fa-chevron-right"></i> </a>
+<a in:fly={{y: 10, delay: 300}} href="https://www.npmjs.com/package/jaan" target="_blank" class="button button-border-animate shadow-bg">
+    <div class="animation-border-innerContent padding">
+        Install compiler <i class="fa-solid fa-chevron-right"></i>
+    </div>
+</a>
 
 <section in:fly|global={{ y: 10, delay: 400 }}>
     <h2 class="title">VScode Extension</h2>
@@ -39,12 +43,16 @@
             Download the VScode extension for syntax highlighting and code
             snippets. Click download to go to the official marketplace page. Or
             search on the VScode Extenstions tab.
-            <a  class="button shaodw-bg"
+            <a  class="button button-border-animate shadow-bg"
                 href="https://marketplace.visualstudio.com/items?itemName=JaanLang.jaanlang"
-                target="_blank">Download</a
+                target="_blank">
+                <div class="padding animation-border-innerContent">Download</div>
+                </a
             >
         </div>
-        <img class="shadow-bg" src="/ss.png" alt="Cover of VScode Extension" />
+        <div class="border-animate shadow-bg">
+            <img class="animation-border-innerContent" src="/ss.png" alt="Cover of VScode Extension" />
+        </div>
     </div>
 </section>
 
@@ -153,39 +161,6 @@
             width: 400px;
         }
 
-    }
-    
-    .button {
-        padding: 15px 20px;
-        border-radius: 10px;
-        font-size: 1rem;
-        background: linear-gradient(45deg, #2bbdff, #ff689b);
-        background-size: 500% 500%;
-        animation: rotateBgDegree 15s ease infinite;
-        outline: none;
-        border: none;
-        cursor: pointer;
-        color: white;
-        box-shadow: 2px 2px 5px #00000029;
-        text-decoration: none;
-        display: inline-block;
-        margin-top: 10px;
-
-        &:hover {
-            filter: brightness(0.9);
-        }
-    }
-
-    @keyframes rotateBgDegree {
-        0% {
-            background-position: 0% 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
-        100% {
-            background-position: 0% 50%;
-        }
     }
 
     //on mobile ratio, make it column
