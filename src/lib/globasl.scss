@@ -28,20 +28,20 @@
     initial-value: 0turn;
 }
 
-@property --runtime{
+@property --border-color{
     syntax: '<color>';
     initial-value: #59cbff;
 }
 
 @property --line-bg {
     syntax: '<image>';
-    initial-value: conic-gradient(from var(--border-gradient-angle) at 50% 50%, transparent, var(--runtime) 14%, transparent 17%);
+    initial-value: conic-gradient(from var(--border-gradient-angle) at 50% 50%, transparent, var(--border-color) 14%, transparent 17%);
 }
 
 :root {
     --border-gradient-angle: 0turn;
-    --runtime: #59cbff;
-    --line-bg: conic-gradient(from var(--border-gradient-angle) at 50% 50%, transparent, var(--runtime) 14%, transparent 17%);
+    --border-color: #59cbff;
+    --line-bg: conic-gradient(from var(--border-gradient-angle) at 50% 50%, transparent, var(--border-color) 14%, transparent 17%);
 }
 
 @keyframes buttonBorderSpin {
@@ -162,19 +162,21 @@ pre, code {
 
 
 .button-border-animate{
+    --color : var(--border-color);
     padding: 2px;
-    background-image: conic-gradient(from var(--border-gradient-angle) at -10% 100%, transparent, transparent 20%, var(--runtime)) !important;
+    background-image: conic-gradient(from var(--border-gradient-angle) at 50% 50%, transparent, var(--color) 14%, transparent 17%) !important;
+    animation: 5s linear 0ms infinite normal none running buttonBorderSpin;
+    transition: 200ms ease-in-out;
     &:hover{
-        animation: buttonBorderSpin 1.2s cubic-bezier(0.52, 0.2, 0.43, 1.0) forwards;
+        box-shadow: 0 0 10px var(--border-color) !important;
+        --color: rgb(182, 227, 255);
     }
 }
 
 .border-animate{
-    background-image: conic-gradient(from var(--border-gradient-angle) at 50% 50%, transparent, var(--runtime) 14%, transparent 17%) !important;
+    background-image: conic-gradient(from var(--border-gradient-angle) at 50% 50%, transparent, var(--border-color) 14%, transparent 17%) !important;
     padding: 2px;
     border-radius: 15px;
-    width: 100%;
-    height: 100%;
     animation: 9s linear 0ms infinite normal none running buttonBorderSpin;
 }
 
