@@ -8,7 +8,7 @@ scripts.
 
 ## Starting program 🚀
 
-Programs must start with `hi jaan` and end with `bye jaan`:
+Programs must start with `hi jaan` and end with `bye jaan`
 
 ```jaan
 hi jaan
@@ -18,7 +18,7 @@ bye jaan
 
 ## Variables 📝
 
-To declare a variable, you can use the `dhoro` keyword followed by the variable name and its value:
+To declare a variable, you can use the `dhoro` keyword followed by the variable name and its value.
 
 
 For example:
@@ -26,11 +26,12 @@ For example:
 dhoro tmrCG holo 3.2
 dhoro amrCG holo 3.8
 ```
+Value is optional. If you don't provide a value, it will be set to `0` by default.
 
 ## Conditions 🤔
 
 ### If condition 🤔
-To perform a task if a condition is true, you can use the `jodi` keyword and end the block with `huh`:
+To perform a task if a condition is true, you can use the `jodi` keyword and end the block with `huh`.
 
 
 For example:
@@ -48,21 +49,41 @@ na hoy|hoy|er beshi na hoy|er kom na hoy|er beshi hoy|er kom hoy|er soman na hoy
 You can use the following comparison operators to compare two values:
 ##### hoy 🤜🤛
 In words it means equal to. Used with value on the right side. 
-Example: `tmrCG jodi 3.2 hoy` - if `tmrCG` is equal to `3.2`.
+Example: 
+```jaan
+tmrCG jodi 3.2 hoy
+``` 
+if `tmrCG` is equal to `3.2`.
 ##### er soman hoy 🤜🤛
 In words it means equal to. Used with variable on the left side. 
-Example: `tmrCG jodi amrCG er soman hoy` - if `tmrCG` is equal to `amrCG`.
+Example: 
+```jaan
+tmrCG jodi amrCG er soman hoy
+```
+if `tmrCG` is equal to `amrCG`.
 ##### er beshi hoy 👍
 In words it means greater than. Used with both value and variable. 
-Example: `tmrCG jodi 3.2 er beshi hoy` - if `tmrCG` is greater than `3.2`.
+Example: 
+```jaan
+tmrCG jodi 3.2 er beshi hoy
+```
+if `tmrCG` is greater than `3.2`.
 ##### er kom hoy 👎
 In words it means less than. Used with both value and variable. 
-Example: `tmrCG jodi 3.2 er kom hoy` - if `tmrCG` is less than `3.2`.
+Example: 
+```jaan
+tmrCG jodi 3.2 er kom hoy
+```
+if `tmrCG` is less than `3.2`.
 
 #### Negation operator ⛔
 
 Use `na` before `hoy` word to negate the condition. 
-Example: `tmrCG jodi 3.2 na hoy` - if `tmrCG` is not equal to `3.2`.
+Example: 
+```jaan
+tmrCG jodi 3.2 na hoy
+```
+if `tmrCG` is not equal to `3.2`.
 
 #### Multiple conditions 😐
 Use `and` or `or` to check for multiple conditions. 
