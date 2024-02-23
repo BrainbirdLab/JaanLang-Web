@@ -71,6 +71,7 @@ img {
     --secondary-color: #59cbff;
     --line-height: 20px;
     --button-bg-degree: 45deg;
+    --content-color: #211835;
 }
 
 //image drag disable
@@ -153,7 +154,7 @@ pre, code {
 }
 
 .animation-border-innerContent{
-    background: #211835 !important;
+    background: var(--content-color) !important;
     height: 100%;
     min-height: 100%;
     width: 100%;
@@ -169,16 +170,24 @@ pre, code {
 .button-border-animate{
     --color : var(--border-color);
     padding: 2px;
+    background: var(--content-color);
     background-image: conic-gradient(from var(--border-gradient-angle) at 50% 50%, transparent, var(--color) 14%, transparent 17%) !important;
     animation: 5s linear 0ms infinite normal none running buttonBorderSpin;
     transition: 200ms ease-in-out;
     &:hover{
-        box-shadow: 0 0 10px var(--border-color) !important;
-        --color: rgb(182, 227, 255);
+        --color: white;
+        box-shadow: 0 0 40px var(--secondary-color) !important;
+        background: white;
+        animation: none !important;
+        * {
+            background: white !important;
+            color: rgb(23, 23, 23);
+        }
     }
 }
 
 .border-animate{
+    background-color: var(--content-color);
     background-image: conic-gradient(from var(--border-gradient-angle) at 50% 50%, transparent, var(--border-color) 14%, transparent 17%) !important;
     padding: 2px;
     border-radius: 15px;
