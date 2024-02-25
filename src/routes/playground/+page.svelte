@@ -41,6 +41,13 @@
     let runTimeOut: number;
 
     async function parseCode() {
+
+        if (textarea.value === "") {
+            parsedCode = "";
+            errorLine = 0;
+            return;
+        }
+
         await tick();
         const syntaxedCode = hljs.highlight(textarea.value, {
             language: "jaan",
@@ -143,6 +150,29 @@
         });
     }
 
+    function clearEditor() {
+        textarea.value = "";
+        rawCode = "";
+        parsedCode = `<code class="jaan">${
+            hljs.highlight(textarea.value, {
+                language: "jaan",
+            }).value
+        }</code>`;
+    }
+
+    function saveCode() {
+        //save code in .jaan file
+        const blob = new Blob([textarea.value], {
+            type: "text/plain",
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "code.jaan";
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
 </script>
 
 <svelte:document
@@ -151,6 +181,7 @@
         if (e.key === "s" && e.ctrlKey) {
             e.preventDefault();
             //console.log('Saving');
+            saveCode();
         }
 
         //run code on ctrl+enter
@@ -168,12 +199,7 @@
         //clear code on ctrl+backspace
         if (e.key === "Backspace" && e.ctrlKey) {
             e.preventDefault();
-            textarea.value = "";
-            parsedCode = `<pre><code class="jaan">${
-                hljs.highlight(textarea.value, {
-                    language: "jaan",
-                }).value
-            }</code></pre>`;
+            clearEditor();
         }
 
         //override tab to indent
@@ -228,17 +254,7 @@
                     class="save"
                     on:click={() => {
                         //console.log('Saving');
-
-                        //save code in .jaan file
-                        const blob = new Blob([textarea.value], {
-                            type: "text/plain",
-                        });
-                        const url = URL.createObjectURL(blob);
-                        const a = document.createElement("a");
-                        a.href = url;
-                        a.download = "code.jaan";
-                        a.click();
-                        URL.revokeObjectURL(url);
+                        saveCode();
                     }}
                     ><i class="fa-solid fa-floppy-disk"></i>
                 </button>
@@ -247,13 +263,7 @@
                     class="clear"
                     on:click={() => {
                         //console.log('Clearing');
-                        textarea.value = "";
-                        rawCode = "";
-                        parsedCode = `<pre><code class="jaan">${
-                            hljs.highlight(textarea.value, {
-                                language: "jaan",
-                            }).value
-                        }</code></pre>`;
+                        clearEditor();
                     }}><i class="fa-solid fa-trash"></i></button
                 >
             </div>
