@@ -18,7 +18,7 @@
             <span class="pink">Jaan</span><span class="blue">Lang</span>
         </div>
     </div>
-    <div class="info">
+    <div class="version-info">
         <div class="version">v.{compilerVersion}</div>
         Free and Open Source
     </div>
@@ -76,7 +76,7 @@
         }
     }
 
-    .info{
+    .version-info{
         font-size: 0.7rem;
         font-family: "thin";
         color: #ffffff;
@@ -87,20 +87,21 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        font-weight: normal;
         gap: 5px;
         background: rgba(91, 251, 91, 0.156);
         color: rgb(170, 255, 170);
+        .version {
+            background: rgba(0, 0, 0, 0.997);
+            height: 100%;
+            padding: 5px 5px;
+            color: ghostwhite;
+            font-family: inherit;
+            border-top-left-radius: inherit;
+            border-bottom-left-radius: inherit;
+        }
     }
     
-    .version {
-        background: rgba(0, 0, 0, 0.997);
-        height: 100%;
-        padding: 5px 5px;
-        color: ghostwhite;
-        font-family: inherit;
-        border-top-left-radius: inherit;
-        border-bottom-left-radius: inherit;
-    }
     
     .sub-title {
         color: #ffffff !important;
