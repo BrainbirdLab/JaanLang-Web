@@ -590,6 +590,7 @@
         .textarea {
             width: 100%;
             height: 100%;
+            min-height: var(--line-height);
             white-space: pre;
             padding: 0 5px;
             //overflow-x: scroll;
