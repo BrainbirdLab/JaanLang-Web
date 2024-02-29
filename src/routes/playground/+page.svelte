@@ -540,14 +540,7 @@
 
             &:hover{
                 background: #ff6c6cc1;
-            }
-
-            &:has(.error) .errorTooltip{
-                visibility: visible;
-                opacity: 1;
-                transition: all 0.2s;
-            }
-            
+            }            
         }
     }
 
