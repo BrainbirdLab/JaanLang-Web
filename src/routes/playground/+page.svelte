@@ -68,6 +68,8 @@
 
     let showTerminal = false;
 
+    let errorMessage: string = "";
+
     let fun: Function;
 
     async function runCode(showOutput: boolean = true) {
@@ -95,7 +97,9 @@
                 "</div>" : null;
         } catch (error) {
             //console.error(error);
-            let msg = (error as Error).message;
+            let msg = (error as Error).message as string;
+
+            errorMessage = msg?.split("\n")[0].split(":")[1].trim() || "";
 
             //Grab the line number from the error message
             let line = msg.match(/line (\d+)/);
@@ -173,6 +177,50 @@
         URL.revokeObjectURL(url);
     }
 
+    function handleErrorHover(e: MouseEvent){
+        //check if .error-token is intersecting with 50px radius of the mouse
+        const mouseX = e.clientX as number;
+        const mouseY = e.clientY as number;
+
+        const errorToken = document.querySelector(`.line-shadows .line[data-line="${errorLine}"] .error-token`) as HTMLElement;
+
+        //log(errorToken, errorToken?.getBoundingClientRect(), mouseX, mouseY);
+
+        if (!errorToken) {
+            return;
+        }
+
+        const radius = 0;
+
+        const errorTokenRect = errorToken.getBoundingClientRect();
+
+        if (
+            mouseX > errorTokenRect.left - radius &&
+            mouseX < errorTokenRect.right + radius &&
+            mouseY > errorTokenRect.top - radius &&
+            mouseY < errorTokenRect.bottom + radius
+        ) {
+            log("Hovering over error token");
+            const tooltip = document.querySelector(".errorTooltip") as HTMLElement;
+            if (!tooltip) {
+                return;
+            }
+
+            tooltip.style.visibility = "visible";
+            tooltip.style.opacity = "1";
+            tooltip.style.bottom = `calc(100% - ${errorTokenRect.top - 10}px)`;
+
+        } else {
+            const tooltip = document.querySelector(".errorTooltip") as HTMLElement;
+            if (!tooltip) {
+                return;
+            }
+
+            tooltip.style.visibility = "hidden";
+            tooltip.style.opacity = "0";
+        }
+    }
+
 </script>
 
 <svelte:document
@@ -182,6 +230,7 @@
             e.preventDefault();
             //console.log('Saving');
             saveCode();
+            return;
         }
 
         //run code on ctrl+enter
@@ -189,17 +238,21 @@
             e.preventDefault();
             clearTimeout(runTimeOut);
             runCode();
+            return;
         }
 
         //clear output on escape
         if (e.key === "Escape") {
+            e.preventDefault();
             output = "";
+            return;
         }
 
         //clear code on ctrl+backspace
         if (e.key === "Backspace" && e.ctrlKey) {
             e.preventDefault();
             clearEditor();
+            return;
         }
 
         //override tab to indent
@@ -213,8 +266,12 @@
                 textarea.value.substring(end);
             textarea.selectionStart = textarea.selectionEnd = start + 1;
             parseCode();
+            return;
         }
     }}
+
+    on:mouseover={handleErrorHover}
+    on:mousemove={handleErrorHover}
 />
 
 <svelte:head>
@@ -269,6 +326,11 @@
             </div>
         </div>
         <div class="parent">
+            {#if errorMessage && errorLine}                            
+                <div class="errorTooltip">
+                    {errorMessage}
+                </div>
+            {/if}
             <div class="line-numbers">
                 <div class="line-content">
                     {#each rawCode.split("\n") as _, i}
@@ -291,6 +353,8 @@
                         on:keydown={getCurrentLineNumber}
                         on:mousedown={getCurrentLineNumber}
                         on:input={parseCode}
+                        on:focus={() => (textAreaFocused = true)}
+                        on:blur={() => (textAreaFocused = false)}
                     ></textarea></div>
             </pre>
             <div class="line-shadows">
@@ -345,6 +409,22 @@
 </div>
 
 <style lang="scss">
+
+    .errorTooltip{
+        position: fixed;
+        //bottom: 18px;
+        //left: -35px;
+        padding: 5px;
+        margin-left: 55px;
+        margin-right: 15px;
+        height: min-content;
+        white-space: pre-wrap;
+        z-index: 10;
+        background: rgb(0 0 0 / 80%);
+        border-radius: 5px;
+        visibility: hidden;
+        opacity: 0;
+    }
 
     .title {
         padding: 5px 10px 10px;
@@ -437,6 +517,7 @@
         .line{
             height: var(--line-height);
             min-height: var(--line-height);
+            position: relative;
             
             font-family: monospace !important;
             
@@ -459,6 +540,12 @@
 
             &:hover{
                 background: #ff6c6cc1;
+            }
+
+            &:has(.error) .errorTooltip{
+                visibility: visible;
+                opacity: 1;
+                transition: all 0.2s;
             }
             
         }
