@@ -200,7 +200,7 @@
             mouseY > errorTokenRect.top - radius &&
             mouseY < errorTokenRect.bottom + radius
         ) {
-            log("Hovering over error token");
+            //log("Hovering over error token");
             const tooltip = document.querySelector(".errorTooltip") as HTMLElement;
             if (!tooltip) {
                 return;
