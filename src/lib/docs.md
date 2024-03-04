@@ -17,6 +17,7 @@ bye jaan
 ```
 
 ## Variables 📝
+Variables are placeholder to store some data. Assuming your name is 'Alen'. Here, name is a variable and 'Alen' is its value. Similarly 'age' can be also a variable. To use a variable in your program you must have to declare it first.
 
 To declare a variable, you can use the `dhoro` keyword followed by the variable name and its value.
 
@@ -29,7 +30,7 @@ dhoro amrCG holo 3.8
 Value is optional. If you don't provide a value, it will be set to `0` by default.
 
 ## Conditions 🤔
-
+Conditional statements allow your program to make decisions based on certain conditions.
 ### If condition 🤔
 To perform a task if a condition is true, you can use the `jodi` keyword and end the block with `huh`.
 
@@ -77,6 +78,7 @@ tmrCG jodi 3.2 er kom hoy
 if `tmrCG` is less than `3.2`.
 
 #### Negation operator ⛔
+Negation means to invert values
 
 Use `na` before `hoy` word to negate the condition. 
 Example: 
