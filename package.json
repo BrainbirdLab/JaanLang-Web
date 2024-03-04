@@ -2,6 +2,11 @@
 	"name": "jaanlangwebsite",
 	"version": "0.0.1",
 	"private": true,
+	"engines": {
+		"node": ">=16.13.0",
+		"pnpm": ">=3",
+		"npm": ">=8"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
