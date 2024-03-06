@@ -600,7 +600,6 @@
         width: 100%;
         min-height: 400px;
         border-radius: 10px;
-        background: #211835;
         position: relative;
         //max-width: min(900px, 100vw);
     }

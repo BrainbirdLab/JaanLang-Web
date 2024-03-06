@@ -170,7 +170,7 @@ pre, code {
 .button-border-animate{
     --color : var(--border-color);
     padding: 2px;
-    background: var(--content-color);
+    //background: var(--content-color);
     background-image: conic-gradient(from var(--border-gradient-angle) at 50% 50%, transparent, var(--color) 14%, transparent 17%) !important;
     animation: 5s linear 0ms infinite normal none running buttonBorderSpin;
     transition: 200ms ease-in-out;
@@ -187,7 +187,7 @@ pre, code {
 }
 
 .border-animate{
-    background-color: var(--content-color);
+    //background-color: var(--content-color);
     background-image: conic-gradient(from var(--border-gradient-angle) at 50% 50%, transparent, var(--border-color) 14%, transparent 17%) !important;
     padding: 2px;
     border-radius: 15px;
