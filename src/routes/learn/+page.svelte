@@ -1,6 +1,5 @@
 <script lang="ts">
     import { fly } from "svelte/transition";
-    import TextedLogo from "$lib/components/textedLogo.svelte";
     import { marked } from "marked";
     import { onMount } from "svelte";
     import hljs from "$lib/lib";

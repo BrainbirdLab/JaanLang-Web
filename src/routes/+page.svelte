@@ -1,6 +1,5 @@
 <script lang="ts">
     import { fade, fly } from "svelte/transition";
-    import TextedLogo from "$lib/components/textedLogo.svelte";
     import Logo from "$lib/components/logo.svelte";
 
     const compilerVersion = __VERSION__;
