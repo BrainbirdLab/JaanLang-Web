@@ -13,7 +13,6 @@
 
     $: rawCode = exampleCode;
 
-    let compiledCode: string = "";
     let output: string = "";
 
     onMount(() => {
