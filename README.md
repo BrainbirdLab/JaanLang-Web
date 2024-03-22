@@ -156,6 +156,22 @@ Sorry 3
 Sorry 4
 Sorry 5
 
+## Wait 🕰  
+
+To️ wait for a certain amount of time, you can use the `wait koro` keyword followed by the number of seconds you want to wait:
+
+For example:
+```jaan
+1 sec wait koro
+bolo "Hello"
+```
+
+Output:
+> Hello
+
+Here, the program will wait for 1 second before printing "Hello".
+You can also use variables to specify the time to wait but that should be a positive number.
+
 
 Here, the program will print "Sorry" followed by the counter variable 5 times.
 ### Happy Coding! 😊

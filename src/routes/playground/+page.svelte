@@ -6,7 +6,7 @@
     import { fly, slide } from "svelte/transition";
     import { showToastMessage } from "domtoastmessage";
 
-    import exampleCode from "$lib/source.jaan?raw";
+    import exampleCode from "./source.jaan?raw";
 
     let parsedCode: string = "";
     let textarea: HTMLTextAreaElement;
@@ -14,6 +14,7 @@
     $: rawCode = exampleCode;
 
     let output: string = "";
+    let compileState: string = "";
 
     onMount(() => {
 
@@ -28,13 +29,17 @@
 
     // Redirect console output to a variable
     let capturedOutput: string[] = [];
+
     const log = console.log;
 
     let errorLine = 0;
 
     console.log = (...args) => {
         capturedOutput.push(args.join(" "));
-        //originalConsoleLog(...args); // Optionally keep logging to the dev console
+        //log(...args); // Optionally keep logging to the dev console
+        output = ".....................<div class='output'>" +
+        capturedOutput.join("\n") +
+        "</div>";
     };
 
     let runTimeOut: number;
@@ -78,7 +83,7 @@
         capturedOutput.length = 0;
         capturedOutput = [];
 
-        showOutput ? output = "<div class='run'>Compiling...</div>" : null;
+        showOutput ? compileState = "<div class='compiling'>Compiling...</div>" : null;
 
         try {
             //new instance of the compile function
@@ -87,13 +92,9 @@
             await tick();
             const compiledCode = compile(textarea.value, false);
             //log(compiledCode);
+            compileState += "<div class='compiled'>Compiled successfully</div>";
             fun = new Function(compiledCode);
             fun();
-            //originalConsoleLog("Hi");
-            showOutput ? output +=
-                "Output &gt;<div class='output'>" +
-                capturedOutput.join("\n") +
-                "</div>" : null;
         } catch (error) {
             //console.error(error);
             let msg = (error as Error).message as string;
@@ -117,12 +118,12 @@
                 msg = "Runtime error: " + msg;
             }
 
-            showOutput ? output += "<div class='error'>" + msg + "</div>" : null;
+            showOutput ? compileState += "<div class='error'>" + msg + "</div>" : null;
         } finally {
             if (showOutput){
                 showTerminal = true;
                 await tick();
-                outputTerminal.scrollIntoView({ behavior: "smooth" });
+                outputTerminal.scrollTop = outputTerminal.scrollHeight;
             }
             runState = "Run";
         }
@@ -397,9 +398,10 @@
                 >
             </div>
         </div>
-        <div class="outputcontent" bind:this={outputTerminal}>
-            <div class="container">
-                {@html output}
+        <div class="outputcontent">
+            <div class="container" bind:this={outputTerminal}>
+                {@html compileState}
+                {@html output.trim()}
             </div>
         </div>
     </div>

@@ -24,7 +24,7 @@ hljs.registerLanguage("jaan", (h) => {
             },
             {
                 className: "operator-logical",
-                begin: "\\b(?:na hoy|hoy|er beshi na hoy|er kom na hoy|er beshi hoy|er kom hoy|er soman na hoy|er soman hoy)\\b",
+                begin: "\\b(?:na hoy|hoy|er beshi na hoy|er kom na hoy|er beshi hoy|er kom hoy|er soman na hoy|er soman hoy|sec)\\b",
             },
             {
                 className: "keyword",
@@ -32,7 +32,7 @@ hljs.registerLanguage("jaan", (h) => {
             },
             {
                 className: "keyword",
-                begin: "\\b(?:hi jaan|bye jaan|jodi|tahole|nahole|huh|bar|and|or|holo)\\b",
+                begin: "\\b(?:hi jaan|bye jaan|jodi|tahole|nahole|huh|bar|and|or|holo|wait koro)\\b",
             },
             {
                 className: "function",

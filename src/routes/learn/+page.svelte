@@ -3,7 +3,7 @@
     import { marked } from "marked";
     import { onMount } from "svelte";
     import hljs from "$lib/lib";
-    import md from "$lib/docs.md?raw";
+    import md from "./docs.md?raw";
 
     onMount(() => {
         //console.log(md);

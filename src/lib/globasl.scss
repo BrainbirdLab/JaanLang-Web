@@ -209,9 +209,14 @@ a {
         font-family: monospace;
         user-select: text;
     }
-    
-    .run {
-        color: #ffe044;
+
+    .compiled{
+        color: #bafd8a;
+        font-family: monospace;
+    }
+
+    .compiling{
+        color: #ffdd57;
         font-family: monospace;
     }
     
