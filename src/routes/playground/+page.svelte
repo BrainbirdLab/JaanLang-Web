@@ -40,6 +40,9 @@
         output = ".....................<div class='output'>" +
         capturedOutput.join("\n") +
         "</div>";
+        if (outputTerminal){
+            outputTerminal.scrollTop = outputTerminal.scrollHeight;
+        }
     };
 
     let runTimeOut: number;
