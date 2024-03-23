@@ -74,7 +74,7 @@
 
     let errorMessage: string = "";
 
-    let fun: Function;
+    let worker: Worker;
 
     async function runCode(showOutput: boolean = true) {
 
@@ -82,8 +82,17 @@
         runState = "Compiling...";
         capturedOutput.length = 0;
         capturedOutput = [];
-
-        showOutput ? compileState = "<div class='compiling'>Compiling...</div>" : null;
+        
+        
+        if (showOutput){
+            if (worker) {
+                worker.terminate();
+            }
+            output = "";
+            errorMessage = "";
+            compileState = "";
+            showOutput ? compileState = "<div class='compiling'>Compiling...</div>" : null;
+        }
 
         try {
             //new instance of the compile function
@@ -91,10 +100,27 @@
             //log("text area value", textarea.value);
             await tick();
             const compiledCode = compile(textarea.value, false);
-            //log(compiledCode);
-            compileState += "<div class='compiled'>Compiled successfully</div>";
-            fun = new Function(compiledCode);
-            fun();
+
+            if (showOutput){
+                //log(compiledCode);
+                compileState += "<div class='compiled'>Compiled successfully</div>";
+                /*
+                fun = new Function(compiledCode);
+                fun();
+                */
+                //send the compiled code to the worker
+                output = '...................';
+                worker = new Worker(new URL("./codeRunner.ts", import.meta.url));
+                worker.postMessage({code: compiledCode, showOutput: showOutput});
+    
+                worker.onmessage = (e) => {
+                    //output
+                    if (e.data.type === "log"){
+                        //log(e.data.data);
+                        output += "<div class='output'>" + e.data.data + "</div>";
+                    }
+                };
+            }
         } catch (error) {
             //console.error(error);
             let msg = (error as Error).message as string;
