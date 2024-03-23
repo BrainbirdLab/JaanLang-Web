@@ -113,11 +113,13 @@
                 worker = new Worker(new URL("./codeRunner.ts", import.meta.url));
                 worker.postMessage({code: compiledCode, showOutput: showOutput});
     
-                worker.onmessage = (e) => {
+                worker.onmessage = async (e) => {
                     //output
                     if (e.data.type === "log"){
                         //log(e.data.data);
                         output += "<div class='output'>" + e.data.data + "</div>";
+                        await tick();
+                        outputTerminal.scrollTop = outputTerminal.scrollHeight;
                     }
                 };
             }
