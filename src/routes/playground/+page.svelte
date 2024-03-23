@@ -69,6 +69,7 @@
         }, 1000);
     }
 
+    let scrollableEditorParent: HTMLDivElement;
     let outputTerminal: HTMLDivElement;
 
     let highlightedLineError: string;
@@ -107,10 +108,6 @@
             if (showOutput){
                 //log(compiledCode);
                 compileState += "<div class='compiled'>Running...</div>";
-                /*
-                fun = new Function(compiledCode);
-                fun();
-                */
                 //send the compiled code to the worker
                 worker = new Worker(new URL("./codeRunner.ts", import.meta.url));
                 worker.postMessage({code: compiledCode, showOutput: showOutput});
@@ -153,12 +150,15 @@
                 msg = "Runtime error: " + msg;
             }
 
-            showOutput ? compileState += "<div class='error'>" + msg + "</div>" : null;
+            if (showOutput){
+                compileState += "<div class='error'>" + msg + "</div>";
+            }
         } finally {
             if (showOutput){
                 showTerminal = true;
                 await tick();
                 outputTerminal.scrollTop = outputTerminal.scrollHeight;
+                scrollableEditorParent.scrollTop = scrollableEditorParent.scrollHeight;
             }
             runState = "Run";
         }
@@ -168,10 +168,10 @@
 
     function focusEditor(evt: MouseEvent) {
         const target = evt.target as HTMLElement;
-        if (!target || target.closest(".topbar")) {
+        if (target && target.closest(".textarea")) {
+            textarea.focus();
             return;
         }
-        textarea.focus();
     }
 
     let currentLine: number = 0;
@@ -360,7 +360,7 @@
                 >
             </div>
         </div>
-        <div class="parent">
+        <div class="parent" bind:this={scrollableEditorParent}>
             {#if errorMessage && errorLine}                            
                 <div class="errorTooltip">
                     {errorMessage}
