@@ -11,7 +11,7 @@ self.onmessage = async (event) => {
             
             if (showOutput) {
                 code = code.replace(/console.log\((.*)\);/g, 'self.postMessage({ type: "log", data: [$1] });');
-                code = code + '\nself.postMessage({ type: "done", data: "Code executed successfully" });';
+                code = code.replace('/*[END_CODE]*/', 'self.postMessage({ type: "finish", data: "Done" });');
             }
 
             const func = new Function(code);

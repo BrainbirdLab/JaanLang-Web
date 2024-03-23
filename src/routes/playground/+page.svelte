@@ -106,13 +106,12 @@
 
             if (showOutput){
                 //log(compiledCode);
-                compileState += "<div class='compiled'>Compiled successfully</div>";
+                compileState += "<div class='compiled'>Running...</div>";
                 /*
                 fun = new Function(compiledCode);
                 fun();
                 */
                 //send the compiled code to the worker
-                output = '...................';
                 worker = new Worker(new URL("./codeRunner.ts", import.meta.url));
                 worker.postMessage({code: compiledCode, showOutput: showOutput});
     
@@ -121,6 +120,11 @@
                     if (e.data.type === "log"){
                         //log(e.data.data);
                         output += "<div class='output'>" + e.data.data + "</div>";
+                        await tick();
+                        outputTerminal.scrollTop = outputTerminal.scrollHeight;
+                    } else if (e.data.type === "finish"){
+                        //log("Finished running code");
+                        output += "<div class='finished'>\n--- Done ---</div>";
                         await tick();
                         outputTerminal.scrollTop = outputTerminal.scrollHeight;
                     }

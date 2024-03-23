@@ -134,10 +134,10 @@ huh
 Output:
 
 > Sorry
-Sorry
-Sorry
-Sorry
-Sorry
+> Sorry
+> Sorry
+> Sorry
+> Sorry
 
 Here, the program will print "Sorry" 5 times.
 
@@ -151,13 +151,12 @@ huh
 ```
 Output:
 > Sorry 1
-Sorry 2
-Sorry 3
-Sorry 4
-Sorry 5
+> Sorry 2
+> Sorry 3
+> Sorry 4
+> Sorry 5
 
-
-## Wait 🕰  
+## Wait ## Wait ⏱️ 
 
 To️ wait for a certain amount of time, you can use the `wait koro` keyword followed by the number of seconds you want to wait:
 
@@ -166,6 +165,8 @@ For example:
 1 sec wait koro
 bolo "Hello"
 ```
+
+Use `min` for minutes and `sec` for seconds.
 
 Output:
 > Hello

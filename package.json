@@ -21,7 +21,7 @@
 		"@sveltejs/vite-plugin-svelte": "^3.0.2",
 		"domtoastmessage": "^1.0.6",
 		"highlight.js": "^11.9.0",
-		"jaan": "^1.0.27",
+		"jaan": "^1.0.28",
 		"marked": "^12.0.1",
 		"sass": "^1.72.0",
 		"svelte": "^4.2.12",
