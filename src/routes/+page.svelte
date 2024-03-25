@@ -17,10 +17,10 @@
             <span class="pink">Jaan</span><span class="blue">Lang</span>
         </div>
     </div>
-    <div class="version-info">
+    <a class="version-info" href="https://github.com/itsfuad/JaanLang" target="_blank">
         <div class="version">v.{compilerVersion}</div>
         Free and Open Source
-    </div>
+    </a>
 </div>
 
 

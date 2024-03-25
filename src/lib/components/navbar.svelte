@@ -33,9 +33,6 @@
                 {menu.name}
             </a>
         {/each}
-        <a href="https://github.com/itsfuad/JaanLang" target="_blank"
-            >Source code</a
-        >
     </div>
 </div>
 
