@@ -124,6 +124,12 @@
                         output += "<div class='finished'>\n--- Done ---</div>";
                         await tick();
                         outputTerminal.scrollTop = outputTerminal.scrollHeight;
+                    } else if (e.data.type === "error"){
+                        //log("Error running code", e.data.data);
+                        errorMessage = e.data.data;
+                        compileState += "<div class='error'>" + e.data.data + "</div>";
+                        await tick();
+                        outputTerminal.scrollTop = outputTerminal.scrollHeight;
                     }
                 };
             }

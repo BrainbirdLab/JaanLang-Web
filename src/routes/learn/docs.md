@@ -141,13 +141,11 @@ Output:
 
 Here, the program will print "Sorry" 5 times.
 
-To use a counter variable, you can use the `$` symbol. It will automatically increment with each iteration starting from 1:
-
-For example:
+Use a loop counter with '<variable> dhore'. Here the loop counter is 'i'.
 ```jaan
-5 bar
-    bolo "Sorry " + $
-huh
+  3 bar i dhore
+    bolo "Sorry " + i 
+  huh
 ```
 Output:
 > Sorry 1

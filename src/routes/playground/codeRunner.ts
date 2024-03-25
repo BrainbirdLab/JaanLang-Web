@@ -19,6 +19,7 @@ self.onmessage = async (event) => {
 
         } catch (e) {
             console.error('Error executing code:', e);
+            self.postMessage({ type: "error", data: e });
         } finally {
             self.postMessage({ type: "result", data: "Code executed successfully" });
         }

@@ -32,7 +32,7 @@ hljs.registerLanguage("jaan", (h) => {
             },
             {
                 className: "keyword",
-                begin: "\\b(?:hi jaan|bye jaan|jodi|tahole|nahole|huh|bar|and|or|holo|wait koro)\\b",
+                begin: "\\b(?:hi jaan|bye jaan|jodi|tahole|nahole|huh|bar|and|or|holo|wait koro|dhore)\\b",
             },
             {
                 className: "function",
