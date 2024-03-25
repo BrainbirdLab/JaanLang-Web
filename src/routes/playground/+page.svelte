@@ -159,11 +159,17 @@
 
     let textAreaFocused = false;
 
-    function focusEditor(evt: MouseEvent) {
-        const target = evt.target as HTMLElement;
-        if (target && target.closest(".textarea")) {
-            textarea.focus();
-            return;
+    function focusEditor(node: HTMLElement) {
+        node.onclick = () => {
+            if (textarea){
+                textarea.focus();
+            }
+        };
+
+        return {
+            destroy() {
+                node.onclick = null;
+            },
         }
     }
 
@@ -308,9 +314,7 @@
 
 <div class="border-animate mainWrapper" in:fly|global={{ x: 10, delay: 200 }}>
 <div class="editorWrapper animation-border-innerContent shadow-bg">
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <!-- svelte-ignore a11y-no-static-element-interactions -->
-    <div class="editorContainer" on:click={focusEditor}>
+    <div class="editorContainer">
         <div class="topbar">
             <div class="title">Playground <span class="caret"></span></div>
             <div class="btn-grp">
@@ -371,7 +375,7 @@
                     {/each}
                 </div>
             </div>
-            <pre class="editor"><div class="inputWrapper">{@html parsedCode}<textarea
+            <pre class="editor" use:focusEditor><div class="inputWrapper">{@html parsedCode}<textarea
                         aria-hidden="true"
                         placeholder="# Write your code here"
                         class="textarea codeArea"
