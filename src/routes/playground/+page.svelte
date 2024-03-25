@@ -30,20 +30,7 @@
     // Redirect console output to a variable
     let capturedOutput: string[] = [];
 
-    const log = console.log;
-
     let errorLine = 0;
-
-    console.log = (...args) => {
-        capturedOutput.push(args.join(" "));
-        //log(...args); // Optionally keep logging to the dev console
-        output = ".....................<div class='output'>" +
-        capturedOutput.join("\n") +
-        "</div>";
-        if (outputTerminal){
-            outputTerminal.scrollTop = outputTerminal.scrollHeight;
-        }
-    };
 
     let runTimeOut: number;
 

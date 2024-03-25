@@ -21,8 +21,8 @@ devDependencies:
     specifier: ^11.9.0
     version: 11.9.0
   jaan:
-    specifier: ^1.0.31
-    version: 1.0.31
+    specifier: ^1.0.34
+    version: 1.0.34
   marked:
     specifier: ^12.0.1
     version: 12.0.1
@@ -823,8 +823,8 @@ packages:
       '@types/estree': 1.0.5
     dev: true
 
-  /jaan@1.0.31:
-    resolution: {integrity: sha512-7vms4se3Db0yEJUlVNP5z6KOIB6+d63wzP9jwac7hbWhx4Au4P/hDrbjebiaYX5I5KYPrIBRfWupsZ379kqgsA==}
+  /jaan@1.0.34:
+    resolution: {integrity: sha512-tp8iX/SiNqxEmG3G/QXyvBscUUCaI0xrE1uxAnChB9i9U/fS2xBhHprVm4iy/10j79qgZ2MJfGCobCZNQ3AXXQ==}
     engines: {node: '>=16.13.0', npm: '>=8', pnpm: '>=3'}
     hasBin: true
     dependencies:
