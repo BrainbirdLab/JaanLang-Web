@@ -141,10 +141,10 @@ Output:
 
 Here, the program will print "Sorry" 5 times.
 
-Use a loop counter with '<variable> dhore'. Here the loop counter is 'i'.
+Use a loop counter with `<variable> dhore`. Here the loop counter is `i`.
 ```jaan
   3 bar i dhore
-    bolo "Sorry " + i 
+    bolo "Sorry " + i
   huh
 ```
 Output:
@@ -154,7 +154,7 @@ Output:
 > Sorry 4
 > Sorry 5
 
-## Wait ## Wait ⏱️ 
+## Wait ⏱️ 
 
 To️ wait for a certain amount of time, you can use the `wait koro` keyword followed by the number of seconds you want to wait:
 
