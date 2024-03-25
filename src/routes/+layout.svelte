@@ -8,7 +8,7 @@
     import Logo from "$lib/components/logo.svelte";
     import Navbar from "$lib/components/navbar.svelte";
     import { currentPage } from "$lib/store";
-    import { navigating } from "$app/stores";
+    import NavigationIndicator from "$lib/components/NavigationIndicator.svelte";
 
     async function detectSWUpdate(){
         const registration = await navigator.serviceWorker.ready;
@@ -41,9 +41,7 @@
 
 <svelte:window on:contextmenu|preventDefault />
 
-{#if !!$navigating}
-    <div class="navigationIndicator"></div>
-{/if}
+<NavigationIndicator />
 
 {#if !loaded}
 <div class="loading" transition:fade={{duration: 300}}>
@@ -63,33 +61,6 @@
 {/if}
 
 <style lang="scss">
-
-    .navigationIndicator {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 3px;
-        background: var(--secondary-color);
-        animation: navigate 5s;
-        z-index: 100;
-    }
-
-    @keyframes navigate {
-        /* fast width from 0 to 50% in 1s */
-        0% {
-            width: 0;
-        }
-        25% {
-            width: 50%;
-        }
-        /* slow width from 50% to 100% in 5s */
-        90% {
-            width: 95%;
-        }
-        100% {
-            width: 95%;
-        }
-    }
 
     .loading{
         display: flex;
