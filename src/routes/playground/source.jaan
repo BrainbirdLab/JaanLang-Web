@@ -11,7 +11,7 @@ hi jaan
     bolo "Breakup!!"
   huh
 
-  #say sorry 5 times. '$' is a counter variable
+  #say sorry 5 times. 'x' is a counter variable
   3 bar x dhore
     1 sec wait koro
     bolo "Sorry " + x
