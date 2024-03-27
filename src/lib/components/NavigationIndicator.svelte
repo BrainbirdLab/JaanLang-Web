@@ -12,7 +12,7 @@
         top: 0;
         left: 0;
         height: 3px;
-        background: var(--accent);
+        background: var(--secondary-color);
         animation: navigate 5s;
         z-index: 1000;
     }
