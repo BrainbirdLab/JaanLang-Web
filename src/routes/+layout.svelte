@@ -71,7 +71,7 @@
         top: 0;
         left: 0;
 
-        height: 100vh;
+        height: 100%;
         width: 100%;
         background: #1b1930;
         color: #282c34;
@@ -81,7 +81,7 @@
 
     .content{
         width: 100%;
-        height: 100vh;
+        height: 100%;
         display: flex;
         overflow: hidden;
         flex-direction: column;

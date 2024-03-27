@@ -58,9 +58,9 @@
 
 //disable image drag
 img {
-    user-drag: none;
     -webkit-user-drag: none;
     user-select: none;
+    display: block;
 }
 //hide scrollbar
 ::-webkit-scrollbar {
@@ -74,13 +74,6 @@ img {
     --content-color: #211835;
 }
 
-//image drag disable
-img {
-    user-drag: none;
-    user-select: none;
-    display: block;
-}
-
 .image-wrapper{
     width: 100%;
     height: 100%;
@@ -88,12 +81,17 @@ img {
 
 body{
     background: linear-gradient(80deg, #1b1930, #4a0e57);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    overscroll-behavior-y: none;
     font-family: 'thin';
+}
+
+
+html, body{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    overscroll-behavior-y: none;
+    align-items: flex-start;
+    justify-content: center;
 }
 
 pre, code {
