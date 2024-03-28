@@ -13,16 +13,17 @@
 
     $: rawCode = exampleCode;
 
+    //$: console.log("Example code", rawCode);
+
     let output: string = "";
     let compileState: string = "";
 
     onMount(() => {
-
-        parsedCode = `<code class="jaan">${
-            hljs.highlight(rawCode, {
-                language: "jaan",
-            }).value
-        }</code>`;
+        const syntaxedCode = hljs.highlight(textarea.value, {
+            language: "jaan",
+        }).value;
+        //textarea.value = text;
+        parsedCode = `<code class="jaan">${syntaxedCode}</code>`;
     });
 
     let runState = "Run";
@@ -585,7 +586,6 @@
         width: min-content;
         overflow-y: scroll;
         height: max-content;
-        font-size: 1rem;
         //line-height: var(--line-height);
         padding: 0 5px;
         border-right: 2px solid #ffffff26;
@@ -613,6 +613,9 @@
         counter-increment: codeLine;
         height: var(--line-height);
         color: #ffffff50;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         &.currentLine {
             color: #ffffffba;
@@ -655,6 +658,10 @@
         color: #fff;
         position: relative;
 
+        *{
+            font-size: 0.9rem;
+        }
+
         .editor,
         .parent {
             //min-width: 100%;
@@ -665,7 +672,6 @@
             padding: 0px;
             overflow: hidden;
             font-family: monospace;
-            font-size: 16px;
             display: flex;
             flex-direction: row;
             align-items: flex-start;
@@ -714,7 +720,6 @@
             top: 0;
             left: 0;
             z-index: 2;
-            font-size: 1rem;
             font-family: monospace;
             resize: none;
 
@@ -745,7 +750,6 @@
         //border: 1px solid #000000;
         font-family: monospace;
         color: white;
-        font-size: 0.9rem;
         background: #15132a;
         //position: absolute;
         border-radius: inherit;

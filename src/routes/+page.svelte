@@ -112,9 +112,9 @@
     }
 
     .more{
-        font-size: min(4.5vw, 1.1rem);
+        font-size: min(4.5vw, 1rem);
         max-width: 600px;
-        color: #ababab;
+        color: #ffffffa1;
         text-align: center;
         padding: 10px 0;
     }
