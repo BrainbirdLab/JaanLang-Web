@@ -19,6 +19,7 @@
 		"@sveltejs/adapter-auto": "^3.1.1",
 		"@sveltejs/kit": "^2.5.4",
 		"@sveltejs/vite-plugin-svelte": "^3.0.2",
+		"@vercel/analytics": "^1.2.2",
 		"domtoastmessage": "^1.0.6",
 		"highlight.js": "^11.9.0",
 		"jaan": "^1.0.34",

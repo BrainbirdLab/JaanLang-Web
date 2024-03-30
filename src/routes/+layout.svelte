@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { inject } from '@vercel/analytics'
     import "$lib/global.scss";
     import "$lib/fontawesome/css/all.min.css";
     import "highlight.js/styles/atom-one-dark.min.css";
@@ -29,12 +30,16 @@
 
     onMount(() => {
 
-        currentPage.set(window.location.pathname);
-
-        setTimeout(() => {
-            loaded = true;
-        }, 600);
-        detectSWUpdate();
+        try{
+            inject();
+            currentPage.set(window.location.pathname);
+            setTimeout(() => {
+                loaded = true;
+            }, 600);
+            detectSWUpdate();
+        } catch(e){
+            console.log(e);
+        }
     });
 
 </script>
