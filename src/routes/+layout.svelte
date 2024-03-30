@@ -27,13 +27,15 @@
     }
 
     let loaded = false;
+    let timeout: number;
 
     onMount(() => {
 
         try{
             inject();
             currentPage.set(window.location.pathname);
-            setTimeout(() => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
                 loaded = true;
             }, 600);
             detectSWUpdate();
