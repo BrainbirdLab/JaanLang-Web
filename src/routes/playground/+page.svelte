@@ -367,12 +367,16 @@
             <div class="line-numbers">
                 <div class="line-content">
                     {#each rawCode.split("\n") as _, i}
-                        <span
-                            class="line-number"
-                            data-line={i + 1}
-                            class:error={errorLine == i + 1 && rawCode.length > 0}
-                            class:currentLine={currentLine == i + 1}
-                        ></span>
+                    <span
+                        class="line-number"
+                        data-line={i + 1}
+                        class:error={errorLine == i + 1 && rawCode.length > 0}
+                        class:currentLine={currentLine == i + 1}
+                    >
+                    {#if errorLine === i +1}
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    {/if}
+                    </span>
                     {/each}
                 </div>
             </div>
@@ -399,10 +403,10 @@
                         class:currentLine={currentLine == i + 1}
                         class:noSelection={selection.length == 0}
                     >
-                {#if errorLine === i + 1}
-                    {@html highlightedLineError}
-                {/if}
-                </span>
+                        {#if errorLine === i + 1}
+                            {@html highlightedLineError}
+                        {/if}
+                    </span>
                 {/each}
             </div>
         </div>
@@ -617,11 +621,17 @@
         justify-content: center;
         align-items: center;
 
+        i {
+            font-size: 0.7rem;
+            padding-right: 5px;
+            color: orangered;
+        }
+
         &.currentLine {
             color: #ffffffba;
         }
 
-        &::before {
+        &::after {
             content: counter(codeLine);
             margin-right: 5px;
             font-family: monospace;

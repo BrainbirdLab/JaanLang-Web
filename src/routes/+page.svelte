@@ -49,45 +49,19 @@
     <img class="breakout" src="/images/editor.png" alt="code-playground" />
 </div>
 
-<section>
-    <h2 class="title">Features</h2>
-    <div class="row wrap">
-        <div class="col card">
-            <h4>Simple Syntax</h4>
-            <p>
-                JaanLang has a simple syntax that is easy to learn and use. It
-                is designed to be beginner-friendly and fun to use.
-            </p>
-        </div>
-        <div class="col card">
-            <h4>Code playground</h4>
-            <p>
-                JaanLang comes with a code playground that allows you to write
-                and run code in the browser. You can use the playground to
-                experiment with the language and learn how to use it.
-            </p>
-        </div>
-        <div class="col card">
-            <h4>Code Snippets</h4>
-            <p>
-                JaanLang comes with a set of code snippets that make it easy to
-                write code. You can use these snippets to quickly create
-                programs.
-            </p>
-        </div>
-        <div class="col card">
-            <h4>VScode Extension</h4>
-            <p>
-                JaanLang has a VScode extension that provides syntax
-                highlighting and code snippets. You can download the extension
-                from the marketplace.
-            </p>
-        </div>
-    </div>
+<section class="feature">
+    <ul>
+        <h3 class="title">Features <i class="fa-solid fa-fire"></i></h3>
+        <li class="featureItem"><i class="fa-solid fa-book"></i> Easy syntax</li>
+        <li class="featureItem"><i class="fa-solid fa-code"></i> Web Code playground</li>
+        <li class="featureItem"><i class="fa-solid fa-highlighter"></i> Syntax highlighting</li>
+        <li class="featureItem"><i class="fa-solid fa-triangle-exclamation"></i> Inline error message</li>
+        <li class="featureItem"><i class="fa-solid fa-rocket"></i> Fast buld time</li>
+    </ul>
 </section>
 
 <section in:fly|global={{ y: 10, delay: 400 }}>
-    <h2 class="title">VScode Extension</h2>
+    <h3 class="title">VScode Extension</h3>
     <div class="row">
         <div class="col">
             Download the VScode extension for syntax highlighting and code
@@ -112,33 +86,42 @@
 </footer>
 
 <style lang="scss">
-    .card {
-        background-color: #ffffff12;
-        border-radius: 8px;
-        padding: 20px;
-        margin-bottom: 20px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-
-        //try to fit all cards
-        flex: 0 0 calc(50% - 20px);
-        max-width: calc(50% - 20px);
-        min-height: 300px;
-        backdrop-filter: blur(10px);
-
-
-        h4 {
-            padding: 0;
-            margin: 0;
-        }
+    .fa-fire{
+        color: #ff7300;
     }
 
-    .wrap{
-        flex-wrap: wrap;
+    .feature{
+        //tree like style
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            .featureItem {
+                font-size: 1rem;
+                font-family: "thin";
+                //color: #ffffffa1;
+                padding: 10px 0;
+                border-bottom: 1px solid #ffffff17;
+                i{
+                    &.fa-book{
+                        color: #fe4d4d;
+                    }
+                    &.fa-code{
+                        color: #79a1ff;
+                    }
+                    &.fa-highlighter{
+                        color: #66ff00;
+                    }
+                    &.fa-triangle-exclamation{
+                        color: #ff7300;
+                    }
+                    &.fa-rocket{
+                        color: #fffc5a;
+                    }
+                }
+            }
+        }
     }
 
     .breakout-wrapper {
@@ -167,7 +150,7 @@
         z-index: -1;
         //3d perspective rotate
         filter: blur(2px);
-        transform: translateY(-50%) rotateY(50deg) rotateX(30deg) rotateZ(0deg);
+        transform: translateY(-50%) rotateY(50deg) rotateX(30deg);
         transition: transform 0.5s;
     }
 
