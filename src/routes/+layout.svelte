@@ -111,14 +111,16 @@
     .container{
         display: flex;
         flex-direction: column;
-        overflow: scroll;
+        overflow-y: scroll;
+        overflow-x: visible;
         justify-content: flex-start;
         align-items: center;
         height: 100%;
-        width: 140vh;
+        width: 100%;
         max-width: 100vw;
         gap: 10px;
         padding: 10px 10px 20px 10px;
+        position: relative;
     }
 
 </style>

@@ -136,7 +136,7 @@ pre, code {
 }
 
 .button {
-    border-radius: 10px;
+    border-radius: 25px;
     font-size: 1rem;
     outline: none;
     border: none;
@@ -157,11 +157,8 @@ pre, code {
     min-height: 100%;
     width: 100%;
     min-width: 100%;
-    border-radius: 8px;
-    &:is(img){
-        padding: 0 !important;
-        border-radius: 12px !important;
-    }
+    border-radius: inherit;
+    padding: 10px 20px;
 }
 
 

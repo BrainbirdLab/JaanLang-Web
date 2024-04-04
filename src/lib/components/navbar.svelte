@@ -52,46 +52,28 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: 4px;
     }
 
     .menu a {
-        color: #ffffffeb;
-        padding: 0 10px;
+        color: #ffffffbb;
+        padding: 5px 10px;
         text-decoration: none;
         font-weight: 500;
         position: relative;
+        border-radius: 25px;
+        font-size: 0.8rem;
+        background: #ffffff30;
+        transition: 100ms;
     }
-
-    .menu a::after {
-        content: "";
-        display: block;
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        bottom: -4px;
-        left: 0;
-        background: linear-gradient(90deg, transparent, var(--secondary-color), transparent);
-        background-size: 200%;
-        animation: moveLeftRight 8s ease-in-out infinite alternate;
-        transform-origin: center;
-        transition: 300ms;
-        transform: scaleX(0);
-    }
-
-    @keyframes moveLeftRight{
-        0%{
-            background-position: 0%;
-        }
-        100%{
-            background-position: 100%;
-        }
-    }
-
+    
     .menu a:not(.active):hover {
-        color: rgba(255, 255, 255, 0.744);
+        background: #ffffff3e;
     }
 
-    .menu a.active::after {
-        transform: scaleX(1);
+    .menu a.active {
+        color: #4bbefc;
+        background: #59caff29;
     }
+
 </style>

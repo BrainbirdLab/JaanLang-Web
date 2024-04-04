@@ -635,6 +635,7 @@
         flex-grow: 1;
         width: 100%;
         min-height: 400px;
+        max-width: 140vh;
         border-radius: 10px;
         position: relative;
         //max-width: min(900px, 100vw);
