@@ -3,7 +3,7 @@
     import "$lib/global.scss";
     import "$lib/fontawesome/css/all.min.css";
     import "highlight.js/styles/atom-one-dark.min.css";
-    import { showToastMessage } from "domtoastmessage";
+    import { showToastMessage } from "@itsfuad/domtoastmessage";
     import { onMount } from "svelte";
     import { fade } from "svelte/transition";
     import Logo from "$lib/components/logo.svelte";

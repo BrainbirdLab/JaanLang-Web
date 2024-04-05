@@ -1,10 +1,12 @@
 <script lang="ts">
+    
+    import { compile } from "@itsfuad/jaan/compiler";
+    import { showToastMessage } from "@itsfuad/domtoastmessage";
+
     import { onMount, tick } from "svelte";
     //import {highlight} from '$lib/index';
     import hljs from "$lib/lib";
-    import { compile } from "jaan/compiler";
     import { fly, slide } from "svelte/transition";
-    import { showToastMessage } from "domtoastmessage";
 
     import exampleCode from "./source.jaan?raw";
 
