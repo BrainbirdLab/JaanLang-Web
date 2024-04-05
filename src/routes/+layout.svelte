@@ -1,8 +1,9 @@
 <script lang="ts">
-    import { inject } from '@vercel/analytics'
+
     import "$lib/global.scss";
     import "$lib/fontawesome/css/all.min.css";
     import "highlight.js/styles/atom-one-dark.min.css";
+    
     import { showToastMessage } from "@itsfuad/domtoastmessage";
     import { onMount } from "svelte";
     import { fade } from "svelte/transition";
@@ -30,9 +31,7 @@
     let timeout: number;
 
     onMount(() => {
-
         try{
-            inject();
             currentPage.set(window.location.pathname);
             clearTimeout(timeout);
             timeout = setTimeout(() => {
