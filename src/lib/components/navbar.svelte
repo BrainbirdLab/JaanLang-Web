@@ -56,24 +56,24 @@
     }
 
     .menu a {
-        color: #ffffffbb;
+        color: #ffffffc0;
         padding: 5px 10px;
         text-decoration: none;
         font-weight: 500;
         position: relative;
         border-radius: 25px;
         font-size: 0.8rem;
-        background: #ffffff30;
+        background: #ffffff11;
         transition: 100ms;
     }
     
     .menu a:not(.active):hover {
-        background: #ffffff3e;
+        background: #ffffff1a;
     }
 
     .menu a.active {
-        color: #4bbefc;
-        background: #59caff29;
+        color: #ffffff;
+        background: #189dda;
     }
 
 </style>

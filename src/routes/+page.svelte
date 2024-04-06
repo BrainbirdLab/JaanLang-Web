@@ -45,20 +45,61 @@
     </div>
 </a>
 
-<div class="breakout-wrapper" in:fly={{x: 20}}>
+<div class="breakout-wrapper" in:fly={{ x: 20 }}>
     <img class="breakout" src="/images/editor.png" alt="code-playground" />
 </div>
 
-<section class="feature">
-    <ul>
+<div class="section-container row wrap">
+    <section class="feature">
         <h3 class="title">Features <i class="fa-solid fa-fire"></i></h3>
-        <li class="featureItem"><i class="fa-solid fa-book"></i> Easy syntax</li>
-        <li class="featureItem"><i class="fa-solid fa-code"></i> Web Code playground</li>
-        <li class="featureItem"><i class="fa-solid fa-highlighter"></i> Syntax highlighting</li>
-        <li class="featureItem"><i class="fa-solid fa-triangle-exclamation"></i> Inline error message</li>
-        <li class="featureItem"><i class="fa-solid fa-rocket"></i> Fast buld time</li>
-    </ul>
-</section>
+        <ul>
+            <li class="featureItem">
+                <i class="fa-regular fa-square-check"></i>
+                Easy syntax
+                <i class="fa-solid fa-book"></i>
+            </li>
+            <li class="featureItem">
+                <i class="fa-regular fa-square-check"></i>
+                Web Code playground
+                <i class="fa-solid fa-code"></i>
+            </li>
+            <li class="featureItem">
+                <i class="fa-regular fa-square-check"></i>
+                Syntax highlighting
+                <i class="fa-solid fa-highlighter"></i>
+            </li>
+            <li class="featureItem">
+                <i class="fa-regular fa-square-check"></i>
+                Inline error message
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </li>
+            <li class="featureItem">
+                <i class="fa-regular fa-square-check"></i>
+                Fast buld time
+                <i class="fa-solid fa-rocket"></i>
+            </li>
+        </ul>
+    </section>
+    
+    <section class="runsOn">
+        <h3 class="title">Available on <i class="fa-solid fa-laptop-code"></i></h3>
+        <ul>
+            <li>
+                <i class="fa-brands fa-windows"></i>
+            </li>
+            <li>
+                <i class="fa-brands fa-apple"></i>
+            </li>
+            <li>
+                <i class="fa-brands fa-ubuntu"></i>
+            </li>
+            <li>
+                <i class="fa-brands fa-android"></i>
+            </li>
+        </ul>
+    </section>
+</div>
+
 
 <section in:fly|global={{ y: 10, delay: 400 }}>
     <h3 class="title">VScode Extension</h3>
@@ -86,38 +127,71 @@
 </footer>
 
 <style lang="scss">
-
-    .fa-fire{
+    .fa-fire {
         color: #ff7300;
     }
 
-    .feature{
-        //tree like style
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            .featureItem {
-                font-size: 1rem;
-                font-family: "thin";
-                //color: #ffffffa1;
-                padding: 10px 0;
-                border-bottom: 1px solid #ffffff17;
-                i{
-                    &.fa-book{
-                        color: #fe4d4d;
+    .fa-windows {
+        color: #0078d6;
+    }
+
+    .fa-apple {
+        color: #ffffff;
+    }
+
+    .fa-ubuntu {
+        color: #f96834;
+    }
+
+    .fa-android {
+        color: #21ff73;
+    }
+
+    .section-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 25px;
+
+        section{
+            width: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            ul {
+                list-style: none;
+                padding: 0;
+                li {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 10px;
+                    font-size: 1rem;
+                    margin: 10px 0;
+                    .fa-solid {
+                        color: #ffffff;
                     }
-                    &.fa-code{
-                        color: #79a1ff;
-                    }
-                    &.fa-highlighter{
-                        color: #66ff00;
-                    }
-                    &.fa-triangle-exclamation{
-                        color: #ff7300;
-                    }
-                    &.fa-rocket{
-                        color: #fffc5a;
+                }
+            }
+
+            &.runsOn {
+                ul {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 20px;
+                    li {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        gap: 10px;
+                        margin: 10px 0;
+                        font-size: 3.4rem;
                     }
                 }
             }
