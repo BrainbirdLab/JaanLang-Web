@@ -150,9 +150,10 @@
     .section-container {
         display: flex;
         flex-direction: row;
+        width: 100%;
         flex-wrap: wrap;
         align-items: flex-start;
-        justify-content: space-between;
+        justify-content: space-evenly;
         gap: 25px;
 
         section{
