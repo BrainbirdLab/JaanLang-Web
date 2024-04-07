@@ -36,6 +36,7 @@
 
 <div class="button-group">
     <a
+        in:fly={{ x: 10, delay: 250 }}
         class="button-link github"
         href="https://github.com/itsfuad/JaanLang"
         target="_blank"
@@ -44,6 +45,7 @@
     </a>
 
     <a
+        in:fly={{ x: -10, delay: 250 }}
         class="button-link npm"
         href="https://www.npmjs.com/package/jaan"
         target="_blank"
