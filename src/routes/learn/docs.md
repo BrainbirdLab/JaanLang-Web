@@ -175,13 +175,3 @@ You can also use variables to specify the time to wait but that should be a posi
 
 Here, the program will print "Sorry" followed by the counter variable 5 times.
 #### Happy Coding! 😊
-
-
-### Installation
-Install Node.js and npm from [here](https://nodejs.org/en/download/).
-
-Run `npm install -g jaan` to install JaanLang compiler globally.
-
-You can the use `jaan` command to compile and run JaanLang programs.
-
-Run `jaan -h` to see the help menu.

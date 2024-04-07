@@ -80,8 +80,12 @@ img {
 }
 
 body{
-    background: linear-gradient(80deg, #1b1930, #4a0e57);
+    //background: linear-gradient(80deg, #1b1930, #4a0e57);
     font-family: 'thin';
+    //background-color: #1b1930;
+    background-image: linear-gradient(80deg, #1b1930, #4a0e57), url('/images/pattern.svg');
+    //blend
+    background-blend-mode: overlay;
 }
 
 
@@ -160,26 +164,6 @@ pre, code {
     border-radius: inherit;
     &.padding{
         padding: 10px 20px;
-    }
-}
-
-
-.button-border-animate{
-    --color : var(--border-color);
-    padding: 2px;
-    //background: var(--content-color);
-    background-image: conic-gradient(from var(--border-gradient-angle) at 50% 50%, transparent, var(--color) 14%, transparent 17%) !important;
-    animation: 5s linear 0ms infinite normal none running buttonBorderSpin;
-    transition: 200ms ease-in-out;
-    &:hover{
-        --color: white;
-        box-shadow: 0 0 40px var(--secondary-color) !important;
-        background: white;
-        animation: none !important;
-        * {
-            background: white !important;
-            color: rgb(23, 23, 23);
-        }
     }
 }
 

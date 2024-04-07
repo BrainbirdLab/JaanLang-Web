@@ -1,8 +1,12 @@
 <script lang="ts">
     import { fade, fly } from "svelte/transition";
     import Logo from "$lib/components/logo.svelte";
+    import { showToastMessage } from "@itsfuad/domtoastmessage";
 
     const compilerVersion = __VERSION__;
+
+    let copied: boolean = false;
+    let copyTimeout: number;
 </script>
 
 <svelte:head>
@@ -16,14 +20,10 @@
             <span class="pink">Jaan</span><span class="blue">Lang</span>
         </div>
     </div>
-    <a
-        class="version-info"
-        href="https://github.com/itsfuad/JaanLang"
-        target="_blank"
-    >
+    <div class="version-info">
         <div class="version">v.{compilerVersion}</div>
         Free and Open Source
-    </a>
+    </div>
 </div>
 
 <span class="sub-title center" in:fly={{ x: -10, delay: 200 }}
@@ -34,24 +34,68 @@
     It is designed to be easy to learn and use.
 </div>
 
-<a
-    in:fly={{ y: 10, delay: 300 }}
-    href="https://www.npmjs.com/package/jaan"
-    target="_blank"
-    class="button button-border-animate"
->
-    <div class="animation-border-innerContent padding shadow-bg">
-        Install <i class="fa-solid fa-arrow-down"></i>
-    </div>
-</a>
+<div class="button-group">
+    <a
+        class="button-link github"
+        href="https://github.com/itsfuad/JaanLang"
+        target="_blank"
+    >
+        Github <i class="fa-solid fa-arrow-up-right-from-square"></i>
+    </a>
+
+    <a
+        class="button-link npm"
+        href="https://www.npmjs.com/package/jaan"
+        target="_blank"
+    >
+        View on NPM <i class="fa-solid fa-arrow-up-right-from-square"></i>
+    </a>
+</div>
+
+<div
+in:fly={{ y: 10, delay: 300 }}
+class="install">
+    npm i -D @itsfuad/jaan
+    <button
+        on:click={() => {
+            if (!navigator.clipboard) {
+                //fallback
+                const el = document.createElement("textarea");
+                el.value = "npm i -D @itsfuad/jaan";
+                el.style.position = "absolute";
+                el.style.left = "-9999px";
+                document.body.appendChild(el);
+                el.select();
+                try {
+                    document.execCommand("copy");
+                } catch (e) {
+                    console.error("Failed to copy to clipboard", e);
+                }
+            } else {
+                navigator.clipboard.writeText("npm i -D @itsfuad/jaan");
+            }
+            copied = true;
+            clearTimeout(copyTimeout);
+            copyTimeout = setTimeout(() => {
+                copied = false;
+            }, 2000);
+        }}
+    >
+        {#if !copied}
+            <i class="fa-regular fa-clone"></i>
+        {:else}
+            <i class="fa-solid fa-check"></i>
+        {/if}
+    </button>
+</div>
 
 <div class="breakout-wrapper" in:fly={{ x: 20 }}>
     <img class="breakout" src="/images/editor.png" alt="code-playground" />
 </div>
 
-<div class="section-container row wrap">
-    <section class="feature">
-        <h3 class="title">Features <i class="fa-solid fa-fire"></i></h3>
+<section class="max">
+    <h3 class="title">All in one <i class="fa-solid fa-fire"></i></h3>
+    <div class="content">
         <ul>
             <li class="featureItem">
                 <i class="fa-regular fa-square-check"></i>
@@ -79,26 +123,28 @@
                 <i class="fa-solid fa-rocket"></i>
             </li>
         </ul>
-    </section>
-    
-    <section class="runsOn">
-        <h3 class="title">Available on <i class="fa-solid fa-laptop-code"></i></h3>
-        <ul>
-            <li>
-                <i class="fa-brands fa-windows"></i>
-            </li>
-            <li>
-                <i class="fa-brands fa-apple"></i>
-            </li>
-            <li>
-                <i class="fa-brands fa-ubuntu"></i>
-            </li>
-            <li>
-                <i class="fa-brands fa-android"></i>
-            </li>
-        </ul>
-    </section>
-</div>
+        <div class="img border-animate mainWrapper">
+            <img class="animation-border-innerContent shadow-bg" src= "/images/editor.png" alt="editor">
+        </div>
+        <section class="runsOn">
+            <h5 class="title">Compatible with</h5>
+            <ul>
+                <li>
+                    <i class="fa-brands fa-windows"></i>
+                </li>
+                <li>
+                    <i class="fa-brands fa-apple"></i>
+                </li>
+                <li>
+                    <i class="fa-brands fa-ubuntu"></i>
+                </li>
+                <li>
+                    <i class="fa-brands fa-android"></i>
+                </li>
+            </ul>
+        </section>
+    </div>
+</section>
 
 
 <section in:fly|global={{ y: 10, delay: 400 }}>
@@ -109,13 +155,11 @@
             snippets. Click download to go to the official marketplace page. Or
             search on the VScode Extenstions tab.
             <a
-                class="button button-border-animate"
+                class="button-link"
                 href="https://marketplace.visualstudio.com/items?itemName=JaanLang.jaanlang"
                 target="_blank"
             >
-                <div class="padding animation-border-innerContent shadow-bg">
-                    Download
-                </div>
+            Download <i class="fa-solid fa-arrow-down"></i>
             </a>
         </div>
         <img src="/images/ss.png" alt="Cover of VScode Extension" />
@@ -127,6 +171,88 @@
 </footer>
 
 <style lang="scss">
+
+    .max{
+        width: 100%;
+        max-width: 100%;
+        .content{
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            perspective: 1000px;
+        }
+
+        .img{
+            width: 100%;
+            max-width: 600px;
+            transform: rotateX(19deg) rotateY(337deg) rotateZ(14deg);
+        }
+    }
+
+    .button-group{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .button-link {
+        padding: 10px 20px;
+        border-radius: 25px;
+        background: rgb(0 120 214);
+        color: #ffffff;
+        font-family: "thin";
+        font-size: 1rem;
+        text-decoration: none;
+
+        &.npm {
+            background: #cc3534;
+        }
+
+        &.github {
+            background: #171717;
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .install {
+        padding: 10px;
+        color: #ffffffd6;
+        font-weight: lighter;
+        font-family: monospace;
+        font-size: 1rem;
+        background: #171717;
+        border-radius: 10px;
+
+        button {
+            cursor: pointer;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: inherit;
+        }
+        i {
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            border: 2px solid #ffffff19;
+            background: rgba(255, 255, 255, 0.068);
+        }
+    }
+
     .fa-fire {
         color: #ff7300;
     }
@@ -146,59 +272,48 @@
     .fa-android {
         color: #21ff73;
     }
-
-    .section-container {
+    
+    section {
+        width: auto;
         display: flex;
-        flex-direction: row;
-        width: 100%;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        justify-content: space-evenly;
-        gap: 25px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        ul {
+            list-style: none;
+            padding: 0;
+            li {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 10px;
+                font-size: 1rem;
+                margin: 10px 0;
+                .fa-solid {
+                    color: #ffffff;
+                }
+            }
+        }
 
-        section{
-            width: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+        &.runsOn {
             ul {
-                list-style: none;
-                padding: 0;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
                 li {
                     display: flex;
                     flex-direction: row;
                     align-items: center;
                     gap: 10px;
-                    font-size: 1rem;
                     margin: 10px 0;
-                    .fa-solid {
-                        color: #ffffff;
-                    }
-                }
-            }
-
-            &.runsOn {
-                ul {
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 20px;
-                    li {
-                        display: flex;
-                        flex-direction: row;
-                        align-items: center;
-                        gap: 10px;
-                        margin: 10px 0;
-                        font-size: 3.4rem;
-                    }
+                    font-size: 3.4rem;
                 }
             }
         }
     }
-
     .breakout-wrapper {
         position: fixed;
         top: 0;
@@ -224,7 +339,7 @@
         left: 0;
         z-index: -1;
         //3d perspective rotate
-        filter: blur(2px);
+        filter: blur(5px);
         transform: translateY(-50%) rotateY(50deg) rotateX(30deg);
         transition: transform 0.5s;
     }
