@@ -1,7 +1,8 @@
 <script lang="ts">
+    import "$lib/editor.scss";
     import { fade, fly } from "svelte/transition";
     import Logo from "$lib/components/logo.svelte";
-    import { showToastMessage } from "@itsfuad/domtoastmessage";
+    import EditorSnippet from "$lib/components/editorSnippet.svelte";
 
     const compilerVersion = __VERSION__;
 
@@ -98,38 +99,41 @@ class="install">
 <section class="max">
     <h3 class="title">All in one <i class="fa-solid fa-fire"></i></h3>
     <div class="content">
-        <ul>
-            <li class="featureItem">
-                <i class="fa-regular fa-square-check"></i>
-                Easy syntax
-                <i class="fa-solid fa-book"></i>
+        <ul class="main-ul">
+            <li>
+                <div class="detail left">
+                    <ul>
+                        <li>Easy to learn</li>
+                        <li>Web playground</li>
+                        <li>Code snippets</li>
+                        <li>Syntax lighlighting</li>
+                        <li>Relatable keywords</li>
+                    </ul>
+                    <div class="snippet" style:margin={"0 -10px 0 0"} style:transform={"rotateX(23deg) rotateY(-40deg) rotateZ(11deg)"}>
+                        <EditorSnippet/>
+                    </div>
+                </div>
             </li>
-            <li class="featureItem">
-                <i class="fa-regular fa-square-check"></i>
-                Web Code playground
-                <i class="fa-solid fa-code"></i>
-            </li>
-            <li class="featureItem">
-                <i class="fa-regular fa-square-check"></i>
-                Syntax highlighting
-                <i class="fa-solid fa-highlighter"></i>
-            </li>
-            <li class="featureItem">
-                <i class="fa-regular fa-square-check"></i>
-                Inline error message
-                <i class="fa-solid fa-triangle-exclamation"></i>
-            </li>
-            <li class="featureItem">
-                <i class="fa-regular fa-square-check"></i>
-                Fast buld time
-                <i class="fa-solid fa-rocket"></i>
+            <li>
+                <div class="detail right">
+                    <div class="snippet" style:margin={"0 -35px 0 0"} style:transform={"rotateZ(342deg) rotateY(65deg) rotateX(359deg)"}>
+                    <EditorSnippet firstLineCode={""} error={2} lines={
+                        [
+                            ['orange.w10', 'purple.w10'],
+                            ['tab.w10', 'cyan.w10', 'green.w30'],
+                            ['purple.w10']
+                        ]
+                    }/>
+                    </div>
+                    <ul>
+                        <li>Realtime error </li>
+                        <li>Inline error message</li>
+                        <li>Helpful suggestions</li>
+                    </ul>
+                </div>
             </li>
         </ul>
-        <div class="img border-animate mainWrapper">
-            <img class="animation-border-innerContent shadow-bg" src= "/images/editor.png" alt="editor">
-        </div>
         <section class="runsOn">
-            <h5 class="title">Compatible with</h5>
             <ul>
                 <li>
                     <i class="fa-brands fa-windows"></i>
@@ -186,12 +190,6 @@ class="install">
             justify-content: center;
             gap: 40px;
             perspective: 1000px;
-        }
-
-        .img{
-            width: 100%;
-            max-width: 600px;
-            transform: rotateX(19deg) rotateY(337deg) rotateZ(14deg);
         }
     }
 
@@ -281,18 +279,82 @@ class="install">
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        ul {
+        .main-ul {
             list-style: none;
             padding: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-items: center;
+            gap: 65px;
+
             li {
                 display: flex;
-                flex-direction: row;
+                flex-direction: column;
                 align-items: center;
                 gap: 10px;
-                font-size: 1rem;
+                font-size: 0.8rem;
                 margin: 10px 0;
+
                 .fa-solid {
                     color: #ffffff;
+                }
+
+                .detail{
+                    display: flex;
+                    flex-direction: row;
+                    //flex-wrap: wrap-reverse;
+                    align-items: center;
+                    margin: 0 -10px;
+                    perspective: 400px;
+                    width: 100%;
+                
+                    &.left{
+                        justify-content: flex-start;
+                        ul li {
+                            &::before{
+                                content: "";
+                                font-family: "Font Awesome 6 Free";
+                                font-weight: 400;
+                                color: #ffffff;
+                                margin-right: 5px;
+                            }
+                        }
+                    }
+
+                    &.right{
+                        justify-content: flex-end;
+                        ul li {
+                            &::after{
+                                content: "";
+                                font-family: "Font Awesome 6 Free";
+                                font-weight: 400;
+                                color: #ffffff;
+                                margin-right: 5px;
+                            }
+                            justify-content: flex-end;
+                        }
+                    }
+
+                    ul{
+                        list-style: none;
+                        padding: 0;
+                        flex-shrink: 0;
+                        li{
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            gap: 5px;
+                            font-size: 0.9rem;
+                        }
+                    
+                    }
+
+                    .snippet{
+                        flex-shrink: 1;
+                    }
                 }
             }
         }
@@ -414,7 +476,6 @@ class="install">
     }
 
     section {
-        padding: 20px;
         border-radius: 10px;
         //background: #ffffff17;
         color: rgb(240, 240, 240);

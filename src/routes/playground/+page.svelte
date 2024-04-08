@@ -1,5 +1,5 @@
 <script lang="ts">
-    
+    import "$lib/editor.scss";
     import { compile } from "@itsfuad/jaan/compiler";
     import { showToastMessage } from "@itsfuad/domtoastmessage";
 

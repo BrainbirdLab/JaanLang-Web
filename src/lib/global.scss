@@ -215,13 +215,6 @@ pre, .hljs {
     border-radius: 5px;
 }
 
-code {
-    padding: 1px 3px;
-    background: #ffffff29;
-    border-radius: 5px;
-    user-select: text;
-}
-
 .pad-top{
     margin-top: 50px;
 }
@@ -235,18 +228,6 @@ blockquote {
     font-family: monospace;
     display: flex;
     user-select: text;
-}
-
-pre {
-    margin: 10px 0;
-    overflow-x: scroll;
-    background: #211835;
-    padding: 20px 0 0 5px;
-
-    &:not(.editor){
-        box-shadow: 0 0 10px #59cbff42;
-        border: 2px solid rgb(89 203 255 / 29%);
-    }
 }
 
 h1, h2, h3, h4{
@@ -287,33 +268,13 @@ h1{
     font-size: 2rem;
 }
 
-p code{
-    white-space: pre-wrap;
-}
+
 
 ul{
     list-style: circle;
     padding-left: 20px;
 }
 
-pre{
-    code {
-        //position: absolute;
-        //top: 0;
-        //left: 0;
-        display: inline-block;
-        width: max-content;
-        background: none !important;
-        min-width: 100%;
-        height: max-content;
-        color: #c79a66;
-        padding: 0 5px !important;
-        cursor: text;
-        * {
-            user-select: text;
-        }
-    }
-}
 
 
 .hljs-variables{
@@ -334,6 +295,14 @@ pre{
     height: var(--line-height);
 }
 
-code{
-    white-space: pre;
+pre {
+    margin: 10px 0;
+    overflow-x: scroll;
+    background: #211835;
+    padding: 20px 0 0 5px;
+
+    &:not(.editor){
+        box-shadow: 0 0 10px #59cbff42;
+        border: 2px solid rgb(89 203 255 / 29%);
+    }
 }

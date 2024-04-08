@@ -69,4 +69,6 @@ hljs.registerLanguage("jaan", (h) => {
     };
 });
 
+hljs.configure({ languages: ["jaan"] });
+
 export default hljs;
