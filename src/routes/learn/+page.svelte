@@ -24,7 +24,7 @@
 <style lang="scss">
 
     section {
-        padding: 20px;
+        padding: 10px;
         border-radius: 10px;
         //background: #ffffff17;
         color: rgb(240, 240, 240);

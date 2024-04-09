@@ -14,182 +14,259 @@
     <title>JaanLang</title>
 </svelte:head>
 
-<div class="center flex column pad-top" in:fly|global={{ y: -10, delay: 100 }}>
-    <div class="flex column center">
-        <Logo />
-        <div class="name">
-            <span class="pink">Jaan</span><span class="blue">Lang</span>
+<div class="container">
+    <div class="center flex column pad-top" in:fly|global={{ y: -10, delay: 100 }}>
+        <div class="flex column center">
+            <Logo />
+            <div class="name">
+                <span class="pink">Jaan</span><span class="blue">Lang</span>
+            </div>
+        </div>
+        <div class="version-info">
+            <div class="version">v.{compilerVersion}</div>
+            Free and Open Source
         </div>
     </div>
-    <div class="version-info">
-        <div class="version">v.{compilerVersion}</div>
-        Free and Open Source
+    
+    <span class="big-title center" in:fly={{ x: -10, delay: 200 }}
+        >A programming language for couples</span
+    >
+    <div class="more center" in:fade={{ delay: 250 }}>
+        JaanLang is a fun and simple programming language implemented in TypeScript.
+        It is designed to be easy to learn and use.
     </div>
-</div>
-
-<span class="sub-title center" in:fly={{ x: -10, delay: 200 }}
-    >A programming language for couples</span
->
-<div class="more center" in:fade={{ delay: 250 }}>
-    JaanLang is a fun and simple programming language implemented in TypeScript.
-    It is designed to be easy to learn and use.
-</div>
-
-<div class="button-group">
-    <a
-        in:fly={{ x: 10, delay: 250 }}
-        class="button-link github"
-        href="https://github.com/itsfuad/JaanLang"
-        target="_blank"
-    >
-        Github <i class="fa-solid fa-arrow-up-right-from-square"></i>
-    </a>
-
-    <a
-        in:fly={{ x: -10, delay: 250 }}
-        class="button-link npm"
-        href="https://www.npmjs.com/package/jaan"
-        target="_blank"
-    >
-        View on NPM <i class="fa-solid fa-arrow-up-right-from-square"></i>
-    </a>
-</div>
-
-<div
-in:fly={{ y: 10, delay: 300 }}
-class="install">
-    npm i -D @itsfuad/jaan
-    <button
-        on:click={() => {
-            if (!navigator.clipboard) {
-                //fallback
-                const el = document.createElement("textarea");
-                el.value = "npm i -D @itsfuad/jaan";
-                el.style.position = "absolute";
-                el.style.left = "-9999px";
-                document.body.appendChild(el);
-                el.select();
-                try {
-                    document.execCommand("copy");
-                } catch (e) {
-                    console.error("Failed to copy to clipboard", e);
+    
+    <div class="button-group">
+        <a
+            in:fly={{ x: 10, delay: 250 }}
+            class="button-link github"
+            href="https://github.com/itsfuad/JaanLang"
+            target="_blank"
+        >
+            Github <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+    
+        <a
+            in:fly={{ x: -10, delay: 250 }}
+            class="button-link npm"
+            href="https://www.npmjs.com/package/jaan"
+            target="_blank"
+        >
+            View on NPM <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+    </div>
+    
+    <div
+    in:fly={{ y: 10, delay: 300 }}
+    class="install">
+        npm i -D @itsfuad/jaan
+        <button
+            on:click={() => {
+                if (!navigator.clipboard) {
+                    //fallback
+                    const el = document.createElement("textarea");
+                    el.value = "npm i -D @itsfuad/jaan";
+                    el.style.position = "absolute";
+                    el.style.left = "-9999px";
+                    document.body.appendChild(el);
+                    el.select();
+                    try {
+                        document.execCommand("copy");
+                    } catch (e) {
+                        console.error("Failed to copy to clipboard", e);
+                    }
+                } else {
+                    navigator.clipboard.writeText("npm i -D @itsfuad/jaan");
                 }
-            } else {
-                navigator.clipboard.writeText("npm i -D @itsfuad/jaan");
-            }
-            copied = true;
-            clearTimeout(copyTimeout);
-            copyTimeout = setTimeout(() => {
-                copied = false;
-            }, 2000);
-        }}
-    >
-        {#if !copied}
-            <i class="fa-regular fa-clone"></i>
-        {:else}
-            <i class="fa-solid fa-check"></i>
-        {/if}
-    </button>
-</div>
-
-<div class="breakout-wrapper" in:fly={{ x: 20 }}>
-    <img class="breakout" src="/images/editor.png" alt="code-playground" />
-</div>
-
-<section class="max">
-    <h3 class="title">All in one <i class="fa-solid fa-fire"></i></h3>
-    <div class="content">
-        <ul class="main-ul">
+                copied = true;
+                clearTimeout(copyTimeout);
+                copyTimeout = setTimeout(() => {
+                    copied = false;
+                }, 2000);
+            }}
+        >
+            {#if !copied}
+                <i class="fa-regular fa-clone"></i>
+            {:else}
+                <i class="fa-solid fa-check"></i>
+            {/if}
+        </button>
+    </div>
+    
+    <section class="runsOn">
+        <ul>
             <li>
-                <div class="detail left">
-                    <ul>
-                        <li>Easy to learn</li>
-                        <li>Web playground</li>
-                        <li>Code snippets</li>
-                        <li>Syntax lighlighting</li>
-                        <li>Relatable keywords</li>
-                    </ul>
-                    <div class="snippet" style:margin={"0 -10px 0 0"} style:transform={"rotateX(23deg) rotateY(-40deg) rotateZ(11deg)"}>
-                        <EditorSnippet/>
-                    </div>
-                </div>
+                <i class="fab fa-windows"></i>
             </li>
             <li>
-                <div class="detail right">
-                    <div class="snippet" style:margin={"0 -35px 0 0"} style:transform={"rotateZ(342deg) rotateY(65deg) rotateX(359deg)"}>
-                    <EditorSnippet firstLineCode={""} error={2} lines={
-                        [
-                            ['orange.w10', 'purple.w10'],
-                            ['tab.w10', 'cyan.w10', 'green.w30'],
-                            ['purple.w10']
-                        ]
-                    }/>
-                    </div>
-                    <ul>
-                        <li>Realtime error </li>
-                        <li>Inline error message</li>
-                        <li>Helpful suggestions</li>
-                    </ul>
-                </div>
+                <i class="fab fa-apple"></i>
             </li>
+            <li>
+                <i class="fab fa-ubuntu"></i>
+            </li>
+            <li>
+                <i class="fab fa-android"></i>
+            </li>
+    
         </ul>
-        <section class="runsOn">
-            <ul>
-                <li>
-                    <i class="fa-brands fa-windows"></i>
-                </li>
-                <li>
-                    <i class="fa-brands fa-apple"></i>
-                </li>
-                <li>
-                    <i class="fa-brands fa-ubuntu"></i>
-                </li>
-                <li>
-                    <i class="fa-brands fa-android"></i>
-                </li>
-            </ul>
+    </section>
+    
+    <div class="breakout-wrapper" in:fly={{ x: 20 }}>
+        <img class="breakout" src="/images/editor.png" alt="code-playground" />
+    </div>
+
+    <article>
+        <section class="feature">
+            <div class="row inner-content">
+                <div class="item-info">
+                    <div class="title">
+                        Experience the Comprehensive Tools of our Online Playground
+                    </div>
+                    <div class="text">
+                        Our playground offers an immersive environment for compiling, executing, and preserving your code effortlessly.
+                    </div>
+                </div>
+                <EditorSnippet showButtons={true} lines={
+                    [
+                        ['purple.w5', 'purple.w10'],
+                        ['tab.w5', 'yellow.w5', 'purple.w5'],
+                        ['tab.w10', 'cyan.w10', 'green.w20'],
+                        ['tab.w5', 'purple.w5'],
+                        ['purple.w5', 'purple.w10']
+                    ]
+                }/>
+            </div>
         </section>
-    </div>
-</section>
-
-
-<section in:fly|global={{ y: 10, delay: 400 }}>
-    <h3 class="title">VScode Extension</h3>
-    <div class="row">
-        <div class="col">
-            Download the VScode extension for syntax highlighting and code
-            snippets. Click download to go to the official marketplace page. Or
-            search on the VScode Extenstions tab.
-            <a
-                class="button-link"
-                href="https://marketplace.visualstudio.com/items?itemName=JaanLang.jaanlang"
-                target="_blank"
-            >
-            Download <i class="fa-solid fa-arrow-down"></i>
-            </a>
-        </div>
-        <img src="/images/ss.png" alt="Cover of VScode Extension" />
-    </div>
-</section>
-
-<footer>
-    &copy; {new Date().getFullYear()} Fuad Hasan | All rights reserved
-</footer>
+        <section class="rev feature">
+            <div class="row inner-content">
+                <EditorSnippet code={{text: 'bolo "babu khaiso?"', line: 0}}/>
+            <div class="item-info">
+                <div class="title">
+                    Enjoy Enhanced Syntax Highlighting Anywhere, Anytime
+                </div>
+                <div class="text">
+                    Benefit from real-time syntax highlighting, elevating your coding experience and enhancing code structure visualization.
+                </div>
+            </div>
+            </div>
+        </section>
+        <section class="feature">
+            <div class="row inner-content">
+                <div class="item-info">
+                    <div class="title">
+                        Inline error messages and suggestions
+                    </div>
+                    <div class="text">
+                        Get instant feedback on your code with inline error messages and suggestions. Smart compiler knows what you did wrong and how to fix it.
+                    </div>
+                </div>
+                <EditorSnippet error={3}/>
+            </div>
+        </section>
+        <section class="feature">
+            <div class="inner-content col">
+                <h3 class="title">VScode Extension</h3>
+                <div class="row">
+                    <div class="col">
+                        Download the VScode extension for syntax highlighting and code
+                        snippets. Click download to go to the official marketplace page. Or
+                        search on the VScode Extenstions tab.
+                        <a
+                            class="button-link"
+                            href="https://marketplace.visualstudio.com/items?itemName=JaanLang.jaanlang"
+                            target="_blank"
+                        >
+                        Download <i class="fa-solid fa-arrow-down"></i>
+                        </a>
+                    </div>
+                    <img src="/images/ss.png" alt="Cover of VScode Extension" />
+                </div>
+            </div>
+        </section>
+    </article>
+    
+    <footer>
+        &copy; {new Date().getFullYear()} Fuad Hasan | All rights reserved
+    </footer>    
+</div>
 
 <style lang="scss">
 
-    .max{
+    .container{
+        //padding: 10px;
         width: 100%;
-        max-width: 100%;
-        .content{
-            width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .item-info{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 10px;
+        font-size: 0.9rem;
+        font-family: "thin";
+        .title{
+            font-size: 1.6rem;
+            font-weight: bold;
+            //font-family: "bold";
+        }
+        .text{
+            font-size: 0.9rem;
+        }
+    }
+
+    article{
+        width: 100% !important;
+        max-width: initial;
+        background: #E91E63;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        perspective: 1000px;
+    }
+
+    .feature{
+        display: flex;
+        align-items: center !important;
+        justify-content: center !important;
+        list-style: none;
+        list-style: none;
+        border-radius: 0;
+        padding: 50px 10px;
+        min-height: 350px;
+        max-width: initial;
+        width: 100%;
+
+        .inner-content{
             display: flex;
             flex-direction: row;
             align-items: center;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 40px;
-            perspective: 1000px;
+            justify-content: space-between;
+            gap: 20px;
+            max-width: 900px;
+        }
+
+        &:nth-child(1){
+            background: linear-gradient(-65deg, #f4b942, #f4511e);
+        }
+
+        &:nth-child(2){
+            background: linear-gradient(65deg, #21dacd, #3545f4);
+            //color: black;
+        }
+
+        &:nth-child(3){
+            background: linear-gradient(75deg, #f44242, #4257f4);
+        }
+
+        &:nth-child(4){
+            background: var(--content-color);
         }
     }
 
@@ -201,6 +278,7 @@ class="install">
         justify-content: center;
         gap: 10px;
         margin-bottom: 10px;
+        margin-bottom: 45px;
     }
 
     .button-link {
@@ -231,7 +309,7 @@ class="install">
         font-weight: lighter;
         font-family: monospace;
         font-size: 1rem;
-        background: #171717;
+        background: #1a1a1a;
         border-radius: 10px;
 
         button {
@@ -251,10 +329,6 @@ class="install">
             border: 2px solid #ffffff19;
             background: rgba(255, 255, 255, 0.068);
         }
-    }
-
-    .fa-fire {
-        color: #ff7300;
     }
 
     .fa-windows {
@@ -279,105 +353,30 @@ class="install">
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        .main-ul {
-            list-style: none;
-            padding: 0;
-            width: 100%;
+        padding: 10px;
+    }
+
+
+    .runsOn {
+        padding: 42px 0;
+        ul {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
-            justify-content: space-evenly;
             align-items: center;
-            gap: 65px;
-
+            justify-content: center;
+            gap: 20px;
             li {
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
                 align-items: center;
                 gap: 10px;
-                font-size: 0.8rem;
                 margin: 10px 0;
-
-                .fa-solid {
-                    color: #ffffff;
-                }
-
-                .detail{
-                    display: flex;
-                    flex-direction: row;
-                    //flex-wrap: wrap-reverse;
-                    align-items: center;
-                    margin: 0 -10px;
-                    perspective: 400px;
-                    width: 100%;
-                
-                    &.left{
-                        justify-content: flex-start;
-                        ul li {
-                            &::before{
-                                content: "";
-                                font-family: "Font Awesome 6 Free";
-                                font-weight: 400;
-                                color: #ffffff;
-                                margin-right: 5px;
-                            }
-                        }
-                    }
-
-                    &.right{
-                        justify-content: flex-end;
-                        ul li {
-                            &::after{
-                                content: "";
-                                font-family: "Font Awesome 6 Free";
-                                font-weight: 400;
-                                color: #ffffff;
-                                margin-right: 5px;
-                            }
-                            justify-content: flex-end;
-                        }
-                    }
-
-                    ul{
-                        list-style: none;
-                        padding: 0;
-                        flex-shrink: 0;
-                        li{
-                            display: flex;
-                            flex-direction: row;
-                            align-items: center;
-                            gap: 5px;
-                            font-size: 0.9rem;
-                        }
-                    
-                    }
-
-                    .snippet{
-                        flex-shrink: 1;
-                    }
-                }
-            }
-        }
-
-        &.runsOn {
-            ul {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                align-items: center;
-                justify-content: center;
-                gap: 20px;
-                li {
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    gap: 10px;
-                    margin: 10px 0;
-                    font-size: 3.4rem;
-                }
+                font-size: 3.4rem;
             }
         }
     }
+
     .breakout-wrapper {
         position: fixed;
         top: 0;
@@ -410,6 +409,12 @@ class="install">
 
     footer {
         font-size: 0.7rem;
+        padding: 10px 0 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        background: var(--content-color);
     }
 
     .name {
@@ -449,7 +454,7 @@ class="install">
         }
     }
 
-    .sub-title {
+    .big-title {
         color: #ffffff !important;
         font-family: "thin";
         line-height: 1;
@@ -463,12 +468,7 @@ class="install">
         max-width: 600px;
         color: #ffffffa1;
         text-align: center;
-        padding: 10px 0;
-    }
-
-    .sub-title {
-        font-size: 0.7rem;
-        color: var(--secondary-color);
+        padding: 20px 0;
     }
 
     .center {
@@ -484,7 +484,7 @@ class="install">
         max-width: 900px;
         font-family: "thin";
 
-        .row {
+        .row, &.row {
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -494,7 +494,7 @@ class="install">
 
         .col {
             display: flex;
-            flex-direction: column;
+            flex-direction: column !important;
             align-items: flex-start;
             gap: 10px;
         }
@@ -508,9 +508,18 @@ class="install">
 
     //on mobile ratio, make it column
     @media screen and (orientation: portrait) {
-        section .row {
-            flex-direction: column;
-            align-items: flex-start;
+        .row {
+            flex-direction: column !important;
+            align-items: center !important;
+
+            img{
+                width: auto;
+                flex-grow: 1;
+            }
+
+            &.rev{
+                flex-direction: column-reverse !important;
+            }
         }
     }
 </style>

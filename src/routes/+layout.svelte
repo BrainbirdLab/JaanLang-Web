@@ -118,7 +118,6 @@
         width: 100%;
         max-width: 100vw;
         gap: 10px;
-        padding: 10px 10px 20px 10px;
         position: relative;
     }
 

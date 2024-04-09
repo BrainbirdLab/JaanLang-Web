@@ -26,7 +26,6 @@
 </script>
 
 <div class="navbar" in:fly={{ x: 20, delay: 200 }} >
-    <Logo height={30} width={30} />
     <div class="menu">
         {#each navLinks as menu}
             <a href={menu.href} class:active={$currentPage === menu.href}>
@@ -39,20 +38,25 @@
 <style lang="scss">
     .navbar {
         width: 100%;
-        height: 50px;
-        padding: 10px;
         background: inherit;
         z-index: 2;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-end;
+        padding: 5px;
+        position: fixed;
+        top: 0;
+        left: 0;
     }
-
+    
     .menu {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 4px;
+        padding: 5px;
+        background: var(--content-color);
+        border-radius: 30px;
     }
 
     .menu a {

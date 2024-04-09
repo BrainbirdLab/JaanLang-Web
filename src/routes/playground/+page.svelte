@@ -315,140 +315,151 @@
     <title>JaanLang - Playground</title>
 </svelte:head>
 
-<div class="border-animate mainWrapper" in:fly|global={{ x: 10, delay: 200 }}>
-<div class="editorWrapper animation-border-innerContent shadow-bg">
-    <div class="editorContainer">
-        <div class="topbar">
-            <div class="title">Playground <span class="caret"></span></div>
-            <div class="btn-grp">
-                <button
-                    title="Ctrl+Enter"
-                    class="run"
-                    on:click={() => {
-                        clearTimeout(runTimeOut);
-                        runCode();
-                    }}
-                >
-                    {#if runState === "Compiling..."}
-                        <i class="fa-solid fa-spinner"></i>
-                    {:else}
-                        <i class="fa-solid fa-play"></i>
-                    {/if}
-                </button>
-                <button class="copy" title="Copy source code" on:click={() => {
-                    navigator.clipboard.writeText(textarea.value);
-                    showToastMessage("Source code copied to clipboard");
-                }}>
-                    <i class="fa-regular fa-copy"></i>
-                </button>
-                <button
-                    title="Ctrl+s"
-                    class="save"
-                    on:click={() => {
-                        //console.log('Saving');
-                        saveCode();
-                    }}
-                    ><i class="fa-solid fa-floppy-disk"></i>
-                </button>
-                <button
-                    title="Ctrl+Backspace to clear"
-                    class="clear"
-                    on:click={() => {
-                        //console.log('Clearing');
-                        clearEditor();
-                    }}><i class="fa-solid fa-trash"></i></button
-                >
-            </div>
-        </div>
-        <div class="parent" bind:this={scrollableEditorParent}>
-            {#if errorMessage && errorLine}                            
-                <div class="errorTooltip">
-                    {errorMessage}
-                </div>
-            {/if}
-            <div class="line-numbers">
-                <div class="line-content">
-                    {#each rawCode.split("\n") as _, i}
-                    <span
-                        class="line-number"
-                        data-line={i + 1}
-                        class:error={errorLine == i + 1 && rawCode.length > 0}
-                        class:currentLine={currentLine == i + 1}
+<div class="content-container">
+    <div class="border-animate mainWrapper" in:fly|global={{ x: 10, delay: 200 }}>
+    <div class="editorWrapper animation-border-innerContent shadow-bg">
+        <div class="editorContainer">
+            <div class="topbar">
+                <div class="title">Playground <span class="caret"></span></div>
+                <div class="btn-grp">
+                    <button
+                        title="Ctrl+Enter"
+                        class="run"
+                        on:click={() => {
+                            clearTimeout(runTimeOut);
+                            runCode();
+                        }}
                     >
-                    {#if errorLine === i +1}
-                        <i class="fa-solid fa-triangle-exclamation"></i>
-                    {/if}
-                    </span>
+                        {#if runState === "Compiling..."}
+                            <i class="fa-solid fa-spinner"></i>
+                        {:else}
+                            <i class="fa-solid fa-play"></i>
+                        {/if}
+                    </button>
+                    <button class="copy" title="Copy source code" on:click={() => {
+                        navigator.clipboard.writeText(textarea.value);
+                        showToastMessage("Source code copied to clipboard");
+                    }}>
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                    <button
+                        title="Ctrl+s"
+                        class="save"
+                        on:click={() => {
+                            //console.log('Saving');
+                            saveCode();
+                        }}
+                        ><i class="fa-solid fa-floppy-disk"></i>
+                    </button>
+                    <button
+                        title="Ctrl+Backspace to clear"
+                        class="clear"
+                        on:click={() => {
+                            //console.log('Clearing');
+                            clearEditor();
+                        }}><i class="fa-solid fa-trash"></i></button
+                    >
+                </div>
+            </div>
+            <div class="parent" bind:this={scrollableEditorParent}>
+                {#if errorMessage && errorLine}                            
+                    <div class="errorTooltip">
+                        {errorMessage}
+                    </div>
+                {/if}
+                <div class="line-numbers">
+                    <div class="line-content">
+                        {#each rawCode.split("\n") as _, i}
+                        <span
+                            class="line-number"
+                            data-line={i + 1}
+                            class:error={errorLine == i + 1 && rawCode.length > 0}
+                            class:currentLine={currentLine == i + 1}
+                        >
+                        {#if errorLine === i +1}
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        {/if}
+                        </span>
+                        {/each}
+                    </div>
+                </div>
+                <pre class="editor" use:focusEditor><div class="inputWrapper">{@html parsedCode}<textarea
+                            aria-hidden="true"
+                            placeholder="# Write your code here"
+                            class="textarea codeArea"
+                            spellcheck="false"
+                            bind:this={textarea}
+                            bind:value={rawCode}
+                            on:keydown={getCurrentLineNumber}
+                            on:mousedown={getCurrentLineNumber}
+                            on:input={parseCode}
+                            on:focus={() => (textAreaFocused = true)}
+                            on:blur={() => (textAreaFocused = false)}
+                        ></textarea></div>
+                </pre>
+                <div class="line-shadows">
+                    {#each rawCode.split("\n") as _, i}
+                        <span
+                            class="line"
+                            data-line={i + 1}
+                            class:error={errorLine == i + 1 && rawCode.length > 0}
+                            class:currentLine={currentLine == i + 1}
+                            class:noSelection={selection.length == 0}
+                        >
+                            {#if errorLine === i + 1}
+                                {@html highlightedLineError}
+                            {/if}
+                        </span>
                     {/each}
                 </div>
             </div>
-            <pre class="editor" use:focusEditor><div class="inputWrapper">{@html parsedCode}<textarea
-                        aria-hidden="true"
-                        placeholder="# Write your code here"
-                        class="textarea codeArea"
-                        spellcheck="false"
-                        bind:this={textarea}
-                        bind:value={rawCode}
-                        on:keydown={getCurrentLineNumber}
-                        on:mousedown={getCurrentLineNumber}
-                        on:input={parseCode}
-                        on:focus={() => (textAreaFocused = true)}
-                        on:blur={() => (textAreaFocused = false)}
-                    ></textarea></div>
-            </pre>
-            <div class="line-shadows">
-                {#each rawCode.split("\n") as _, i}
-                    <span
-                        class="line"
-                        data-line={i + 1}
-                        class:error={errorLine == i + 1 && rawCode.length > 0}
-                        class:currentLine={currentLine == i + 1}
-                        class:noSelection={selection.length == 0}
+        </div>
+    
+        {#if showTerminal}
+        <div class="output" id="output" in:fly={{y: 50, duration: 100}} out:slide={{duration: 100}}>
+            <div class="topbar">
+                <div class="title">
+                    Console <span class="caret"></span>
+                </div>
+                <div class="btn-grp">
+                    <button class="copy" title="Copy output" on:click={() => {
+                        navigator.clipboard.writeText(output);
+                        showToastMessage("Output copied to clipboard");
+                    }}>
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                    <button
+                        title="Esc to clear"
+                        class="clear"
+                        on:click={() => {
+                            output = "";
+                            showTerminal = false;
+                        }}><i class="fa-solid fa-trash"></i></button
                     >
-                        {#if errorLine === i + 1}
-                            {@html highlightedLineError}
-                        {/if}
-                    </span>
-                {/each}
+                </div>
+            </div>
+            <div class="outputcontent">
+                <div class="container" bind:this={outputTerminal}>
+                    {@html compileState}
+                    {@html output.trim()}
+                </div>
             </div>
         </div>
+        {/if}
     </div>
-
-    {#if showTerminal}
-    <div class="output" id="output" in:fly={{y: 50, duration: 100}} out:slide={{duration: 100}}>
-        <div class="topbar">
-            <div class="title">
-                Console <span class="caret"></span>
-            </div>
-            <div class="btn-grp">
-                <button class="copy" title="Copy output" on:click={() => {
-                    navigator.clipboard.writeText(output);
-                    showToastMessage("Output copied to clipboard");
-                }}>
-                    <i class="fa-regular fa-copy"></i>
-                </button>
-                <button
-                    title="Esc to clear"
-                    class="clear"
-                    on:click={() => {
-                        output = "";
-                        showTerminal = false;
-                    }}><i class="fa-solid fa-trash"></i></button
-                >
-            </div>
-        </div>
-        <div class="outputcontent">
-            <div class="container" bind:this={outputTerminal}>
-                {@html compileState}
-                {@html output.trim()}
-            </div>
-        </div>
     </div>
-    {/if}
-</div>
 </div>
 
 <style lang="scss">
+
+    .content-container{
+        padding: 10px;
+        display: flex;
+        height: 100%;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
 
     .errorTooltip{
         position: fixed;
@@ -647,6 +658,7 @@
         flex-grow: 1;
         width: 100%;
         min-height: 400px;
+        height: 90%;
         max-width: 140vh;
         border-radius: 10px;
         position: relative;
