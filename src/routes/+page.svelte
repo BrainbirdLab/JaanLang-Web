@@ -95,27 +95,27 @@
     
     <section class="runsOn">
         <ul>
-            <li>
+            <li in:fly={{ y: 10, delay: 350 }}>
                 <i class="fab fa-windows"></i>
             </li>
-            <li>
+            <li in:fly={{ y: 10, delay: 400 }}>
                 <i class="fab fa-apple"></i>
             </li>
-            <li>
+            <li in:fly={{ y: 10, delay: 450 }}>
                 <i class="fab fa-ubuntu"></i>
             </li>
-            <li>
+            <li in:fly={{ y: 10, delay: 500 }}>
                 <i class="fab fa-android"></i>
             </li>
     
         </ul>
     </section>
     
-    <div class="breakout-wrapper" in:fly={{ x: 20 }}>
+    <div class="breakout-wrapper" in:fly={{ x: 20, delay: 200 }}>
         <img class="breakout" src="/images/editor.png" alt="code-playground" />
     </div>
 
-    <article>
+    <article in:fade>
         <section class="feature">
             <div class="row inner-content">
                 <div class="item-info">
