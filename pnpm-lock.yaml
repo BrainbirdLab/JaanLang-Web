@@ -9,8 +9,8 @@ devDependencies:
     specifier: ^1.0.7
     version: 1.0.7
   '@itsfuad/jaan':
-    specifier: ^1.0.37
-    version: 1.1.0
+    specifier: ^1.1.1
+    version: 1.1.1
   '@sveltejs/adapter-auto':
     specifier: ^3.1.1
     version: 3.2.0(@sveltejs/kit@2.5.5)
@@ -266,8 +266,8 @@ packages:
     resolution: {integrity: sha512-m0DnGWcqPjbfgqETXAanfn+B/smebLLt3i/txSwMPIGAK4kM1rdtIpHWPnt3Wdk4w60lZDfitrgh0tCcGPicKQ==}
     dev: true
 
-  /@itsfuad/jaan@1.1.0:
-    resolution: {integrity: sha512-fqHs/juNYsJWSutyTLOYJWifKLT+gMH0+LWnc0q4eIPQ5KfcLpRKvgXe5OHdpObKYRZ2zPIeOv4Te9AqYriPTg==}
+  /@itsfuad/jaan@1.1.1:
+    resolution: {integrity: sha512-8lbEGZ6ISe1V7bVYR6OY5Z86aHvXgGnVt+aA1UN77spw0duYW8wN2pobL6YYcIKEi7sZJaYAtwAAhF1gnFph7w==}
     engines: {node: '>=16.13.0', npm: '>=8', pnpm: '>=3'}
     hasBin: true
     dependencies:

@@ -484,7 +484,7 @@
         max-width: 900px;
         font-family: "thin";
 
-        .row, &.row {
+        .row{
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -515,10 +515,6 @@
             img{
                 width: auto;
                 flex-grow: 1;
-            }
-
-            &.rev{
-                flex-direction: column-reverse !important;
             }
         }
     }
