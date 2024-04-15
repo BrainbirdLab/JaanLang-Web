@@ -4,15 +4,7 @@
     import hljs from "$lib/lib";
     export let code: {text: string, line: number} | null = null;
     export let error: number = 0;
-    export let output = [
-        'green.w20',
-        'yellow.w20',
-        'white.w30',
-        'white.20',
-        'empty',
-        'white.w20',
-        'grey.w20'
-    ];
+    export let output: string[] = [];
     export let lines = [
         ['blue.w10', 'white.w25', 'purple.w10'],
         ['tab.w5', 'pink.w30', 'yellow.w10'],
@@ -38,7 +30,7 @@
                     <span class="min"></span>
                     <span class="max"></span>
                 </div>
-                {#if output}                
+                {#if output.length > 0}                
                 <div class="runner">
                     <i class="fa-solid fa-play"></i>
                     <i class="fa-regular fa-copy"></i>
@@ -76,7 +68,7 @@
             <div class="line exclude"><code>bye jaan</code></div>
             {/if}
         </pre>
-        {#if output}
+        {#if output.length > 0}
             <div class="output">
                 <div class="top">
                     Console_
