@@ -25,7 +25,8 @@
 
 </script>
 
-<div class="navbar" in:fly={{ x: 20, delay: 200 }} >
+
+<div class="navbar" transition:fly={{ x: 20, delay: 200 }} >
     <div class="menu">
         {#each navLinks as menu}
             <a href={menu.href} class:active={$currentPage === menu.href}>

@@ -126,7 +126,11 @@
                         Our playground offers an immersive environment for compiling, executing, and preserving your code effortlessly.
                     </div>
                 </div>
-                <EditorSnippet showButtons={true} lines={
+                <EditorSnippet 
+                output={
+                    ['green.w30', 'white.w20', 'white.w10', 'white.w20']
+                } 
+                lines={
                     [
                         ['purple.w5', 'purple.w10'],
                         ['tab.w5', 'yellow.w5', 'purple.w5'],

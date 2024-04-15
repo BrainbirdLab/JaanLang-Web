@@ -27,6 +27,13 @@
         });
     }
 
+    let showNav = true;
+
+    //on scroll down, hide navbar, on scroll up, show navbar
+
+    let lastScrollTop = 0;
+
+
     let loaded = false;
     let timeout: number;
 
@@ -38,6 +45,13 @@
                 loaded = true;
             }, 600);
             detectSWUpdate();
+
+            console.log("mounted");
+
+            document.onscroll = () => {
+                console.log("scrolling");
+            }
+
         } catch(e){
             console.log(e);
         }
@@ -55,8 +69,9 @@
 </div>
 {:else}
 <div class="content">
-    
-    <Navbar />
+    {#if showNav}
+        <Navbar />
+    {/if}
 
     <div class="main">
         <div class="container">

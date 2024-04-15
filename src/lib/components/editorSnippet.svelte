@@ -1,9 +1,18 @@
 <script lang="ts">
+    import "$lib/editor.scss";
     import { onMount } from "svelte";
     import hljs from "$lib/lib";
-    export let showButtons: boolean = false;
     export let code: {text: string, line: number} | null = null;
     export let error: number = 0;
+    export let output = [
+        'green.w20',
+        'yellow.w20',
+        'white.w30',
+        'white.20',
+        'empty',
+        'white.w20',
+        'grey.w20'
+    ];
     export let lines = [
         ['blue.w10', 'white.w25', 'purple.w10'],
         ['tab.w5', 'pink.w30', 'yellow.w10'],
@@ -21,54 +30,76 @@
 </script>
 
 <div class="codeSnippet border-animate">
-    <pre class="editor animation-border-innerContent shadow-bg">
-        <div class="tools">
-            <div class="controls">
-                <span class="close"></span>
-                <span class="min"></span>
-                <span class="max"></span>
+    <div class="editor-wrap animation-border-innerContent shadow-bg">
+        <pre class="editor">
+            <div class="tools">
+                <div class="controls">
+                    <span class="close"></span>
+                    <span class="min"></span>
+                    <span class="max"></span>
+                </div>
+                {#if output}                
+                <div class="runner">
+                    <i class="fa-solid fa-play"></i>
+                    <i class="fa-regular fa-copy"></i>
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    <i class="fa-solid fa-trash"></i>
+                </div>
+                {/if}
             </div>
-            {#if showButtons}                
-            <div class="runner">
-                <i class="fa-solid fa-play"></i>
-                <i class="fa-regular fa-copy"></i>
-                <i class="fa-solid fa-floppy-disk"></i>
-                <i class="fa-solid fa-trash"></i>
-            </div>
-            {/if}
-        </div>
-
-        {#if code}
-        <div class="line exclude"><code>hi jaan</code></div>
-        <div class="line empty"></div>
-        {/if}
-        
-        {#each lines as line, i}
-            {#if code && i === code.line}
-            <div class="flex line first" class:exclude={!code}>
-                <code>{code.text}</code><span class="cursor"></span>
-            </div>
+    
+            {#if code}
+            <div class="line exclude"><code>hi jaan</code></div>
             <div class="line empty"></div>
             {/if}
-            <div class="flex line" class:error={error - 1 === i} class:exclude={!code}>
-                {#each line as item}
-                <span class="{item.split('.').join(' ')} snippet"></span>
-                {/each}
-            </div>
-            {#if error - 1 === i}
-                <div class="errorLine">
-        
+            
+            {#each lines as line, i}
+                {#if code && i === code.line}
+                <div class="flex line first" class:exclude={!code}>
+                    <code>{code.text}</code><span class="cursor"></span>
                 </div>
+                <div class="line empty"></div>
+                {/if}
+                <div class="flex line" class:error={error - 1 === i} class:exclude={!code}>
+                    {#each line as item}
+                    <span class="{item.split('.').join(' ')} snippet"></span>
+                    {/each}
+                </div>
+                {#if error - 1 === i}
+                    <div class="errorLine">
+            
+                    </div>
+                {/if}
+            {/each}
+            {#if code}
+            <div class="line empty"></div>
+            <div class="line exclude"><code>bye jaan</code></div>
             {/if}
-        {/each}
-        {#if code}
-        <div class="line empty"></div>
-        <div class="line exclude"><code>bye jaan</code></div>
+        </pre>
+        {#if output}
+            <div class="output">
+                <div class="top">
+                    Console_
+                    <div class="runner">
+                        <i class="fa-regular fa-copy"></i>
+                        <i class="fa-solid fa-trash"></i>
+                    </div>
+                </div>
+                <div class="op-lines">
+                    {#each output as line}
+                        <span class="snippet {line.split('.').join(' ')}"></span>
+                    {/each}
+                </div>
+            </div>
         {/if}
-    </pre>
+    </div>
 </div>
 
 <style lang="scss">
+
+    .editor-wrap{
+        overflow: hidden;
+    }
 
     .error{
         background: #ff5e5624;
@@ -143,6 +174,34 @@
             &.fa-trash{
                 color: #ff5f56;
             }
+        }
+    }
+
+
+    .output{
+        width: 100%;
+        padding: 10px;
+        background: #140d25;
+        .top{
+            font-size: 0.6rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+
+    .op-lines{
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        margin-top: 10px;
+        gap: 5px;
+        //padding: 0 20px;
+        .snippet{
+            height: 6px;
         }
     }
 

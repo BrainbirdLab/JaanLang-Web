@@ -658,7 +658,7 @@
         flex-grow: 1;
         width: 100%;
         min-height: 400px;
-        height: 90%;
+        height: 85%;
         max-width: 140vh;
         border-radius: 10px;
         position: relative;
