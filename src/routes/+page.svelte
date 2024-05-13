@@ -40,7 +40,7 @@
         <a
             in:fly={{ x: 10, delay: 250 }}
             class="button-link github"
-            href="https://github.com/itsfuad/JaanLang"
+            href="https://github.com/BrainbirdLab/Jaanlang-compiler"
             target="_blank"
         >
             Github <i class="fa-solid fa-arrow-up-right-from-square"></i>
@@ -59,7 +59,7 @@
     <div
     in:fly={{ y: 10, delay: 300 }}
     class="install">
-        npm i -D @itsfuad/jaan
+        npm i -D jaan
         <button
             on:click={() => {
                 if (!navigator.clipboard) {

@@ -11,9 +11,6 @@ importers:
       '@itsfuad/domtoastmessage':
         specifier: ^1.0.7
         version: 1.0.7
-      '@itsfuad/jaan':
-        specifier: ^1.2.0
-        version: 1.2.0
       '@sveltejs/adapter-auto':
         specifier: ^3.1.1
         version: 3.2.0(@sveltejs/kit@2.5.7(@sveltejs/vite-plugin-svelte@3.1.0(svelte@4.2.16)(vite@5.2.11(sass@1.77.1)))(svelte@4.2.16)(vite@5.2.11(sass@1.77.1)))
@@ -26,6 +23,9 @@ importers:
       highlight.js:
         specifier: ^11.9.0
         version: 11.9.0
+      jaan:
+        specifier: ^1.2.1
+        version: 1.2.1
       marked:
         specifier: ^12.0.1
         version: 12.0.2
@@ -194,11 +194,6 @@ packages:
 
   '@itsfuad/domtoastmessage@1.0.7':
     resolution: {integrity: sha512-m0DnGWcqPjbfgqETXAanfn+B/smebLLt3i/txSwMPIGAK4kM1rdtIpHWPnt3Wdk4w60lZDfitrgh0tCcGPicKQ==}
-
-  '@itsfuad/jaan@1.2.0':
-    resolution: {integrity: sha512-aWMf+BS2KybeRRF9DavVTpzY6qO4FfOwPJYORmhjoVeTGlKW2bgPwxFq7PLD+qqWuyvKkGuc5KYjPuQJVWdqgw==}
-    engines: {node: '>=16.13.0', npm: '>=8', pnpm: '>=3'}
-    hasBin: true
 
   '@jridgewell/gen-mapping@0.3.5':
     resolution: {integrity: sha512-IzL8ZoEDIBRWEzlCcRhOaCupYyN5gdIK+Q6fbFdPDg6HqX6jpkItn7DFIpW9LQzXG6Df9sA7+OKnq0qlz/GaQg==}
@@ -524,6 +519,11 @@ packages:
 
   is-reference@3.0.2:
     resolution: {integrity: sha512-v3rht/LgVcsdZa3O2Nqs+NMowLOxeOm7Ay9+/ARQ2F+qEoANRcqrjAZKGN0v8ymUetZGgkp26LTnGT7H0Qo9Pg==}
+
+  jaan@1.2.1:
+    resolution: {integrity: sha512-XgWT0X5rHpBy5KHx1jwoWJQ61VnKXLfsRY8K5c94dAg+7yBYX6Oas45OroS5SruLHkh8jNLtUjxfkHk8T3jRcA==}
+    engines: {node: '>=16.13.0', npm: '>=8', pnpm: '>=3'}
+    hasBin: true
 
   kleur@4.1.5:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
@@ -857,11 +857,6 @@ snapshots:
 
   '@itsfuad/domtoastmessage@1.0.7': {}
 
-  '@itsfuad/jaan@1.2.0':
-    dependencies:
-      chalk: 5.3.0
-      dotenv: 16.4.5
-
   '@jridgewell/gen-mapping@0.3.5':
     dependencies:
       '@jridgewell/set-array': 1.2.1
@@ -1177,6 +1172,11 @@ snapshots:
   is-reference@3.0.2:
     dependencies:
       '@types/estree': 1.0.5
+
+  jaan@1.2.1:
+    dependencies:
+      chalk: 5.3.0
+      dotenv: 16.4.5
 
   kleur@4.1.5: {}
 

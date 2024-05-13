@@ -1,6 +1,6 @@
 <script lang="ts">
     import "$lib/editor.scss";
-    import { compile } from "@itsfuad/jaan/compiler";
+    import { compile } from "jaan/compiler";
     import { showToastMessage } from "@itsfuad/domtoastmessage";
 
     import { onMount, tick } from "svelte";
