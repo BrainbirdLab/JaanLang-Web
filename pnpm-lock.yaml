@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      svrollbar:
+        specifier: ^0.12.0
+        version: 0.12.0
     devDependencies:
       '@itsfuad/domtoastmessage':
         specifier: ^1.0.7
@@ -721,6 +725,9 @@ packages:
     resolution: {integrity: sha512-mQwHpqHD2PmFcCyHaZ7XiTqposaLvJ75WpYcyY5/ce3qxbYtwQpZ+M7ZKP+2CG5U6kfnBZBpPLyofhlE6ROrnQ==}
     engines: {node: '>=16'}
 
+  svrollbar@0.12.0:
+    resolution: {integrity: sha512-okH0sz8bGtw+tgOfN1mpEtbveifxROcE3mbUMBJ1RQz8Q+1rVr+nVG7EAJ9b0G80cGDu7dskjAWuzj3iru0k5g==}
+
   tiny-glob@0.2.9:
     resolution: {integrity: sha512-g/55ssRPUjShh+xkfx9UPDXqhckHEsHr4Vd9zX55oSdGZc/MD0m3sferOkwWtp98bv+kcVfEHtRJgBVJzelrzg==}
 
@@ -1378,6 +1385,8 @@ snapshots:
       locate-character: 3.0.0
       magic-string: 0.30.10
       periscopic: 3.1.0
+
+  svrollbar@0.12.0: {}
 
   tiny-glob@0.2.9:
     dependencies:

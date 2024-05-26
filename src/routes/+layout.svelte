@@ -12,6 +12,8 @@
     import { currentPage } from "$lib/store";
     import NavigationIndicator from "$lib/components/NavigationIndicator.svelte";
 
+    import { Svroller } from "svrollbar";
+
     async function detectSWUpdate(){
         const registration = await navigator.serviceWorker.ready;
 
@@ -72,12 +74,14 @@
     {#if showNav}
         <Navbar />
     {/if}
-
-    <div class="main">
-        <div class="container">
-            <slot />
+    <Svroller width="100%" height="100%">
+        <div class="main">
+            <div class="container">
+                <slot />
+            </div>
         </div>
-    </div>
+    </Svroller>
+
 </div>
 {/if}
 

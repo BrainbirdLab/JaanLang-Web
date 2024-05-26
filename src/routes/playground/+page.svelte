@@ -456,6 +456,7 @@
         padding: 10px;
         display: flex;
         height: 100%;
+        min-height: 100vh;
         width: 100%;
         align-items: center;
         justify-content: center;
