@@ -10,15 +10,15 @@
 
     import exampleCode from "./source.jaan?raw";
 
-    let parsedCode: string = "";
+    let parsedCode: string = $state("");
     let textarea: HTMLTextAreaElement;
 
-    $: rawCode = exampleCode;
+    let rawCode = $state(exampleCode);
 
     //$: console.log("Example code", rawCode);
 
-    let output: string = "";
-    let compileState: string = "";
+    let output: string = $state("");
+    let compileState: string = $state("");
 
     onMount(() => {
         const syntaxedCode = hljs.highlight(textarea.value, {
@@ -28,12 +28,12 @@
         parsedCode = `<code class="jaan">${syntaxedCode}</code>`;
     });
 
-    let runState = "Run";
+    let runState = $state("Run");
 
     // Redirect console output to a variable
     let capturedOutput: string[] = [];
 
-    let errorLine = 0;
+    let errorLine = $state(0);
 
     let runTimeOut: number;
 
@@ -60,13 +60,13 @@
     }
 
     let scrollableEditorParent: HTMLDivElement;
-    let outputTerminal: HTMLDivElement;
+    let outputTerminal: HTMLDivElement = $state() as HTMLDivElement;
 
-    let highlightedLineError: string;
+    let highlightedLineError: string = $state("");
 
-    let showTerminal = false;
+    let showTerminal = $state(false);
 
-    let errorMessage: string = "";
+    let errorMessage: string = $state("");
 
     let worker: Worker;
 
@@ -176,7 +176,7 @@
         }
     }
 
-    let currentLine: number = 0;
+    let currentLine: number = $state(0);
 
     let selection = "";
 
@@ -261,7 +261,7 @@
 </script>
 
 <svelte:document
-    on:keydown={(e) => {
+    onkeydown={(e) => {
 
         if (e.key === "s" && e.ctrlKey) {
             e.preventDefault();
@@ -307,8 +307,8 @@
         }
     }}
 
-    on:mouseover={handleErrorHover}
-    on:mousemove={handleErrorHover}
+    onmouseover={handleErrorHover}
+    onmousemove={handleErrorHover}
 />
 
 <svelte:head>
@@ -325,7 +325,8 @@
                     <button
                         title="Ctrl+Enter"
                         class="run"
-                        on:click={() => {
+                        aria-label="run"
+                        onclick={() => {
                             clearTimeout(runTimeOut);
                             runCode();
                         }}
@@ -336,7 +337,7 @@
                             <i class="fa-solid fa-play"></i>
                         {/if}
                     </button>
-                    <button class="copy" title="Copy source code" on:click={() => {
+                    <button class="copy" title="Copy source code" aria-label="copy" onclick={() => {
                         navigator.clipboard.writeText(textarea.value);
                         showToastMessage("Source code copied to clipboard");
                     }}>
@@ -345,7 +346,8 @@
                     <button
                         title="Ctrl+s"
                         class="save"
-                        on:click={() => {
+                        aria-label="save"
+                        onclick={() => {
                             //console.log('Saving');
                             saveCode();
                         }}
@@ -354,7 +356,8 @@
                     <button
                         title="Ctrl+Backspace to clear"
                         class="clear"
-                        on:click={() => {
+                        aria-label="clear"
+                        onclick={() => {
                             //console.log('Clearing');
                             clearEditor();
                         }}><i class="fa-solid fa-trash"></i></button
@@ -390,11 +393,11 @@
                             spellcheck="false"
                             bind:this={textarea}
                             bind:value={rawCode}
-                            on:keydown={getCurrentLineNumber}
-                            on:mousedown={getCurrentLineNumber}
-                            on:input={parseCode}
-                            on:focus={() => (textAreaFocused = true)}
-                            on:blur={() => (textAreaFocused = false)}
+                            onkeydown={getCurrentLineNumber}
+                            onmousedown={getCurrentLineNumber}
+                            oninput={parseCode}
+                            onfocus={() => (textAreaFocused = true)}
+                            onblur={() => (textAreaFocused = false)}
                         ></textarea></div>
                 </pre>
                 <div class="line-shadows">
@@ -422,7 +425,7 @@
                     Console <span class="caret"></span>
                 </div>
                 <div class="btn-grp">
-                    <button class="copy" title="Copy output" on:click={() => {
+                    <button class="copy" title="Copy output" aria-label="copy" onclick={() => {
                         navigator.clipboard.writeText(output);
                         showToastMessage("Output copied to clipboard");
                     }}>
@@ -431,7 +434,8 @@
                     <button
                         title="Esc to clear"
                         class="clear"
-                        on:click={() => {
+                        aria-label="clear"
+                        onclick={() => {
                             output = "";
                             showTerminal = false;
                         }}><i class="fa-solid fa-trash"></i></button
@@ -581,10 +585,6 @@
                 bottom: -8px;
                 position: relative;
             }
-
-            * {
-                font-family: monospace !important;
-            }
             
             &.currentLine.noSelection {
                 background: #ffffff0f;
@@ -593,6 +593,11 @@
             &:hover{
                 background: #ff6c6cc1;
             }            
+        }
+
+        
+        :global(.line *){
+            font-family: monospace !important;
         }
     }
 

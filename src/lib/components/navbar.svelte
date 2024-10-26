@@ -1,8 +1,8 @@
 <script lang="ts">
     import { onNavigate } from "$app/navigation";
-    import { currentPage } from "$lib/store";
+    import { currentPage } from "$lib/store.svelte";
     import { fly } from "svelte/transition";
-    import Logo from "./logo.svelte";
+
 
     onNavigate(() => {
         currentPage.set(window.location.pathname);
@@ -29,7 +29,7 @@
 <div class="navbar" transition:fly={{ x: 20, delay: 200 }} >
     <div class="menu">
         {#each navLinks as menu}
-            <a href={menu.href} class:active={$currentPage === menu.href}>
+            <a href={menu.href} class:active={currentPage.get() === menu.href}>
                 {menu.name}
             </a>
         {/each}

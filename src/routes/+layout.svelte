@@ -9,10 +9,12 @@
     import { fade } from "svelte/transition";
     import Logo from "$lib/components/logo.svelte";
     import Navbar from "$lib/components/navbar.svelte";
-    import { currentPage } from "$lib/store";
+    import { currentPage } from "$lib/store.svelte";
     import NavigationIndicator from "$lib/components/NavigationIndicator.svelte";
 
     import { Svroller } from "svrollbar";
+
+    let { children } = $props();
 
     async function detectSWUpdate(){
         const registration = await navigator.serviceWorker.ready;
@@ -29,14 +31,7 @@
         });
     }
 
-    let showNav = true;
-
-    //on scroll down, hide navbar, on scroll up, show navbar
-
-    let lastScrollTop = 0;
-
-
-    let loaded = false;
+    let loaded = $state(false);
     let timeout: number;
 
     onMount(() => {
@@ -61,7 +56,7 @@
 
 </script>
 
-<svelte:window on:contextmenu|preventDefault />
+<svelte:window oncontextmenu={(e) => e.preventDefault()} />
 
 <NavigationIndicator />
 
@@ -71,13 +66,11 @@
 </div>
 {:else}
 <div class="content">
-    {#if showNav}
-        <Navbar />
-    {/if}
+    <Navbar />
     <Svroller width="100%" height="100%">
         <div class="main">
             <div class="container">
-                <slot />
+                {@render children()}
             </div>
         </div>
     </Svroller>
