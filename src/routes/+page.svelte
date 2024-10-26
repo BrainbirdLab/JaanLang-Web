@@ -6,8 +6,42 @@
 
     const compilerVersion = __VERSION__;
 
-    let copied: boolean = false;
+    let copied: boolean = $state(false);
     let copyTimeout: number;
+
+    const buttons = [
+        {
+            name: "Github",
+            href: "https://github.com/BrainbirdLab/Jaanlang-compiler",
+            target: "_blank",
+            class: "github",
+        },
+        {
+            name: "View on NPM",
+            href: "https://www.npmjs.com/package/jaan",
+            target: "_blank",
+            class: "npm",
+        },
+    ]
+
+    const targets = [
+        {
+            name: "Windows",
+            icon: "fab fa-windows",
+        },
+        {
+            name: "MacOS",
+            icon: "fab fa-apple",
+        },
+        {
+            name: "Linux",
+            icon: "fab fa-ubuntu",
+        },
+        {
+            name: "Android",
+            icon: "fab fa-android",
+        },
+    ]
 </script>
 
 <svelte:head>
@@ -37,31 +71,25 @@
     </div>
     
     <div class="button-group">
-        <a
-            in:fly={{ x: 10, delay: 250 }}
-            class="button-link github"
-            href="https://github.com/BrainbirdLab/Jaanlang-compiler"
-            target="_blank"
-        >
-            Github <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
-    
-        <a
-            in:fly={{ x: -10, delay: 250 }}
-            class="button-link npm"
-            href="https://www.npmjs.com/package/jaan"
-            target="_blank"
-        >
-            View on NPM <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
+        {#each buttons as button, i}
+            <a
+                in:fly|global={{ y: 5, delay: (i+1)*200 }}
+                class="button-link {button.class}"
+                href={button.href}
+                target={button.target}
+            >
+                {button.name}
+            </a>
+        {/each}
     </div>
     
     <div
-    in:fly={{ y: 10, delay: 300 }}
+    in:fly={{ y: 5, delay: 300 }}
     class="install">
         npm i -D jaan
         <button
-            on:click={() => {
+            aria-label="Copy to clipboard"
+            onclick={() => {
                 if (!navigator.clipboard) {
                     //fallback
                     const el = document.createElement("textarea");
@@ -95,19 +123,11 @@
     
     <section class="runsOn">
         <ul>
-            <li in:fly={{ y: 10, delay: 350 }}>
-                <i class="fab fa-windows"></i>
+            {#each targets as target, i}
+            <li in:fly|global={{ y: 10, delay: ((i+1)*100) + 200 }}>
+                <i class="{target.icon}"></i>
             </li>
-            <li in:fly={{ y: 10, delay: 400 }}>
-                <i class="fab fa-apple"></i>
-            </li>
-            <li in:fly={{ y: 10, delay: 450 }}>
-                <i class="fab fa-ubuntu"></i>
-            </li>
-            <li in:fly={{ y: 10, delay: 500 }}>
-                <i class="fab fa-android"></i>
-            </li>
-    
+            {/each}
         </ul>
     </section>
     

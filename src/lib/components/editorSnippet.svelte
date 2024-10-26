@@ -2,10 +2,15 @@
     import "$lib/editor.scss";
     import { onMount } from "svelte";
     import hljs from "$lib/lib";
-    export let code: {text: string, line: number} | null = null;
-    export let error: number = 0;
-    export let output: string[] = [];
-    export let lines = [
+
+    interface Props {
+        code?: {text: string, line: number} | null;
+        error?: number;
+        output?: string[];
+        lines?: string[][];
+    }
+
+    let { code = null, error = 0, output = [], lines = [
         ['blue.w10', 'white.w25', 'purple.w10'],
         ['tab.w5', 'pink.w30', 'yellow.w10'],
         ['cyan.w10', 'orange.w5'],
@@ -14,7 +19,7 @@
         ['purple.w30', 'cyan.w20'],
         ['tab.w5', 'yellow.w20', 'pink.w10'],
         ['purple.w10']
-    ];
+    ] }: Props = $props();
 
     onMount(() => {
         hljs.highlightAll();

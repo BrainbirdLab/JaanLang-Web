@@ -1,10 +1,14 @@
 <script lang="ts">
     import Logo from "$lib/components/logo.svelte";
 
-    export let height = 40;
-    export let width = 40;
+    interface Props {
+        height?: number;
+        width?: number;
+    }
 
-    $: fontSize = (height + width) / 4;
+    let { height = 40, width = 40 }: Props = $props();
+
+    let fontSize = $derived((height + width) / 4);
     
 </script>
 <h1 class="bold head" style="font-size: {fontSize} !important;">

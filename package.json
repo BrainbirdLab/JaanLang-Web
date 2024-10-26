@@ -1,6 +1,6 @@
 {
 	"name": "jaanlangwebsite",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"private": true,
 	"schema": "https://schemastore.org/package",
 	"engines": {
@@ -19,12 +19,12 @@
 		"@itsfuad/domtoastmessage": "^1.0.7",
 		"@sveltejs/adapter-auto": "^3.1.1",
 		"@sveltejs/kit": "^2.5.4",
-		"@sveltejs/vite-plugin-svelte": "^3.0.2",
+		"@sveltejs/vite-plugin-svelte": "^4.0.0",
 		"highlight.js": "^11.9.0",
 		"jaan": "^1.2.1",
 		"marked": "^12.0.1",
 		"sass": "^1.72.0",
-		"svelte": "^4.2.12",
+		"svelte": "^5",
 		"svelte-check": "^3.6.8",
 		"tslib": "^2.6.2",
 		"typescript": "^5.4.3",
