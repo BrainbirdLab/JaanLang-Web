@@ -74,7 +74,6 @@
             </div>
         </div>
     </Svroller>
-
 </div>
 {/if}
 

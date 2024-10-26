@@ -210,7 +210,7 @@
     </article>
     
     <footer>
-        &copy; {new Date().getFullYear()} Fuad Hasan | All rights reserved
+        &copy; {new Date().getFullYear()} BrainbirdLab • <a href="https://discord.gg/yQKcHhKzyn"> Join discord <i class="fab fa-discord"></i></a>
     </footer>    
 </div>
 
@@ -437,8 +437,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: 5px;
         width: 100%;
         background: var(--content-color);
+        a {
+            color: #ffffff;
+            text-decoration: underline;
+        }
     }
 
     .name {
