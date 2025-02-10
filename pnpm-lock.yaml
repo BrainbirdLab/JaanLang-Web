@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      svrollbar:
-        specifier: ^0.12.0
-        version: 0.12.0
     devDependencies:
       '@itsfuad/domtoastmessage':
         specifier: ^1.0.7
@@ -42,6 +38,9 @@ importers:
       svelte-check:
         specifier: ^3.8.6
         version: 3.8.6(postcss@8.5.1)(sass@1.84.0)(svelte@5.19.9)
+      svrollbar:
+        specifier: ^0.12.0
+        version: 0.12.0
       tslib:
         specifier: ^2.8.1
         version: 2.8.1
