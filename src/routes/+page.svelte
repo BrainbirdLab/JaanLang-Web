@@ -207,6 +207,24 @@
                 </div>
             </div>
         </section>
+        <section class="support" style="flex-direction: row;">
+            <div class="inner-content col">
+                <h3 class="title">Buy me a coffee</h3>
+                <div class="row">
+                    <div class="col">
+                        If you like JaanLang and want to support the project, you can buy me a coffee. Your support will help me keep the project running and improve it.
+                        <a
+                            class="button-link"
+                            href="https://www.buymeacoffee.com/itsfuad"
+                            target="_blank"
+                        >
+                        Buy me a coffee <i class="fa-solid fa-coffee"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <img class="qr" src="/images/bmc_qr.png" alt="Buy me a coffee" />
+        </section>
     </article>
     
     <footer>
@@ -215,6 +233,26 @@
 </div>
 
 <style lang="scss">
+
+    .qr {
+        width: 200px;
+        border-radius: 17px;
+        border: 2px solid;
+    }
+
+    .support {
+        background: #1a1a1a;
+        width: 100%;
+        padding: 50px 10px;
+        gap: 30px;
+        min-width: 100%;
+        border-radius: 0;
+        flex-direction: row;
+        flex-wrap: wrap;
+        .col {
+            max-width: 600px;
+        }
+    }
 
     .container{
         //padding: 10px;
