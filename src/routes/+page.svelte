@@ -224,12 +224,12 @@
                 </div>
             </div>
             <img class="qr" src="/images/bmc_qr.png" alt="Buy me a coffee" />
+            <footer>
+                &copy; {new Date().getFullYear()} Fuad Hasan | All rights reserved
+            </footer>
         </section>
     </article>
     
-    <footer>
-        &copy; {new Date().getFullYear()} Fuad Hasan | All rights reserved
-    </footer>    
 </div>
 
 <style lang="scss">
@@ -471,12 +471,10 @@
 
     footer {
         font-size: 0.7rem;
-        padding: 10px 0 40px;
         display: flex;
         align-items: center;
         justify-content: center;
         width: 100%;
-        background: var(--content-color);
     }
 
     .name {
